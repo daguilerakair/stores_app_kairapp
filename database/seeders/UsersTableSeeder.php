@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UsersTableSeeder extends Seeder
 {
@@ -22,12 +23,6 @@ class UsersTableSeeder extends Seeder
             'name' => 'Cristian Zepeda',
             'email' => 'cristian@example.com',
             'password' => bcrypt('contraseña2'),
-        ]);
-
-        User::create([
-            'name' => 'Kairapp',
-            'email' => 'kairapp@gmail.com',
-            'password' => bcrypt('kairapp2023'),
         ]);
     }
 }

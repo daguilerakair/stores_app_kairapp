@@ -12,27 +12,16 @@ class UserController extends Controller
      */
     public function index()
     {
+        //
     }
 
     public function userStores()
     {
         $user = auth()->user();
 
-        if ($user->storesUser->count()) {
-            return view('user.stores', [
-                'user' => $user,
-            ]);
-        }
-
-        auth()->logout();
-
-        return back()->with('message', 'Tu cuenta se encuentra deshabilitada. Contacte al administrador.');
-        // dd('no hay nada');
-    }
-
-    public function createCollaborator()
-    {
-        return view('sidebarScreens.manageCollaborators.collaborator.create');
+        return view('user.stores', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -40,6 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -47,6 +37,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -54,6 +45,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        //
     }
 
     /**
@@ -61,6 +53,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        //
     }
 
     /**
@@ -68,6 +61,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //
     }
 
     /**
@@ -75,5 +69,6 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        //
     }
 }

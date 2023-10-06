@@ -12,10 +12,9 @@ class UserStore extends Model
     protected $fillable = [
         'user_id',
         'store_rut',
-        'role_id',
-        'status',
-        'delete',
+        'role_id'
     ];
+
 
     public function storeInfo()
     {
@@ -25,10 +24,5 @@ class UserStore extends Model
     public function roleUser()
     {
         return $this->belongsTo(Role::class, 'role_id');
-    }
-
-    public function userInfo()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }

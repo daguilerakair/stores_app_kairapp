@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\product;
 
+use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\StoreProduct;
 
 class ProductController extends Controller
 {
@@ -12,31 +13,55 @@ class ProductController extends Controller
      */
     public function index()
     {
+        //
     }
 
     /**
-     * Update the form for creating a new resource.
+     * Show the form for creating a new resource.
      */
-    public function update($id)
-    {
-        // dd($id);
-
-        $storeProduct = StoreProduct::find($id);
-
-        if ($storeProduct) {
-            return view('sidebarScreens.inventoryManagement.product.edit', [
-                'selectStoreProduct' => $storeProduct,
-            ]);
-        }
-
-        return back();
-
-        // dd('desde create');
-    }
-
     public function create()
     {
         // dd('desde create');
         return view('sidebarScreens.inventoryManagement.product.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Product $product)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Product $product)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Product $product)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Product $product)
+    {
+        //
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\store;
 
-use App\Http\Controllers\Controller;
 use App\Models\Role;
-use App\Models\Store;
 use App\Models\User;
+use App\Models\Store;
 use App\Models\UserStore;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StoreController extends Controller
 {
@@ -16,28 +17,67 @@ class StoreController extends Controller
     public function index($id)
     {
         $userStore = UserStore::find($id);
+        $store = Store::find($userStore->store_rut);
+        $user = User::find($userStore->user_id);
 
-        if ($userStore) {
-            $store = Store::find($userStore->store_rut);
-            $user = User::find($userStore->user_id);
+        if (auth()->user()->id === $user->id) {
 
-            if (auth()->user()->id === $user->id) {
-                $role = Role::find($userStore->role_id);
-
-                // Guardar los datos en la sesión
-                session(['store' => $store, 'role' => $role, 'user' => $user]);
-                // Actualizar la seleccion del usuario a true
-                session()->put(['selectedStore' => true]);
-
-                return redirect()->route('dashboard');
-            }
+            $role = Role::find($userStore->role_id);
+            // Guardar los datos en la sesión
+            session(['store' => $store, 'role' => $role, 'user' => $user]);
+            return view('dashboard');
+        } else {
+            return view('user.stores', [
+                'user' => auth()->user()
+            ]);
         }
-
-        return redirect()->route('stores');
     }
 
-    public function createStore()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        return view('sidebarScreens.storesManagement.store.create');
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Store $store)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Store $store)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Store $store)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Store $store)
+    {
+        //
     }
 }

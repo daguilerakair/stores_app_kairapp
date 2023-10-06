@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
@@ -30,9 +31,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'slack' => [
-        'notifications' => [
-            'slack_created_contributor' => env('SLACK_CREATED_CONTRIBUTOR'),
-        ],
-    ],
 ];

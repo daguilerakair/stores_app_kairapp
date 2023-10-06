@@ -13,6 +13,7 @@ class StoreProduct extends Model
         'stock',
         'price',
         'status',
+        'delete',
         'storeMobileId',
         'productMobileId',
         'store_rut',

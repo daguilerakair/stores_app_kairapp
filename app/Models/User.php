@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Notifications\NewResetPasswordNotification;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     public function sendPasswordResetNotification($token)
     {
@@ -50,6 +52,6 @@ class User extends Authenticatable
 
     public function storesUser()
     {
-        return $this->hasMany(UserStore::class, 'user_id');
+        return $this->hasMany(UserStore::class, 'user_id')->where('delete', '=', false)->where('status', '=', true);
     }
 }

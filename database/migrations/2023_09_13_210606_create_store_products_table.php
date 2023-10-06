@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->boolean('status'); // false = deshabilitado, true = habilitado
+            $table->boolean('delete'); // false = deshabilitado, true = habilitado
             $table->string('storeMobileId')->nullable();
             $table->string('productMobileId')->nullable();
             $table->integer('store_rut');

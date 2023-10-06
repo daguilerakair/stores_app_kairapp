@@ -7,7 +7,7 @@
 @section('content')
     @if ($user->storesUser->count() > 0)
         <div class="flex flex-col justify-center items-center">
-            <div class="flex flex-col items-center bg-cyan-500 w-5/6  sm:w-4/5 my-2 p-2 rounded-sm">
+            <div class="flex flex-col items-center bg-gray-700 w-5/6  sm:w-4/5 my-2 p-2 rounded-sm">
                 <p class="text-lg text-white font-semibold">Hola, {{ $user->name }}</p>
                 <p class="text-lg text-white font-semibold">¿A qué comercio quieres acceder?</p>
             </div>

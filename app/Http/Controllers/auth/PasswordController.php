@@ -26,4 +26,14 @@ class PasswordController extends Controller
 
         return back()->with('status', 'password-updated');
     }
+
+    public function changePasswordAuthIndex()
+    {
+        return view('auth.reset-password-auth');
+    }
+
+    public function changePasswordAuth(Request $request)
+    {
+        dd('desde...');
+    }
 }

@@ -12,15 +12,18 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
+    @stack('dropzone')
+    @stack('dropzoneStyle')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
+    @include('layouts.navigation')
     <main class="p-4 sm:ml-64">
         {{ $slot }}
     </main>
-
+    @stack('js')
     @livewireScripts
 </body>
 

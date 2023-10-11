@@ -17,11 +17,16 @@ class StoreProduct extends Model
         'storeMobileId',
         'productMobileId',
         'store_rut',
-        'product_id'
+        'product_id',
     ];
 
     public function productDates()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function categoryDates()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_id');
     }
 }

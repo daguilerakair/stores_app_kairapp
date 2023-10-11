@@ -33,6 +33,7 @@ return [
     'slack' => [
         'notifications' => [
             'slack_created_contributor' => env('SLACK_CREATED_CONTRIBUTOR'),
+            'slack_created_product' => env('SLACK_CREATED_PRODUCT'),
         ],
     ],
 ];

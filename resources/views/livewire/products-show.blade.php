@@ -24,6 +24,9 @@
                             Precio
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Categoría
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Estado
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -37,8 +40,6 @@
                             <td class="w-32 p-4">
                                 <img src="{{ $storeProduct->productDates->pathImage }}"
                                     alt="product-img-{{ $storeProduct->productDates->id }}">
-                                {{-- <img src="{{ Storage::url('uploads/'. $storeProduct->productDates->pathImage) }}"
-                                    alt="product-img-{{ $storeProduct->productDates->id }}"> --}}
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900">
                                 {{ $storeProduct->productDates->name }}
@@ -48,6 +49,9 @@
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900">
                                 ${{ number_format($storeProduct->price, 0, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900">
+                                {{ $storeProduct->categoryDates->category->name}}
                             </td>
                             @if ($storeProduct->status)
                             <td class="px-6 py-4 font-semibold text-green-500">

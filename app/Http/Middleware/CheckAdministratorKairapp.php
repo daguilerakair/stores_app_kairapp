@@ -15,15 +15,17 @@ class CheckAdministratorKairapp
      */
     public function handle(Request $request, \Closure $next): Response
     {
-        $store = session('store');
         $user = auth()->user();
-
-        $userStore = UserStore::where('user_id', $user->id)->where('store_rut', $store->rut)->where('role_id', 3)->first();
-
-        if (auth()->check() && $userStore) {
-            return $next($request);
+        $store = session('store');
+        if ($store) {
+            $userStore = UserStore::where('user_id', $user->id)->where('store_rut', $store->rut)->where('role_id', 3)->first();
+            if (auth()->check() && $userStore) {
+                return $next($request);
+            } else {
+                return redirect('dashboard');
+            }
+        } else {
+            return redirect('stores');
         }
-
-        return redirect('dashboard');
     }
 }

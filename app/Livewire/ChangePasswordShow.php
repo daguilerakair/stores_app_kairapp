@@ -47,7 +47,7 @@ class ChangePasswordShow extends Component
             $this->returnChangePassword();
         }
 
-        // dd('password incorrecto');
+        // dd('password incorrecto');7
     }
 
     public function render()

@@ -76,7 +76,7 @@ class CreateStore extends Component
                 $password = Str::random(8);
                 // Crear al usuario
                 $newUser = User::create([
-                    'name' => $this->name,
+                    'name' => $this->nameAdmin,
                     'email' => $this->email,
                     'password' => bcrypt($password),
                 ]);

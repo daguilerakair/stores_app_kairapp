@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 
-class CreatedContributor extends Notification
+class CreatedProduct extends Notification
 {
     use Queueable;
     private $information;
@@ -36,12 +36,14 @@ class CreatedContributor extends Notification
     {
         return (new SlackMessage())
                 ->attachment(function ($attachment) {
-                    $attachment->title('Colaborador creado')
-                               ->content('El colaborador fue creado con éxito.')
+                    $attachment->title('Producto creado')
+                               ->content('El producto fue creado con éxito.')
                                ->fields([
                                     'Nombre' => $this->information['name'],
-                                    'Email' => $this->information['email'],
-                                    'Rol' => $this->information['role'],
+                                    'Cantidad disponible' => $this->information['stock'],
+                                    'Precio' => $this->information['price'],
+                                    'RUT tienda' => $this->information['rut'],
+                                    'Tienda' => $this->information['store_name'],
                                ]);
                 });
     }

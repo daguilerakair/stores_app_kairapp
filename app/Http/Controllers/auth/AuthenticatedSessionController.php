@@ -28,7 +28,17 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        session(['selectedStores' => false]);
+        // Borrar datos de una sesión previa
+        // session()->flush();
+        if (session()->has('store')) {
+            dd('ddd');
+            // La sesión existe
+            // Puedes realizar acciones en consecuencia
+        } else {
+            // La sesión no existe
+            // Realiza acciones alternativas si es necesario
+            session(['selectedStores' => false]);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

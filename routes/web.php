@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\product\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sidebar\SidebarController;
@@ -42,8 +43,14 @@ Route::middleware(['auth', 'checkAdmin'])->group(function () {
 
 // Middleware Role Kairapp
 Route::middleware(['auth', 'checkAdminKairapp'])->group(function () {
+    // Routes Management Stores
     Route::get('/stores/management', [SidebarController::class, 'storesManagementIndex'])->name('stores-management.index');
     Route::get('store/create', [StoreController::class, 'createStore'])->name('store.create');
+    // Routes Management Orders
+    Route::get('/orders/management', [SidebarController::class, 'ordersManagementIndex'])->name('orders-management.index');
+    Route::get('order/create', [OrderController::class, 'createOrder'])->name('order.create');
+
+    Route::get('/get/stores', [StoreController::class, 'obtainStores']);
 });
 
 Route::middleware('auth')->group(function () {

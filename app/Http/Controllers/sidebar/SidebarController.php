@@ -27,4 +27,9 @@ class SidebarController extends Controller
     {
         return view('sidebarScreens.storesManagement.index');
     }
+
+    public function ordersManagementIndex()
+    {
+        return view('sidebarScreens.ordersManagement.index');
+    }
 }

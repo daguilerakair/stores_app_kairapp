@@ -36,6 +36,15 @@ class StoreController extends Controller
         return redirect()->route('stores');
     }
 
+    public function obtainStores()
+    {
+        $stores = Store::orderBy('name', 'asc')->get();
+
+        return response()->json([
+            'stores' => $stores,
+        ]);
+    }
+
     public function createStore()
     {
         return view('sidebarScreens.storesManagement.store.create');

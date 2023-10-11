@@ -150,6 +150,7 @@ return [
         'available' => 'disponible',
         'birthday' => 'cumpleaños',
         'body' => 'contenido',
+        'category' => 'categoría',
         'city' => 'ciudad',
         'content' => 'contenido',
         'country' => 'país',

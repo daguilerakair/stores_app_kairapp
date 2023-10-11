@@ -59,8 +59,13 @@ class CreateCollaboratorShow extends Component
                     'delete' => false,
                 ]);
 
+                $information = [
+                    'name' => $searchUser->name,
+                    'email' => $searchUser->email,
+                    'role' => $role->name,
+                ];
                 Notification::route('slack', config('services.slack.notifications.slack_created_contributor'))
-                            ->notify(new CreatedContributor());
+                            ->notify(new CreatedContributor($information));
 
                 $this->dispatch('render')->to(CreateCollaboratorShow::class);
                 toastr()->success('El colaborador fue agregado con éxito', 'Colaborador agregado!');
@@ -90,8 +95,13 @@ class CreateCollaboratorShow extends Component
                 'delete' => false,
             ]);
 
+            $information = [
+                'name' => $collaborator->name,
+                'email' => $collaborator->email,
+                'role' => $role->name,
+            ];
             Notification::route('slack', config('services.slack.notifications.slack_created_contributor'))
-                        ->notify(new CreatedContributor());
+                        ->notify(new CreatedContributor($information));
 
             // Almacenar la variable en la sesión flash
             session()->flash('password', $password);

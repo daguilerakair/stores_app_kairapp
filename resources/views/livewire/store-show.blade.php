@@ -52,7 +52,7 @@
                                 {{ $store->address }}
                             </td>
                             <td class="px-6 py-4">
-
+                                {{ $store->user_store_count }}
                             </td>
 
                             {{-- <td class="px-6 py-4 font-semibold text-gray-900">

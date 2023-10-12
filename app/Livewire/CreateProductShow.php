@@ -31,7 +31,7 @@ class CreateProductShow extends Component
         'description' => 'required|max:255',
         'price' => 'required|regex:/^[1-9]\d*$/',
         'stock' => 'required|regex:/^[1-9]\d*$/',
-        'image' => 'image|max:2048|mimes:jpg,jpeg,png',
+        'image' => 'max:2048|mimes:jpg,jpeg,png',
         'category' => 'required',
     ];
 

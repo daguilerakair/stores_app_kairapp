@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\product\ProductController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sidebar\SidebarController;
 use App\Http\Controllers\store\StoreController;
 use App\Http\Controllers\store\StoreProductController;
@@ -51,13 +49,6 @@ Route::middleware(['auth', 'checkAdminKairapp'])->group(function () {
     Route::get('order/create', [OrderController::class, 'createOrder'])->name('order.create');
 
     Route::get('/get/stores', [StoreController::class, 'obtainStores']);
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/change/password', [PasswordController::class, 'changePasswordAuthIndex'])->name('change-password.index');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::middleware(['auth', 'selectedStore'])->group(function () {

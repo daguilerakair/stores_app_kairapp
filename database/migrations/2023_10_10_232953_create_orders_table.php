@@ -11,11 +11,10 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->integer('total');
-            $table->date('date');
-            $table->string('paymentMethod');
-            $table->timestamps();
+            $table->id(); // Unique identifier for the order.
+            $table->integer('total'); // Total amount for the order.
+            $table->date('date'); // Date of the order.
+            $table->timestamps(); // Timestamps for record creation and modification.
         });
     }
 
@@ -24,6 +23,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('orders'); // Drop the 'orders' table when rolling back the migration.
     }
 };

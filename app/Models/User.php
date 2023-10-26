@@ -8,12 +8,33 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * User Model.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string      $email
+ * @property string      $password
+ * @property string|null $email_verified_at
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ *
+ * @property \App\Notifications\NewResetPasswordNotification $notify
+ * @property \App\Models\UserStore[]                         $storesUser
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
 
+    /**
+     * Send a password reset email to the user.
+     *
+     * @param string $token
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new NewResetPasswordNotification($token));
@@ -50,6 +71,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * Get the stores associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function storesUser()
     {
         return $this->hasMany(UserStore::class, 'user_id')->where('delete', '=', false)->where('status', '=', true);

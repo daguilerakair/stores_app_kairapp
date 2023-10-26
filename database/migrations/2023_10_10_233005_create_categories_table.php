@@ -11,9 +11,9 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
+            $table->id(); // Unique identifier for the category.
+            $table->string('name'); // Name of the category.
+            $table->timestamps(); // Timestamps for record creation and modification.
         });
     }
 
@@ -22,6 +22,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('categories'); // Drop the 'categories' table when rolling back the migration.
     }
 };

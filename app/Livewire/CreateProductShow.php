@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\StoreProduct;
+use App\Models\SubStoreProduct;
 use App\Notifications\CreatedProduct;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -65,14 +66,23 @@ class CreateProductShow extends Component
 
                 // Conectar el producto con la tienda
                 $store = session('store');
+                $subStore = $store->subStores()->first();
+
                 $storeProduct = StoreProduct::create([
                     'price' => $this->price,
-                    'stock' => $this->stock,
                     'status' => true,
+                    'stock' => $this->stock,
                     'delete' => false,
                     'storeMobileId' => null,
                     'store_rut' => $store->rut,
                     'product_id' => $product->id,
+                    'substore_id' => $subStore->id,
+                ]);
+                // Conectar el stock a la sucursal
+                SubStoreProduct::create([
+                    'stock' => $this->stock,
+                    'sub_store_id' => $subStore->id,
+                    'store_product_id' => $storeProduct->id,
                 ]);
 
                 // Conectar el producto a la categoria seleccionada

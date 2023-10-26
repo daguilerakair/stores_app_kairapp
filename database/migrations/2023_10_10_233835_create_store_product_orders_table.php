@@ -11,12 +11,12 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::create('store_product_orders', function (Blueprint $table) {
-            $table->id();
-            $table->integer('quantity');
-            $table->integer('price');
-            $table->foreignId('order_id')->constrained('orders');
-            $table->foreignId('store_product_id')->constrained('store_products');
-            $table->timestamps();
+            $table->id(); // Unique identifier for the store product order.
+            $table->integer('quantity'); // Quantity of the product in the order.
+            $table->integer('price'); // Price of the product in the order.
+            $table->foreignId('order_id')->constrained('orders'); // Foreign key to the related order.
+            $table->foreignId('store_product_id')->constrained('store_products'); // Foreign key to the related store product.
+            $table->timestamps(); // Timestamps for record creation and modification.
         });
     }
 
@@ -25,6 +25,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('store_product_orders');
+        Schema::dropIfExists('store_product_orders'); // Drop the 'store_product_orders' table when rolling back the migration.
     }
 };

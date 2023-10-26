@@ -18,7 +18,7 @@ class CheckAdministratorKairapp
         $user = auth()->user();
         $store = session('store');
         if ($store) {
-            $userStore = UserStore::where('user_id', $user->id)->where('store_rut', $store->rut)->where('role_id', 3)->first();
+            $userStore = UserStore::where('user_id', $user->id)->where('store_rut', $store->rut)->where('role_id', 1)->first();
             if (auth()->check() && $userStore) {
                 return $next($request);
             } else {

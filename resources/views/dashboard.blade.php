@@ -1,5 +1,3 @@
-@include('layouts.navigation')
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -13,7 +11,7 @@
 
     </div>
     <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <div class="grid grid-cols-3 gap-4 mb-4">
+        {{-- <div class="grid grid-cols-3 gap-4 mb-4">
             <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                 <p class="text-2xl text-gray-400 dark:text-gray-500">
                     <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -88,6 +86,6 @@
                     </svg>
                 </p>
             </div>
-        </div>
+        </div> --}}
     </div>
 </x-app-layout>

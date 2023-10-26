@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\auth\PasswordController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\product\ProductController;
 use App\Http\Controllers\sidebar\SidebarController;
 use App\Http\Controllers\store\StoreController;
 use App\Http\Controllers\store\StoreProductController;
+use App\Http\Controllers\SubStoreController;
 use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -30,6 +32,7 @@ Route::get('/dashboard', function () {
 
 // Middleware Role Administrator
 Route::middleware(['auth', 'checkAdmin'])->group(function () {
+    Route::get('/sucursals', [SubStoreController::class, 'obtainSubStores']);
     Route::get('/inventory', [SidebarController::class, 'inventoryManagementIndex'])->name('inventory.index');
     Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
     Route::get('product/edit/${id}', [ProductController::class, 'update'])->name('product.edit');
@@ -44,11 +47,20 @@ Route::middleware(['auth', 'checkAdminKairapp'])->group(function () {
     // Routes Management Stores
     Route::get('/stores/management', [SidebarController::class, 'storesManagementIndex'])->name('stores-management.index');
     Route::get('store/create', [StoreController::class, 'createStore'])->name('store.create');
+    Route::get('subStore/create/${id}', [StoreController::class, 'createSubStore'])->name('subStore.create');
+    Route::get('store/sucursals/${id}', [StoreController::class, 'sucursalsIndex'])->name('store.sucursals.index');
+    Route::get('wizard', function () {
+        return view('sidebarScreens.storesManagement.store.create');
+    });
     // Routes Management Orders
     Route::get('/orders/management', [SidebarController::class, 'ordersManagementIndex'])->name('orders-management.index');
     Route::get('order/create', [OrderController::class, 'createOrder'])->name('order.create');
 
     Route::get('/get/stores', [StoreController::class, 'obtainStores']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/change/password', [PasswordController::class, 'changePasswordAuthIndex'])->name('change-password.index');
 });
 
 Route::middleware(['auth', 'selectedStore'])->group(function () {

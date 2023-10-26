@@ -15,7 +15,8 @@ class UserStoresTableSeeder extends Seeder
         UserStore::create([
             'user_id' => 1,
             'store_rut' => 65555321,
-            'role_id' => 1,
+            'subStore_id' => null,
+            'role_id' => 2,
             'status' => 1,
             'delete' => 0,
         ]);
@@ -23,7 +24,8 @@ class UserStoresTableSeeder extends Seeder
         UserStore::create([
             'user_id' => 1,
             'store_rut' => 77584357,
-            'role_id' => 2,
+            'subStore_id' => 2,
+            'role_id' => 4,
             'status' => 1,
             'delete' => 0,
         ]);
@@ -31,7 +33,8 @@ class UserStoresTableSeeder extends Seeder
         UserStore::create([
             'user_id' => 3,
             'store_rut' => 77563123,
-            'role_id' => 3,
+            'subStore_id' => null,
+            'role_id' => 1,
             'status' => 1,
             'delete' => 0,
         ]);

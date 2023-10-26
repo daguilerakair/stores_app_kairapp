@@ -8,10 +8,17 @@ use App\Models\Store;
 use App\Models\User;
 use App\Models\UserStore;
 
+/**
+ * Controller for managing stores and stores related to users.
+ */
 class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @param int $id ID of the UserStore relationship to retrieve
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index($id)
     {
@@ -24,9 +31,20 @@ class StoreController extends Controller
             if (auth()->user()->id === $user->id) {
                 $role = Role::find($userStore->role_id);
 
-                // Guardar los datos en la sesión
+                // Save the data in the session
                 session(['store' => $store, 'role' => $role, 'user' => $user]);
-                // Actualizar la seleccion del usuario a true
+
+                if ($role->id === 2) {
+                    $store = session('store')->subStores()->first();
+                    if ($store) {
+                        session(['selectedSubStore' => $store]);
+                    } else {
+                        session(['selectedSubStore' => null]);
+                    }
+                }
+                // Find the first substore of the selected store
+
+                // Update the user's selection to true
                 session()->put(['selectedStore' => true]);
 
                 return redirect()->route('dashboard');
@@ -36,6 +54,27 @@ class StoreController extends Controller
         return redirect()->route('stores');
     }
 
+    public function sucursalsIndex($id)
+    {
+        $selectedStore = Store::find($id);
+
+        if ($selectedStore) {
+            $storeSubStores = $selectedStore->subStores()->get();
+
+            return view('sidebarScreens.storesManagement.subStore.index', [
+                'selectStoreSubStores' => $storeSubStores,
+                'selectedStore' => $selectedStore,
+            ]);
+        }
+
+        return back();
+    }
+
+    /**
+     * Get a list of stores.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function obtainStores()
     {
         $stores = Store::orderBy('name', 'asc')->get();
@@ -45,8 +84,22 @@ class StoreController extends Controller
         ]);
     }
 
+    /**
+     * Display the form for creating a new store.
+     *
+     * @return \Illuminate\View\View
+     */
     public function createStore()
     {
         return view('sidebarScreens.storesManagement.store.create');
+    }
+
+    public function createSubStore($id)
+    {
+        $store = Store::find($id);
+
+        return view('sidebarScreens.storesManagement.subStore.create', [
+            'selectedStore' => $store,
+        ]);
     }
 }

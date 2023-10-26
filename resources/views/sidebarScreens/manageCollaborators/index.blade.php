@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="my-2">
-        <h1 class="font-bold text-3xl">Administrar colaboradores - {{ session('store')->name }}</h1>
+        <h1 class="font-bold text-3xl">Administrar colaboradores - {{ session('store')->fantasyName }}</h1>
     </div>
 
     <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">

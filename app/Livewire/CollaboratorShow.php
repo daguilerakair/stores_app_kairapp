@@ -7,39 +7,58 @@ use Livewire\Component;
 
 class CollaboratorShow extends Component
 {
+    // Event listeners
     protected $listeners = ['render', 'delete'];
 
-    public function receiveUpdates($id)
+    /**
+     * Receive updates for a collaborator's status.
+     *
+     * @param int $id the ID of the user store relationship to update
+     */
+    public function receiveUpdates(int $id)
     {
         $userStore = UserStore::findOrFail($id);
 
         if ($userStore) {
-            // Cambia el estado al opuesto
+            // Toggle the status
             $userStore->status = !$userStore->status;
-            // Guarda los cambios en la base de datos
+            // Save the changes to the database
             $userStore->save();
         }
     }
 
+    /**
+     * Delete a collaborator.
+     *
+     * @param int $id the ID of the user store relationship to delete
+     */
     public function delete($id)
     {
         $userStore = UserStore::findOrFail($id);
 
         if ($userStore) {
-            // Cambia el estado al opuesto
+            // Toggle the delete status and set the status to false
             $userStore->delete = !$userStore->delete;
             $userStore->status = false;
-            // Guarda los cambios en la base de datos
+            // Save the changes to the database
             $userStore->save();
         }
     }
 
+    /**
+     * Render the Livewire component.
+     */
     public function render()
     {
+        // Retrieve store collaborators from the session
         $storeCollaborators = session('store')->userStore()->get();
 
-        $storeCollaborators = $storeCollaborators->filter(function ($storeProduct) {
-            return $storeProduct->roleUser->name != 'Administrador' && $storeProduct->delete == false;
+        // Filter store collaborators based on conditions
+        $storeCollaborators = $storeCollaborators->filter(function ($userStore) {
+            $roleAuthUser = session('role');
+
+            // Check conditions for filtering
+            return $userStore->roleUser->name != 2 && $userStore->roleUser->id != $roleAuthUser->id && $userStore->delete == false;
         });
 
         return view('livewire.collaborator-show', compact('storeCollaborators'));

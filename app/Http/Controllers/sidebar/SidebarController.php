@@ -13,7 +13,13 @@ class SidebarController extends Controller
 
     public function inventoryManagementIndex()
     {
-        $storeProducts = session('store')->productStore()->get();
+        $storeProducts = session('selectedSubStore');
+
+        if ($storeProducts) {
+            $storeProducts = $storeProducts->productStore()->get();
+        } else {
+            $storeProducts = null;
+        }
 
         return view('sidebarScreens.inventoryManagement.index', compact('storeProducts'));
     }

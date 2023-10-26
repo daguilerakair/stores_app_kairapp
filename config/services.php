@@ -32,8 +32,9 @@ return [
 
     'slack' => [
         'notifications' => [
-            'slack_created_contributor' => env('SLACK_CREATED_CONTRIBUTOR'),
-            'slack_created_product' => env('SLACK_CREATED_PRODUCT'),
+            'slack_created_contributor' => env('SLACK_CREATED_CONTRIBUTOR_URL'),
+            'slack_created_product' => env('SLACK_CREATED_PRODUCT_URL'),
+            'slack_created_store' => env('SLACK_CREATED_STORE_URL'),
         ],
     ],
 ];

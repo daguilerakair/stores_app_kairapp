@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\StoreProduct;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class StoreProductsTableSeeder extends Seeder
@@ -20,8 +19,8 @@ class StoreProductsTableSeeder extends Seeder
             'delete' => false,
             'storeMobileId' => 'XpiQN9fF1xrftatAbc1',
             'productMobileId' => 'ANJLLSASDWD32',
-            'store_rut' => 65555321,
-            'product_id' => 1
+            'substore_id' => 1,
+            'product_id' => 1,
         ]);
 
         StoreProduct::create([
@@ -31,8 +30,8 @@ class StoreProductsTableSeeder extends Seeder
             'delete' => false,
             'storeMobileId' => 'XpiQN9fF1xrftatAbc1',
             'productMobileId' => 'LLKJUKJUOY4996',
-            'store_rut' => 65555321,
-            'product_id' => 2
+            'substore_id' => 1,
+            'product_id' => 2,
         ]);
     }
 }

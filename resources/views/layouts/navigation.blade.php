@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar"
     type="button"
     class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -18,11 +20,22 @@
                 alt="Kairapp Logo" />
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Kairapp</span>
         </a>
+
+
         <a href="#">
-            <p class="font-semibold mb-3 pl-2.5">{{ session('store')->name }}</p>
+            <p class="font-semibold mb-3 pl-2.5">{{ session('store')->fantasyName }}</p>
         </a>
+
+
         <ul class="space-y-2 font-medium">
-            @if (session('role')->name === 'Administrador')
+            {{-- Opciones Administador Tienda --}}
+            @if (session('role')->id === 2)
+                <label for="subStores" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Sucursal seleccionada</label>
+                <select id="subStores"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" disabled selected>Cargando...</option>
+                </select>
                 <li>
                     <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -104,14 +117,19 @@
                         <span class="ml-3">Cambiar Contraseña</span>
                     </a>
                 </li>
-            @elseif (session('role')->name === 'AdministradorKairapp')
+                {{-- Opciones Administador Kairapp --}}
+            @elseif (session('role')->id === 1)
                 <li>
                     <a href="{{ route('orders-management.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                            <path d="M15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783ZM6 2h6a1 1 0 1 1 0 2H6a1 1 0 0 1 0-2Zm7 5H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Z"/>
-                            <path d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z"/>
-                          </svg>
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 18 18">
+                            <path
+                                d="M15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783ZM6 2h6a1 1 0 1 1 0 2H6a1 1 0 0 1 0-2Zm7 5H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Z" />
+                            <path
+                                d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z" />
+                        </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Gestor de pedidos</span>
                     </a>
                 </li>
@@ -127,7 +145,8 @@
                         <span class="flex-1 ml-3 whitespace-nowrap">Gestor de tiendas</span>
                     </a>
                 </li>
-            @else
+                {{-- Opciones Colaborador Sucursal --}}
+            @elseif (session('role')->id === 4)
                 <li>
                     <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -151,9 +170,6 @@
                     </a>
                 </li>
             @endif
-
-
-
         </ul>
         <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
             {{-- <li>
@@ -195,3 +211,9 @@
         </ul>
     </div>
 </aside>
+
+@if (session('role')->id === 2)
+    @push('js')
+        <script src="{{ asset('js/sucursals/index.js') }}"></script>
+    @endpush
+@endif

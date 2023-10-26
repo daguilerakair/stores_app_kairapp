@@ -11,7 +11,7 @@ class StoreShow extends Component
     {
         $stores = Store::all();
 
-        $stores = Store::withCount('userStore')->get();
+        $stores = Store::withCount('subStores')->get();
 
         $stores = $stores->filter(function ($store) {
             return $store->rut != 77563123;

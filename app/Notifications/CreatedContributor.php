@@ -42,6 +42,8 @@ class CreatedContributor extends Notification
                                     'Nombre' => $this->information['name'],
                                     'Email' => $this->information['email'],
                                     'Rol' => $this->information['role'],
+                                    'Tienda' => $this->information['store'],
+                                    'Sucursal' => $this->information['subStore'],
                                ]);
                 });
     }

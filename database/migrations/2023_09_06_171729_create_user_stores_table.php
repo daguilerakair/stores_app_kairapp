@@ -17,6 +17,7 @@ return new class() extends Migration {
             $table->foreign('store_rut')->references('rut')->on('stores'); // Foreign key to the associated store.
             $table->foreignId('role_id')->constrained('roles'); // Foreign key to the related role.
             $table->integer('subStore_id')->nullable(); // Identifier for a related substore (optional).
+            $table->boolean('admin'); // Admin: false = inactive, true = active.
             $table->boolean('status'); // Status: false = inactive, true = active.
             $table->boolean('delete'); // Deletion status: false = not deleted, true = deleted.
             $table->timestamps(); // Timestamps for record creation and modification.

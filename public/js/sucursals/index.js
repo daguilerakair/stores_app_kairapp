@@ -6,7 +6,7 @@ const token = document.querySelector('meta[name="csrf-token"]').getAttribute('co
 
 const addSubStoresToSelect = (subStores) => {
     subStores.forEach((subStore, index) => {
-        if (index === 1) {
+        if (index === 0) {
             const option = document.createElement('option');
             option.value = subStore;
             option.text = subStore.name;
@@ -23,7 +23,7 @@ const addSubStoresToSelect = (subStores) => {
 }
 
 
-const example = async () => {
+const obtainSubStores = async () => {
 
     try {
         selectSubStores.disabled = true; // Deshabilita el select mientras se cargan los datos
@@ -60,5 +60,5 @@ const example = async () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    example();
+    obtainSubStores();
 });

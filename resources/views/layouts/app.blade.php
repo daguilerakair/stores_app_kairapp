@@ -14,16 +14,17 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('chart')
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-gray-custom-50">
     @include('layouts.navigation')
-    <main class="p-4 sm:ml-64">
+    <main class="sm:ml-64">
         {{ $slot }}
     </main>
-    @stack('js')
     @livewireScripts
+    @stack('js')
 </body>
 
 </html>

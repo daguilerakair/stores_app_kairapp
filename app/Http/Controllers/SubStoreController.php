@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubStore;
+
 class SubStoreController extends Controller
 {
     public function obtainSubStores()
@@ -11,5 +13,18 @@ class SubStoreController extends Controller
         return response()->json([
             'subStores' => $subStores,
         ]);
+    }
+
+    public function update($id)
+    {
+        $subStore = SubStore::find($id);
+
+        if ($subStore) {
+            return view('sidebarScreens.storesManagement.subStore.edit', [
+                'subStore' => $subStore,
+            ]);
+        }
+
+        return back();
     }
 }

@@ -19,7 +19,7 @@ class CheckAdministrator
         $store = session('store');
 
         if ($store) {
-            $userStore = UserStore::where('user_id', $user->id)->where('store_rut', $store->rut)->where('role_id', 2)->first();
+            $userStore = UserStore::where('user_id', $user->id)->where('store_rut', $store->rut)->where('role_id', 2)->orWhere('role_id', 3)->first();
             if (auth()->check() && $userStore) {
                 return $next($request);
             } else {

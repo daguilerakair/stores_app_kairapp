@@ -19,7 +19,20 @@ class SubStoreTableSeeder extends Seeder
             'latitude' => '-74.4776',
             'longitude' => '-45.3333',
             'phone' => 56987345632,
+            'commission' => 10,
             'subStoreMobileId' => 'AYOcf9vm1wuaikAbd5',
+            'store_rut' => 65555321,
+        ]);
+
+        // Floreria del Norte Substores
+        SubStore::create([
+            'name' => 'Floreria Norte Angamos',
+            'address' => 'Angamos 5831',
+            'latitude' => '-40.4776',
+            'longitude' => '-32.3333',
+            'phone' => 56987345632,
+            'commission' => 14,
+            'subStoreMobileId' => 'XCKcf9vm1wuaikAbd5',
             'store_rut' => 65555321,
         ]);
 
@@ -30,6 +43,7 @@ class SubStoreTableSeeder extends Seeder
             'latitude' => '-35.4222',
             'longitude' => '-32.1233',
             'phone' => 56965239076,
+            'commission' => 11,
             'subStoreMobileId' => 'puniQK9fF1xrftatAbc1',
             'store_rut' => 77584357,
         ]);
@@ -40,6 +54,7 @@ class SubStoreTableSeeder extends Seeder
             'latitude' => '-60.4222',
             'longitude' => '-42.1233',
             'phone' => 56976432188,
+            'commission' => 7,
             'subStoreMobileId' => 'komiQN9Aa1stfeatDef1',
             'store_rut' => 77584357,
         ]);

@@ -14,7 +14,7 @@ return new class() extends Migration {
             $table->id(); // Unique identifier for the characteristic-category relationship.
             $table->foreignId('characteristic_id')->constrained('characteristics'); // Foreign key to the related characteristic.
             $table->foreignId('category_id')->constrained('categories'); // Foreign key to the related category.
-            $table->string('value'); // Value associated with the characteristic in the category.
+            $table->string('value')->nullable(); // Value associated with the characteristic in the category.
             $table->timestamps(); // Timestamps for record creation and modification.
         });
     }

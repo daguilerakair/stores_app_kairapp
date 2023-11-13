@@ -1,6 +1,8 @@
 <?php
 
-
+use App\Models\Role;
+use App\Models\Store;
+use App\Models\SubStore;
 
 function makeMessages()
 {
@@ -11,4 +13,19 @@ function makeMessages()
     ];
 
     return $messages;
+}
+
+function searchStore($store_rut)
+{
+    return Store::find($store_rut);
+}
+
+function searchSubStore($subStore_id)
+{
+    return SubStore::find($subStore_id);
+}
+
+function searchRole($role_id)
+{
+    return Role::find($role_id);
 }

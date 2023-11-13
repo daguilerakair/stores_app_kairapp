@@ -17,7 +17,8 @@ return new class() extends Migration {
             $table->string('fantasyName'); // Fantasy or trade name.
             $table->string('pathProfile'); // Path to the store's profile image.
             $table->string('pathBackground'); // Path to the store's background image.
-            $table->string('storeMobileId')->nullable(); // Identifier for mobile app integration.
+            $table->boolean('itinerant');
+            $table->boolean('custom');
             $table->timestamps(); // Timestamps for record creation and modification.
         });
     }

@@ -31,4 +31,9 @@ class CharacteristiCategory extends Model
         'category_id',
         'value',
     ];
+
+    public function getCharacteristic()
+    {
+        return $this->belongsTo(Characteristic::class, 'characteristic_id');
+    }
 }

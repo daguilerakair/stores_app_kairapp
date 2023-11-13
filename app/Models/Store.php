@@ -59,6 +59,8 @@ class Store extends Model
         'checkDigit',
         'companyName',
         'fantasyName',
+        'itinerant',
+        'custom',
         'pathProfile',
         'pathBackground',
     ];

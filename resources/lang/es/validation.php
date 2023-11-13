@@ -143,6 +143,8 @@ return [
     'uuid' => 'El campo :attribute debe ser un UUID válido.',
     'attributes' => [
         'address' => 'dirección',
+        'characteristics.*.name' => 'característica',
+        'characteristics.*.value' => 'característica',
         'subStores.*.nameSubStore' => 'sucursal',
         'subStores.*.address' => 'dirección',
         'subStores.*.phone' => 'teléfono',

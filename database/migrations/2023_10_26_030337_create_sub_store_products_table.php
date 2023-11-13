@@ -12,9 +12,12 @@ return new class() extends Migration {
     {
         Schema::create('sub_store_products', function (Blueprint $table) {
             $table->id();
-            $table->integer('stock');
+            $table->integer('price'); // Price of the product.
+            $table->integer('stock'); // Available stock quantity.
+            $table->boolean('status'); // Status: false = disabled, true = enabled.
+            $table->boolean('delete'); // Deletion status: false = not deleted, true = deleted.
+            $table->foreignId('product_id')->constrained('products');
             $table->foreignId('sub_store_id')->constrained('sub_stores');
-            $table->foreignId('store_product_id')->constrained('store_products');
             $table->timestamps();
         });
     }

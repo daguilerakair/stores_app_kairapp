@@ -40,6 +40,7 @@ class UserStore extends Model
         'role_id',
         'status',
         'delete',
+        'admin',
     ];
 
     /**
@@ -60,6 +61,11 @@ class UserStore extends Model
     public function roleUser()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function subStoreUser()
+    {
+        return $this->belongsTo(SubStore::class, 'subStore_id');
     }
 
     /**

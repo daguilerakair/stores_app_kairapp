@@ -19,7 +19,8 @@ class StoresTableSeeder extends Seeder
             'fantasyName' => 'Chocolates Juanita',
             'pathProfile' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
             'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
-            'storeMobileId' => 'inupQN9fF1xrftatAbc1',
+            'itinerant' => false,
+            'custom' => false,
         ]);
 
         Store::create([
@@ -29,7 +30,8 @@ class StoresTableSeeder extends Seeder
             'fantasyName' => 'Floreria Norte',
             'pathProfile' => 'https://www.vegamonumental.cl/wp-content/uploads/2019/07/IMG_20190719_115942-600x400.jpg',
             'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
-            'storeMobileId' => 'XpiQN9fF1xrftatAbc1',
+            'itinerant' => false,
+            'custom' => false,
         ]);
 
         // Store::create([
@@ -51,6 +53,8 @@ class StoresTableSeeder extends Seeder
             'fantasyName' => 'Kairapp',
             'pathProfile' => 'https://www.vegamonumental.cl/wp-content/uploads/2019/07/IMG_20190719_115942-600x400.jpg',
             'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
+            'itinerant' => false,
+            'custom' => false,
         ]);
     }
 }

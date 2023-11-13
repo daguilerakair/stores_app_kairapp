@@ -5,6 +5,7 @@ namespace App\Http\Controllers\store;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\Store;
+use App\Models\SubStore;
 use App\Models\User;
 use App\Models\UserStore;
 
@@ -41,9 +42,16 @@ class StoreController extends Controller
                     } else {
                         session(['selectedSubStore' => null]);
                     }
+                } elseif ($role->id === 3) {
+                    $subStore = $userStore->subStoreUser()->first();
+                    $subStoreAdmin = $userStore->subStoreUser()->get();
+                    if ($subStore) {
+                        session(['selectedSubStore' => $subStore, 'subStoreAdmin' => $subStoreAdmin]);
+                    } else {
+                        session(['selectedSubStore' => null]);
+                    }
                 }
                 // Find the first substore of the selected store
-
                 // Update the user's selection to true
                 session()->put(['selectedStore' => true]);
 

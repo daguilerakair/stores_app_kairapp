@@ -53,6 +53,11 @@ class SubStore extends Model
      */
     public function productStore()
     {
+        return $this->hasMany(SubStoreProduct::class, 'sub_store_id')->where('delete', false);
+    }
+
+    public function productStoreAll()
+    {
         return $this->hasMany(StoreProduct::class, 'substore_id');
     }
 }

@@ -35,6 +35,7 @@ return [
             'slack_created_contributor' => env('SLACK_CREATED_CONTRIBUTOR_URL'),
             'slack_created_product' => env('SLACK_CREATED_PRODUCT_URL'),
             'slack_created_store' => env('SLACK_CREATED_STORE_URL'),
+            'slack_created_request_help' => env('SLACK_SUPPORT_URL'),
         ],
     ],
 ];

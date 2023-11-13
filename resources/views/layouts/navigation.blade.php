@@ -12,11 +12,11 @@
 </button>
 
 <aside id="separator-sidebar"
-    class=" block fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    class="block fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-green-custom-200 dark:bg-gray-800">
         <a href="#" class="flex items-center pl-2.5 mb-2">
-            <img src="{{ asset('images/kairapp-isologo-negro-300px.svg') }}" class="h-7 mr-3 sm:h-6"
+            <img src="{{ asset('images/kairapp-isologo-negro-300px.svg') }}" class="h-7 mr-3 sm:h-7"
                 alt="Kairapp Logo" />
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Kairapp</span>
         </a>
@@ -37,9 +37,22 @@
                     <option value="" disabled selected>Cargando...</option>
                 </select>
                 <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 18">
+                            <path d="M18 0H6a2 2 0 0 0-2 2h14v12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Z" />
+                            <path
+                                d="M14 4H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM2 16v-6h12v6H2Z" />
+                        </svg>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
                     <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-custom-600 group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 20">
                             <path
@@ -69,7 +82,7 @@
                             <path
                                 d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                         </svg>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Administrar colaboradores</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Administrar trabajadores</span>
                     </a>
                 </li>
                 {{-- <li>
@@ -117,8 +130,82 @@
                         <span class="ml-3">Cambiar Contraseña</span>
                     </a>
                 </li>
+                {{-- Opciones Administrador Sucursal --}}
+            @elseif (session('role')->id === 3)
+                <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 18">
+                            <path d="M18 0H6a2 2 0 0 0-2 2h14v12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Z" />
+                            <path
+                                d="M14 4H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM2 16v-6h12v6H2Z" />
+                        </svg>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-custom-600 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 18 20">
+                            <path
+                                d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                        </svg>
+                        <span class="ml-3">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('inventory.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 18 18">
+                            <path
+                                d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Gestor de inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('collaborators.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 18">
+                            <path
+                                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Administrar trabajadores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('change-password.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 18">
+                            <path d="M8 18A18.55 18.55 0 0 1 0 3l8-3 8 3a18.549 18.549 0 0 1-8 15Z" />
+                        </svg>
+                        <span class="ml-3">Cambiar Contraseña</span>
+                    </a>
+                </li>
                 {{-- Opciones Administador Kairapp --}}
             @elseif (session('role')->id === 1)
+                <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 18">
+                            <path d="M18 0H6a2 2 0 0 0-2 2h14v12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Z" />
+                            <path
+                                d="M14 4H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM2 16v-6h12v6H2Z" />
+                        </svg>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('orders-management.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -148,6 +235,19 @@
                 {{-- Opciones Colaborador Sucursal --}}
             @elseif (session('role')->id === 4)
                 <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 18">
+                            <path d="M18 0H6a2 2 0 0 0-2 2h14v12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Z" />
+                            <path
+                                d="M14 4H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM2 16v-6h12v6H2Z" />
+                        </svg>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
                     <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -172,18 +272,21 @@
             @endif
         </ul>
         <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
-            {{-- <li>
-                <a href="#"
+            <li>
+                <a href="{{ route('support.index') }}"
                     class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 16 20">
+                    <svg
+                        class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         <path
-                            d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z" />
+                            d="M18 4H16V9C16 10.0609 15.5786 11.0783 14.8284 11.8284C14.0783 12.5786 13.0609 13 12 13H9L6.846 14.615C7.17993 14.8628 7.58418 14.9977 8 15H11.667L15.4 17.8C15.5731 17.9298 15.7836 18 16 18C16.2652 18 16.5196 17.8946 16.7071 17.7071C16.8946 17.5196 17 17.2652 17 17V15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V6C20 5.46957 19.7893 4.96086 19.4142 4.58579C19.0391 4.21071 18.5304 4 18 4Z"
+                            fill="currentColor" />
+                        <path
+                            d="M12 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V9C0 9.53043 0.210714 10.0391 0.585786 10.4142C0.960859 10.7893 1.46957 11 2 11H3V13C3 13.1857 3.05171 13.3678 3.14935 13.5257C3.24698 13.6837 3.38668 13.8114 3.55279 13.8944C3.71889 13.9775 3.90484 14.0126 4.08981 13.996C4.27477 13.9793 4.45143 13.9114 4.6 13.8L8.333 11H12C12.5304 11 13.0391 10.7893 13.4142 10.4142C13.7893 10.0391 14 9.53043 14 9V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0Z"
+                            fill="currentColor" />
                     </svg>
-                    <span class="ml-3">Información de contacto</span>
+                    <span class="ml-3">Soporte</span>
                 </a>
-            </li> --}}
+            </li>
             {{-- <li>
                 <a href="#"
                     class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">

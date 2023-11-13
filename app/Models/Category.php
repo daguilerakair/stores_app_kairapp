@@ -27,4 +27,9 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function obtainCharacteristiCategories()
+    {
+        return $this->hasMany(CharacteristiCategory::class, 'category_id');
+    }
 }

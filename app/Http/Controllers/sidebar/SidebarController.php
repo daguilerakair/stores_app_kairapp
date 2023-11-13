@@ -13,15 +13,29 @@ class SidebarController extends Controller
 
     public function inventoryManagementIndex()
     {
-        $storeProducts = session('selectedSubStore');
-
-        if ($storeProducts) {
-            $storeProducts = $storeProducts->productStore()->get();
+        $subStoreProducts = session('selectedSubStore');
+        $selectedOption = 0;
+        if ($subStoreProducts) {
+            // dd($subStoreProducts);
+            $subStoreProducts = $subStoreProducts->productStore()->get();
         } else {
-            $storeProducts = null;
+            $subStoreProducts = null;
         }
 
-        return view('sidebarScreens.inventoryManagement.index', compact('storeProducts'));
+        return view('sidebarScreens.inventoryManagement.index', compact('subStoreProducts', 'selectedOption'));
+    }
+
+    public function inventoryManagementIndexSelected($id)
+    {
+        $subStoreProducts = session('selectedSubStore');
+        $selectedOption = $id;
+        if ($subStoreProducts) {
+            $subStoreProducts = $subStoreProducts->productStore()->get();
+        } else {
+            $subStoreProducts = null;
+        }
+
+        return view('sidebarScreens.inventoryManagement.index', compact('subStoreProducts', 'selectedOption'));
     }
 
     public function manageCollaboratorsIndex()
@@ -37,5 +51,10 @@ class SidebarController extends Controller
     public function ordersManagementIndex()
     {
         return view('sidebarScreens.ordersManagement.index');
+    }
+
+    public function supportIndex()
+    {
+        return view('sidebarScreens.support.index');
     }
 }

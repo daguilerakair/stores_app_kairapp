@@ -29,8 +29,11 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
+        'price',
+        'variablePrice',
         'pathImage',
         'productMobileId',
         'description',
+        'store_rut',
     ];
 }

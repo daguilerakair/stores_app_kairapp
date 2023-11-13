@@ -15,7 +15,14 @@ return new class() extends Migration {
             $table->string('name'); // Name of the product.
             $table->string('description'); // Description of the product.
             $table->string('pathImage'); // Path to the product's image.
+            $table->integer('price');
+            $table->boolean('variablePrice');
+            $table->double('reputation')->nullable(); // Reputation score (optional).
+            $table->integer('custom')->nullable(); // Product Change (optional).
+            $table->integer('preparationTime')->nullable(); // Preparation Time (optional).
             $table->string('productMobileId')->nullable(); // Identifier for mobile app integration (optional).
+            $table->integer('store_rut'); // RUT of the associated store.
+            $table->foreign('store_rut')->references('rut')->on('stores');
             $table->timestamps(); // Timestamps for record creation and modification.
         });
     }

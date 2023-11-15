@@ -63,16 +63,15 @@ class CreateCategoryShowComponent extends Component
 
     public function removeShield($key)
     {
-        // dd($key);
-        // dd(count($this->characteristics));
         $nowCount = count($this->characteristics);
         if ($nowCount === 1) {
-            dd('entra');
+            session()->flash('categoryMessage', 'La categoría debe poseer al menos una característica.');
+        } else {
+            unset($this->characteristics[$key]);
+            $auxCharacteristics = $this->characteristics;
+            $this->reset('characteristics');
+            $this->characteristics = $auxCharacteristics;
         }
-        unset($this->characteristics[$key]);
-        $auxCharacteristics = $this->characteristics;
-        $this->reset('characteristics');
-        $this->characteristics = $auxCharacteristics;
     }
 
     public function returnInventory()

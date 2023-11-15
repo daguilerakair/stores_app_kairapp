@@ -20,13 +20,13 @@ class CreateProductShow extends Component
     public $name;
     public $description;
     public $price;
-    public $image;
+    public $images = [];
     public $stock;
     public $category;
     public $subStore;
 
     public $disabledButton = false;
-    public $selectedItems = [];
+    // public $selectedItems = [];
 
     public $characteristics = [];
     public $radioChecked = 'Y';
@@ -36,7 +36,7 @@ class CreateProductShow extends Component
         'description' => 'required|max:255',
         'price' => 'required|regex:/^[1-9]\d*$/',
         'stock' => 'required|regex:/^[1-9]\d*$/',
-        'image' => 'max:2048|mimes:jpg,jpeg,png',
+        'images.*' => 'max:2048|mimes:jpg,jpeg,png',
         'category' => 'required',
         'characteristics.*.value' => 'required',
     ];
@@ -76,6 +76,11 @@ class CreateProductShow extends Component
         }
     }
 
+    public function removeImage($index)
+    {
+        unset($this->images[$index]);
+    }
+
     public function save()
     {
         $this->validate();
@@ -84,59 +89,53 @@ class CreateProductShow extends Component
         $existCategory = Category::find($this->category);
 
         if ($existCategory) {
-            if ($this->radioChecked === 'Y') {
-                $this->disabledButton = true;
-                $archiveNameTemp = $this->image->store('products');
-                // dd($archiveNameTemp);
-                $content = Storage::disk('local')->get($archiveNameTemp);
-                $replaceArchiveName = str_replace('products/', '', $archiveNameTemp);
-                $response = Storage::disk('products')->put($replaceArchiveName, $content);
+            $this->disabledButton = true;
+            $archiveNameTemp = $this->image->store('products');
+            // dd($archiveNameTemp);
+            $content = Storage::disk('local')->get($archiveNameTemp);
+            $replaceArchiveName = str_replace('products/', '', $archiveNameTemp);
+            $response = Storage::disk('products')->put($replaceArchiveName, $content);
 
-                if ($response) {
-                    $server_url = 'https://alphakairappbucket.s3.sa-east-1.amazonaws.com/';
-                    // Conectar el producto con la tienda
-                    $store = session('store');
+            if ($response) {
+                $server_url = 'https://alphakairappbucket.s3.sa-east-1.amazonaws.com/';
+                // Conectar el producto con la tienda
+                $store = session('store');
 
-                    // Creamos el producto
-                    $product = Product::create([
-                        'name' => $this->name,
-                        'description' => $this->description,
-                        'pathImage' => $server_url.$archiveNameTemp,
-                        'price' => $this->price,
-                        'variablePrice' => false,
-                        'store_rut' => $store->rut,
-                    ]);
+                // Creamos el producto
+                $product = Product::create([
+                    'name' => $this->name,
+                    'description' => $this->description,
+                    'pathImage' => $server_url.$archiveNameTemp,
+                    'price' => $this->price,
+                    'variablePrice' => false,
+                    'store_rut' => $store->rut,
+                ]);
 
-                    $subStores = $store->subStores()->get();
+                // Crear el substoreProduct
+                SubStoreProduct::create([
+                    'price' => $this->price,
+                    'stock' => $this->stock,
+                    'status' => true,
+                    'delete' => false,
+                    'product_id' => $product->id,
+                    'sub_store_id' => $this->subStore->id,
+                ]);
 
-                    foreach ($subStores as $subStore) {
-                        // Crear el substoreProduct
-                        SubStoreProduct::create([
-                            'price' => $this->price,
-                            'stock' => $this->stock,
-                            'status' => true,
-                            'delete' => false,
-                            'product_id' => $product->id,
-                            'sub_store_id' => $subStore->id,
-                        ]);
-                    }
+                // Conectar el producto a la categoria seleccionada
+                ProductCategory::create([
+                    'product_id' => $product->id,
+                    'category_id' => $existCategory->id,
+                ]);
 
-                    // Conectar el producto a la categoria seleccionada
-                    ProductCategory::create([
-                        'product_id' => $product->id,
-                        'category_id' => $existCategory->id,
-                    ]);
-
-                    $information = [
-                        'name' => $product->name,
-                        'store_name' => $store->name,
-                    ];
-                    Notification::route('slack', config('services.slack.notifications.slack_created_product'))
-                    ->notify(new CreatedProduct($information));
-                    $this->dispatch('render')->to(ProductsShow::class);
-                    toastr()->success('El producto fue creado con éxito', 'Producto creado!');
-                    $this->returnInventory();
-                }
+                $information = [
+                    'name' => $product->name,
+                    'store_name' => $store->name,
+                ];
+                Notification::route('slack', config('services.slack.notifications.slack_created_product'))
+                ->notify(new CreatedProduct($information));
+                $this->dispatch('render')->to(ProductsShow::class);
+                toastr()->success('El producto fue creado con éxito', 'Producto creado!');
+                $this->returnInventory();
             }
         }
     }

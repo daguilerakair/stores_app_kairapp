@@ -13,9 +13,13 @@
             @enderror
         </div>
 
+        <a class="block text-sm font-medium text-gray-900 dark:text-white">
+            Nombre categoría
+        </a>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach ($characteristics as $key => $characteristic)
-                <div class="my-4 flex">
+                <div class="mb-4 flex">
+
                     <div class="relative w-full" wire:key="{{ $key }}">
                         <input
                             class="bg-gray-50 border border-gray-300 my-4 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -29,6 +33,9 @@
                         @error("characteristics.$key.name")
                             <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
                         @enderror
+                        @if (session()->has('categoryMessage'))
+                            <p class="text-sm text-red-500 font-semibold">{{ session('categoryMessage') }}</p>
+                        @endif
                     </div>
                     @if ($loop->last)
                         <button wire:click="addShield"

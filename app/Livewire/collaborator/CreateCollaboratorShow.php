@@ -48,7 +48,7 @@ class CreateCollaboratorShow extends Component
             $userStore = $store->searchUserStore($searchUser->id);
 
             if ($userStore) {
-                toastr()->error('El colaborador ya se encuentra asociado a la tienda', 'Colaborador no agregado!');
+                toastr()->error('El trabajador ya se encuentra asociado a la tienda', 'Colaborador no agregado!');
                 $this->returnCreateCollaborator();
             } else {
                 // Obtenemos el rol de colaborador
@@ -64,7 +64,7 @@ class CreateCollaboratorShow extends Component
                 $this->notifySlack($userStore, $store, $role, $subStore);
 
                 $this->dispatch('render')->to(CreateCollaboratorShow::class);
-                toastr()->success('El colaborador fue agregado con éxito', 'Colaborador agregado!');
+                toastr()->success('El trabajador fue agregado con éxito', 'Trabajador agregado!');
                 $this->returnCollaborators();
             }
         } else {

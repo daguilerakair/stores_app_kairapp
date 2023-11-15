@@ -23,7 +23,7 @@
 
 
         <a href="#">
-            <p class="font-semibold mb-3 pl-2.5">{{ session('store')->fantasyName }}</p>
+            <p class="font-bold mb-3 pl-2.5">{{ session('store')->fantasyName }}</p>
         </a>
 
 
@@ -132,6 +132,10 @@
                 </li>
                 {{-- Opciones Administrador Sucursal --}}
             @elseif (session('role')->id === 3)
+                <a href="#">
+                    <p class="font-semibold mb-1 pl-2.5">Sucursal</p>
+                    <p class="font-bold mb-3 pl-2.5">{{ session('subStoreAdmin')[0]->name }}</p>
+                </a>
                 <li>
                     <a href="{{ route('dashboard') }}"
                         class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">

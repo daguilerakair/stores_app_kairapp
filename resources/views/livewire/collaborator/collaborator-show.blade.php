@@ -3,8 +3,8 @@
     @if (session()->has('password'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
             role="alert">
-            <span class="font-medium">Colaborador creado con éxito</span>
-            Recuerde suministrar su contraseña al colaborador creado.
+            <span class="font-medium">Trabajador creado con éxito</span>
+            Recuerde suministrar su contraseña al trabajador creado.
             <button id="btn">
                 Mostrar contraseña
             </button>
@@ -15,7 +15,7 @@
     <div class="flex justify-end my-4">
         <a href="{{ route('collaborator.create') }}"
             class="text-white bg-pink-custom-600 hover:bg-pink-custom-850 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-            Agregar colaborador
+            Agregar Trabajador
         </a>
 
     </div>
@@ -97,12 +97,27 @@
             </table>
         </div>
     @else
-        <p class="font-semibold text-black text-2xl text-center">No hay colaboradores que formen parte de la tienda</p>
+        <p class="font-semibold text-black text-2xl text-center">No hay trabajadores que formen parte de la tienda</p>
     @endif
 </div>
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const password = document.getElementById('password').value;
+            if (password) {
+                Swal.fire({
+                    title: 'Recuerda copiar la contraseña de tu trabajador',
+                    text: password,
+                    icon: 'info',
+                    confirmButtonColor: '#FF5C77',
+                    confirmButtonText: 'Cancelar',
+                })
+            }
+        });
+    </script>
+
     <script>
         const button = document.getElementById('btn');
         // console.log(password);
@@ -111,7 +126,7 @@
                 const password = document.getElementById('password').value;
                 console.log(password);
                 Swal.fire({
-                    title: 'Recuerda copiar la contraseña de tu colaborador',
+                    title: 'Recuerda copiar la contraseña de tu trabajador',
                     text: password,
                     icon: 'info',
                     confirmButtonColor: '#FF5C77',
@@ -140,8 +155,8 @@
                             id: user
                         });
                         Swal.fire(
-                            'Colaborador eliminado!',
-                            'El colaborador ha sido eliminado con éxito.',
+                            'Trabajador eliminado!',
+                            'El trabajador ha sido eliminado con éxito.',
                             'success'
                         )
                     }

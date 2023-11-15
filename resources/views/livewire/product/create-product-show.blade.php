@@ -69,13 +69,13 @@
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
             @enderror
         </div>
-        {{ $subStore }}
         <div class="grid md:grid-cols-2">
             @foreach ($characteristics as $key => $chara)
                 <div class="mb-6 mx-auto w-3/4">
                     <label for="base-input"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $chara['name'] }}</label>
-                    <input type="text" id="base-input" wire:model='characteristics.{{ $key }}.value' value=""
+                    <input type="text" id="base-input" wire:model='characteristics.{{ $key }}.value'
+                        value=""
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @error("characteristics.$key.value")
                         <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
@@ -85,43 +85,27 @@
         </div>
 
         <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="image" type="file" name="image" id="image"
+            <input wire:model="images" type="file" name="image" id="image" multiple
                 class="block py-2.5 my-4 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 required />
-            @error('image')
+            @error('images.*')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
             @enderror
-            <label for="image"
+            <label for="images"
                 class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
                 Imagen
             </label>
         </div>
-        @if ($this->image)
-            <img class="w-1/6 h-48 max-w-lg my-4 rounded-lg" src="{{ $this->image->temporaryUrl() }}" alt="">
+        @if ($this->images)
+            @foreach ($this->images as $index => $image)
+                <div class="flex flex-col">
+                    <img class="w-1/6 h-48 max-w-lg my-4 rounded-lg" src="{{ $image->temporaryUrl() }}" alt="">
+                    <form wire:submit.prevent="removeImage({{ $index }})">
+                        <button type="submit" class="top-2 right-2 text-red-500">Eliminar</button>
+                    </form>
+                </div>
+            @endforeach
         @endif
-
-        {{-- Radio --}}
-        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">¿El producto estará en todas las sucursales?</h3>
-        <div class="mb-4">
-            <div class="flex items-center gap-2">
-                <div class="flex items-center gap-2">
-                    <input checked id="check-radio" type="radio" wire:model='radioChecked' value="Y"
-                        name="default-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Si
-                    </label>
-                </div>
-                <div class="flex items-center gap-2">
-                    <input id="no-check-radio" type="radio" wire:model='radioChecked' value="N"
-                        name="default-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        No
-                    </label>
-                </div>
-            </div>
-        </div>
 
         {{-- Checkboxes --}}
         <div id="subStores-list" class="hidden">
@@ -132,8 +116,7 @@
                         <input id="default-checkbox" type="checkbox" value="{{ $subStore->id }}"
                             wire:model='selectedItems'
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-checkbox"
-                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             {{ $subStore->name }}
                         </label>
                     </div>

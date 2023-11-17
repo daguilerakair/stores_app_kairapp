@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\PasswordController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\product\ProductController;
@@ -43,6 +44,8 @@ Route::middleware(['auth', 'checkAdmin', 'checkStore'])->group(function () {
     Route::get('/collaborators', [SidebarController::class, 'manageCollaboratorsIndex'])->name('collaborators.index');
     Route::get('collaborator/create', [UserController::class, 'createCollaborator'])->name('collaborator.create');
     Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/upload', [DropzoneController::class, 'store'])->name('dropzone.store');
+    Route::post('/delete-image', [DropzoneController::class, 'delete'])->name('dropzone.delete');
 });
 
 // Route::middleware(['auth', 'checkAdminSubStore', 'checkStore'])->group(function () {

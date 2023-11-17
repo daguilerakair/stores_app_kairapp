@@ -27,8 +27,10 @@ class StoreOrder extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'total',
-        'order_id',
+        'subTotal',
+        'date',
+        'orderMobile_id',
+        'storeMobileId',
         'subStore_id',
     ];
 }

@@ -11,8 +11,11 @@
         <h3 class="font-bold mb-4 text-xl uppercase text-black">Información tienda</h3>
         <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 w-full mb-6 group">
+                <label for="rut" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    RUT
+                </label>
                 <input wire:model="rut" type="text" name="rut" id="rut"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="" required />
                 @error('rut')
                     <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
@@ -20,48 +23,44 @@
                 @if (session()->has('message'))
                     <p class="text-sm text-red-500 font-semibold">{{ session('message') }}</p>
                 @endif
-                <label for="rut"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                    RUT
-                </label>
             </div>
-            <div class="relative z-0 w-1/4 mb-6 group">
+            <div class="relative z-0 w-1/4 sm:w-1/6 mb-6 group">
+                <label for="checkDigit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Dígito verificador
+                </label>
                 <input wire:model="checkDigit" type="text" name="checkDigit" id="checkDigit"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=" " required />
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="K" required />
                 @error('checkDigit')
                     <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
                 @enderror
-                <label for="checkDigit"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-0 sm:top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                    Dígito verificador
-                </label>
             </div>
         </div>
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="companyName" type="text" name="floating_name" id="floating_name"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required />
-            @error('companyName')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-            <label for="floating_name"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Nombre Compañia
-            </label>
-        </div>
 
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="fantasyName" type="text" name="floating_name" id="floating_name"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required />
-            @error('fantasyName')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-            <label for="floating_name"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Nombre Fantasia
-            </label>
+        <div class="grid sm:grid-cols-2 sm:gap-4">
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="floating_company_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Nombre Compañia
+                </label>
+                <input wire:model="companyName" type="text" name="floating_company_name" id="floating_company_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required />
+                @error('companyName')
+                    <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="floating_fantasy_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Nombre Fantasia
+                </label>
+                <input wire:model="fantasyName" type="text" name="floating_fantasy_name" id="floating_fantasy_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required />
+                @error('fantasyName')
+                    <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
         {{-- Radio --}}
@@ -88,7 +87,7 @@
                     <input checked id="check-radio" type="radio" wire:model='radioCheckedItinerant' value="Y"
                         name="default-radio"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <label for="default-radio-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Si
                     </label>
                 </div>
@@ -96,7 +95,7 @@
                     <input id="no-check-radio" type="radio" wire:model='radioCheckedItinerant' value="N"
                         name="default-radio"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <label for="default-radio-2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         No
                     </label>
                 </div>
@@ -111,7 +110,8 @@
                     <input checked id="check-radio-custom" type="radio" wire:model='radioCheckedCustom' value="Y"
                         name="default-radio-custom"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-custom-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <label for="default-radio-custom-1"
+                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Si
                     </label>
                 </div>
@@ -119,7 +119,8 @@
                     <input id="no-check-radio-custom" type="radio" wire:model='radioCheckedCustom' value="N"
                         name="default-radio-custom"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-custom-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <label for="default-radio-custom-2"
+                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         No
                     </label>
                 </div>
@@ -128,29 +129,29 @@
 
         {{-- Administrator Info --}}
         <h3 class="font-bold mb-4 text-xl uppercase text-black">Información administrador de la tienda</h3>
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="nameAdmin" type="text" name="nameAdmin" id="nameAdmin"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="" required />
-            @error('nameAdmin')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-            <label for="nameAdmin"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Nombre administrador
-            </label>
-        </div>
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="email" type="text" name="email" id="email"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="" required />
-            @error('email')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-            <label for="email"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Correo electrónico
-            </label>
+        <div class="grid sm:grid-cols-2 sm:gap-4">
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="nameAdmin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Nombre administrador
+                </label>
+                <input wire:model="nameAdmin" type="text" name="nameAdmin" id="nameAdmin"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" required />
+                @error('nameAdmin')
+                    <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Correo electrónico
+                </label>
+                <input wire:model="email" type="text" name="email" id="email"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" required />
+                @error('email')
+                    <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
     </div>
 

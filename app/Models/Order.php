@@ -26,7 +26,9 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'total',
+        'subTotal',
         'date',
+        'orderMobileId',
+        'subStoreId',
     ];
 }

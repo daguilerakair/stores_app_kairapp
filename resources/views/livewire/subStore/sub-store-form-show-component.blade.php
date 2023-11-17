@@ -13,58 +13,56 @@
     {{-- SubStore Form --}}
     <div class="bg-white p-4 rounded-sm" wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Nombre Sucursal
+            </label>
             <input wire:model="name" type="text" name="name" id="name"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder=" " required />
             @error('name')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
             @enderror
-            <label for="name"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Nombre Sucursal
-            </label>
         </div>
 
         <div class="relative z-0 w-full mb-6 group">
+            <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Dirección
+            </label>
             <input wire:model="address" type="text" name="address" id="address"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder=" " required />
             @error('address')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
             @enderror
-            <label for="address"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Dirección
-            </label>
         </div>
 
         <input wire:model="latitude" type="hidden" name="latitude" id="latitude" />
         <input wire:model="longitude" type="hidden" name="longitude" id="longitude" />
 
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="phone" type="tel" name="phone" id="phone"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="" />
-            @error('phone')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-            <label for="phone"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Teléfono
-            </label>
-        </div>
+        <div class="grid sm:grid-cols-2 sm:gap-4">
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Teléfono
+                </label>
+                <input wire:model="phone" type="tel" name="phone" id="phone"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" />
+                @error('phone')
+                    <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="commission" type="number" min="0.00001" name="commission" id="commission"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="" />
-            @error('commission')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-            <label for="commission"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Comisión
-            </label>
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="commission" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Comisión
+                </label>
+                <input wire:model="commission" type="number" min="0.00001" name="commission" id="commission"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" />
+                @error('commission')
+                    <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
         <div class="my-8">
@@ -87,7 +85,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC78zCFcygh1OxESbMwjXWWtzW5p8jZaCw&libraries=places&callback=initialize">
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize">
     </script>
 
     <script type="text/javascript">

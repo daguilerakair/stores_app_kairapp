@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sistema de gestión de tiendas de la aplicación Kairapp.">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Kairapp</title>
@@ -15,6 +16,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('chart')
+    @stack('dropzone')
     @livewireStyles
 </head>
 

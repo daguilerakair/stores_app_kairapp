@@ -1,4 +1,4 @@
-<div class="bg-white p-4 rounded-sm w-1/2 mx-auto">
+<div class="bg-white p-4 rounded-sm sm:w-1/2 mx-auto">
     <div wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
             <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

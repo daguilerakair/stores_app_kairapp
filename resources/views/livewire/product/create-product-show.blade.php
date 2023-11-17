@@ -1,9 +1,16 @@
 @push('css')
     @vite(['resources/css/spinner.css)'])
 @endpush
+
+@push('dropzone')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+@endpush
 <div class="bg-white p-4 rounded-sm">
     <div class="lds-hourglass"></div>
     <div wire:ignore.self>
+        {{-- Input for product name --}}
         <div class="relative z-0 w-full mb-6 group">
             <input wire:model="name" type="text" name="floating_name" id="floating_name"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -16,6 +23,8 @@
                 Nombre
             </label>
         </div>
+
+        {{-- Input for product description --}}
         <div class="relative z-0 w-full mb-6 group">
             <input wire:model="description" type="text" name="repeat_password" id="floating_repeat_password"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -28,6 +37,8 @@
                 Descripción
             </label>
         </div>
+
+        {{-- Grid for price and stock inputs --}}
         <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 w-full mb-6 group">
                 <input wire:model="price" type="text" name="floating_first_name" id="floating_first_name"
@@ -41,6 +52,8 @@
                     Precio
                 </label>
             </div>
+
+            {{-- Input for product stock --}}
             <div class="relative z-0 w-full mb-6 group">
                 <input wire:model="stock" type="text" name="floating_last_name" id="floating_last_name"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -54,6 +67,8 @@
                 </label>
             </div>
         </div>
+
+        {{-- Select for product category --}}
         <div class="relative z-0 w-full mb-6 group">
             <label for="countries" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">
                 Seleccione una categoria
@@ -69,6 +84,8 @@
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
             @enderror
         </div>
+
+        {{-- Inputs for product characteristics --}}
         <div class="grid md:grid-cols-2">
             @foreach ($characteristics as $key => $chara)
                 <div class="mb-6 mx-auto w-3/4">
@@ -84,47 +101,23 @@
             @endforeach
         </div>
 
-        <div class="relative z-0 w-full mb-6 group">
-            <input wire:model="images" type="file" name="image" id="image" multiple
-                class="block py-2.5 my-4 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                required />
-            @error('images.*')
+        {{-- Dropzone for uploading images --}}
+        <div class="mb-6">
+            <label for="images" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">
+                Subir imagenes
+            </label>
+            <form action="{{ route('dropzone.store') }}" method="POST" enctype="multipart/form-data" id="image-upload"
+                class="dropzone border-dashed border-2">
+                @csrf
+            </form>
+            <input wire:model='images' hidden />
+            @error('images')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
             @enderror
-            <label for="images"
-                class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
-                Imagen
-            </label>
-        </div>
-        @if ($this->images)
-            @foreach ($this->images as $index => $image)
-                <div class="flex flex-col">
-                    <img class="w-1/6 h-48 max-w-lg my-4 rounded-lg" src="{{ $image->temporaryUrl() }}" alt="">
-                    <form wire:submit.prevent="removeImage({{ $index }})">
-                        <button type="submit" class="top-2 right-2 text-red-500">Eliminar</button>
-                    </form>
-                </div>
-            @endforeach
-        @endif
-
-        {{-- Checkboxes --}}
-        <div id="subStores-list" class="hidden">
-            <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Listado Sucursales</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @foreach ($subStores as $subStore)
-                    <div class="flex items-center mb-4 gap-2">
-                        <input id="default-checkbox" type="checkbox" value="{{ $subStore->id }}"
-                            wire:model='selectedItems'
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            {{ $subStore->name }}
-                        </label>
-                    </div>
-                @endforeach
-            </div>
         </div>
     </div>
 
+    {{-- Buttons for submitting and returning --}}
     <div class="flex gap-2 justify-center">
         <button wire:click="save" wire:loading.attr="disabled" @if ($disabledButton) disabled @endif
             class="text-white  bg-pink-custom-600 hover:bg-pink-custom-850 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -138,19 +131,70 @@
 </div>
 
 @push('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const checkRadioSubStore = document.getElementById('check-radio');
-            const noCheckRadioSubStore = document.getElementById('no-check-radio');
+    <script type="text/javascript">
+        // Get the CSRF token from the meta tag in the document head
+        const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
 
-            const listSubStore = document.getElementById('subStores-list');
-
-            checkRadioSubStore.addEventListener('change', () => {
-                listSubStore.classList.add('hidden');
+        // Listen for the Livewire initialized event
+        document.addEventListener('livewire:initialized', () => {
+            // Create a new Dropzone instance with specified options
+            const dropzone = new Dropzone("#image-upload", {
+                dictDefaultMessage: "Haz click aqui para subir las imagenes de tu producto",
+                maxFiles: 3,
+                maxFileSize: 2,
+                acceptedFiles: ".jpeg,.jpg,png",
+                addRemoveLinks: true,
+                dictRemoveFile: "Borrar imagen",
+                dictFallbackMessage: "Tu navegador no soporta la carga de archivos mediante arrastrar y soltar.",
+                dictInvalidFileType: "No puedes subir archivos con esa extension.",
+                dictMaxFilesExceeded: "No puedes subir más archivos. Límite alcanzado.",
+                dictFileTooBig: "El archivo es demasiado grande. Tamaño máximo de archivo: 2MB.",
             });
 
-            noCheckRadioSubStore.addEventListener('change', () => {
-                listSubStore.classList.remove('hidden');
+            // Event listener for a successful file upload
+            dropzone.on('success', function(file, response) {
+                // Dispatch Livewire event to add the uploaded image
+                @this.dispatch('addImage', {
+                    pathImage: response
+                });
+            });
+
+            // Event listener for removing a file
+            dropzone.on('removedfile', async function(file, message) {
+                try {
+                    // Extract the image URL from the response
+                    const imageUrl = file.xhr.response;
+                    const imageUrlFormatted = imageUrl.replaceAll('"', '');
+
+                    // Send a request to the server to delete the image
+                    const response = await fetch('/delete-image', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({
+                            _token: csrfToken,
+                            imageUrl: imageUrlFormatted
+                        })
+                    });
+
+                    // Check if the server request was successful
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar la imagen del servidor');
+                    }
+
+                    // Parse the server response as JSON
+                    const data = await response.json();
+
+                    // Format the image response and dispatch Livewire event to remove the image
+                    const imageResponseFormatted = data.replace(/\\\//g, '/');
+                    @this.dispatch('removeImage', {
+                        path: imageResponseFormatted,
+                    });
+                } catch (error) {
+                    console.error('Error al eliminar la imagen del servidor.');
+                }
             });
         });
     </script>

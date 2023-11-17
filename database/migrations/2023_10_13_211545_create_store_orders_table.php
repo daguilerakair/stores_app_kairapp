@@ -12,8 +12,10 @@ return new class() extends Migration {
     {
         Schema::create('store_orders', function (Blueprint $table) {
             $table->id(); // Unique identifier for the store order.
-            $table->integer('total'); // Total amount for the store order.
-            $table->foreignId('order_id')->constrained('orders'); // Foreign key to the related order.
+            $table->integer('subTotal'); // Total amount for the store order.
+            $table->date('date');
+            $table->string('orderMobile_id')->nullable();
+            $table->string('storeMobile_id')->nullable();
             $table->foreignId('substore_id')->constrained('sub_stores'); // Foreign key to the related substore.
             $table->timestamps(); // Timestamps for record creation and modification.
         });

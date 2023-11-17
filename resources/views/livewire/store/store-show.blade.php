@@ -40,7 +40,7 @@
                     @foreach ($stores as $store)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <td class="w-32 p-4">
-                                {{ $store->rut }}
+                                {{ rutFormatter($store->rut, $store->checkDigit) }}
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900">
                                 {{ $store->fantasyName }}

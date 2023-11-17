@@ -14,7 +14,6 @@ return new class() extends Migration {
             $table->id(); // Unique identifier for the product.
             $table->string('name'); // Name of the product.
             $table->string('description'); // Description of the product.
-            $table->string('pathImage'); // Path to the product's image.
             $table->integer('price');
             $table->boolean('variablePrice');
             $table->double('reputation')->nullable(); // Reputation score (optional).

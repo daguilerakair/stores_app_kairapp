@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int         $id
  * @property string      $name
- * @property string      $pathImage
  * @property string|null $productMobileId
  * @property string      $description
  *
@@ -31,9 +30,18 @@ class Product extends Model
         'name',
         'price',
         'variablePrice',
-        'pathImage',
         'productMobileId',
         'description',
         'store_rut',
     ];
+
+    public function productImages()
+    {
+        return $this->hasMany(ProductImages::class, 'product_id');
+    }
+
+    public function firstProductImages()
+    {
+        return $this->hasMany(ProductImages::class, 'product_id')->first();
+    }
 }

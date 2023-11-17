@@ -47,8 +47,8 @@ class StoresTableSeeder extends Seeder
         // ]);
 
         Store::create([
-            'rut' => 77563123,
-            'checkDigit' => '4',
+            'rut' => 77731223,
+            'checkDigit' => '5',
             'companyName' => 'Giftify Spa',
             'fantasyName' => 'Kairapp',
             'pathProfile' => 'https://www.vegamonumental.cl/wp-content/uploads/2019/07/IMG_20190719_115942-600x400.jpg',

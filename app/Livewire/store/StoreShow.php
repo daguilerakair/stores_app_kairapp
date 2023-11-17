@@ -14,7 +14,7 @@ class StoreShow extends Component
         $stores = Store::withCount('subStores')->get();
 
         $stores = $stores->filter(function ($store) {
-            return $store->rut != 77563123;
+            return $store->rut !=77731223;
         });
 
         return view('livewire.store.store-show', compact('stores'));

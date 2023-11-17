@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\SubStore;
+namespace App\Livewire\subStore;
 
 use App\Models\SubStore;
 use Livewire\Component;
@@ -16,6 +16,7 @@ class EditSubStoreShow extends Component
     public $phone;
     public $latitude;
     public $longitude;
+    public $subStoreMobileId;
 
     protected $rules = [
         'name' => 'required|max:255',
@@ -24,6 +25,7 @@ class EditSubStoreShow extends Component
         'phone' => 'required',
         'latitude' => 'required',
         'longitude' => 'required',
+        'subStoreMobileId' => 'required',
     ];
 
     public function save()
@@ -39,6 +41,7 @@ class EditSubStoreShow extends Component
         $updateSubStore->longitude = $this->longitude;
         $updateSubStore->commission = $this->commission;
         $updateSubStore->phone = $this->phone;
+        $updateSubStore->subStoreMobileId = $this->subStoreMobileId;
         $updateSubStore->save();
 
         $this->dispatch('render')->to(SubstoreShowComponent::class);
@@ -54,11 +57,12 @@ class EditSubStoreShow extends Component
     public function replaceValues()
     {
         $this->name = $this->selectedSubStore->name;
-        // $this->address = $this->selectedSubStore->address;
+        $this->address = $this->selectedSubStore->address;
         $this->commission = $this->selectedSubStore->commission;
         $this->phone = $this->selectedSubStore->phone;
         $this->latitude = $this->selectedSubStore->latitude;
         $this->longitude = $this->selectedSubStore->longitude;
+        $this->subStoreMobileId = $this->selectedSubStore->subStoreMobileId;
     }
 
     public function mount($subStore)

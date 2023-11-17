@@ -68,8 +68,8 @@
                     @foreach ($subStoreProducts as $subStoreProduct)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <td class="w-32 p-4">
-                                <img src="{{ $subStoreProduct->productDates->pathImage }}"
-                                    alt="product-img-{{ $subStoreProduct->productDates->id }}">
+                                <img src="{{ $subStoreProduct->productDates->productImages->first()->path }}"
+                                    alt="product-img-{{ $subStoreProduct->productDates->productImages->first()->id }}">
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900">
                                 {{ $subStoreProduct->productDates->name }}

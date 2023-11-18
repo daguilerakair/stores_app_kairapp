@@ -17,6 +17,7 @@ class CreateOrderShow extends Component
     public $price;
     public $product;
 
+    public $searchRut;
     public $store;
     public $subStore;
     public $subStores = [];
@@ -37,6 +38,11 @@ class CreateOrderShow extends Component
         'products.*.buyPrice' => 'required|numeric|min:1',
         'products.*.product' => 'required',
     ];
+
+    public function handleSearch()
+    {
+        dd($this->searchRut);
+    }
 
     public function changedSelectStore()
     {

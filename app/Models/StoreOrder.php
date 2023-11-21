@@ -30,7 +30,12 @@ class StoreOrder extends Model
         'subTotal',
         'date',
         'orderMobile_id',
-        'storeMobileId',
-        'subStore_id',
+        'storeMobile_id',
+        'sub_store_id',
     ];
+
+    public function subStoreDates()
+    {
+        return $this->belongsTo(SubStore::class, 'sub_store_id');
+    }
 }

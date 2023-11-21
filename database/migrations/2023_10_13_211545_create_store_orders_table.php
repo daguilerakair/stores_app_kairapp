@@ -16,7 +16,7 @@ return new class() extends Migration {
             $table->date('date');
             $table->string('orderMobile_id')->nullable();
             $table->string('storeMobile_id')->nullable();
-            $table->foreignId('substore_id')->constrained('sub_stores'); // Foreign key to the related substore.
+            $table->foreignId('sub_store_id')->constrained('sub_stores'); // Foreign key to the related substore.
             $table->timestamps(); // Timestamps for record creation and modification.
         });
     }

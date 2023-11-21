@@ -34,8 +34,6 @@ class ProductController extends Controller
 
     public function create($subStore)
     {
-        // dd($subStore);
-
         return view('sidebarScreens.inventoryManagement.product.create', [
             'subStore' => $subStore,
         ]);

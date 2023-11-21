@@ -29,8 +29,15 @@ class StoreProductOrder extends Model
      */
     protected $fillable = [
         'quantity',
-        'price',
-        'order_id',
-        'store_product_id',
+        'buyPrice',
+        'note',
+        'productMobile_id',
+        'store_order_id',
+        'sub_store_product_id',
     ];
+
+    public function subStoreProductDates()
+    {
+        return $this->belongsTo(SubStoreProduct::class, 'sub_store_product_id');
+    }
 }

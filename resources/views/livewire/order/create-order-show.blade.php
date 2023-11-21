@@ -26,22 +26,10 @@
             @enderror
         </div>
 
-        <div class="relative z-0 w-full mb-6 group">
-            <label for="floating_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Fecha
-            </label>
-            <input wire:model="date" type="date" name="repeat_password" id="floating_date"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="" required />
-            @error('date')
-                <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
-            @enderror
-        </div>
-
         <form  wire:submit.prevent="handleSearch" class="flex items-center mb-4 gap-2">
             <div class="relative w-full">
                 <input wire:model='searchRut' type="text" id="simple-search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Ingresa un RUT de tienda" required>
             </div>
             <button type="submit"
@@ -57,14 +45,13 @@
 
         <div class="relative z-0 w-full mb-6 group">
             <label for="stores" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">
-                Seleccione una tienda
+                Tienda encontrada
             </label>
-            <select wire:model="store" wire:change='changedSelectStore' id="stores"
+            <select wire:model="store" wire:change='changedSelectStore' id="stores" disabled
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="" selected>--Seleccione--</option>
-                @foreach ($stores as $store)
-                    <option value="{{ $store->rut }}">{{ $store->fantasyName }}</option>
-                @endforeach
+                @if ($searchStore)
+                <option value="{{ $searchStore->rut }}">{{ $searchStore->fantasyName }}</option>
+                @endif
             </select>
             @error('store')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>

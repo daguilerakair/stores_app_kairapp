@@ -13,8 +13,10 @@ return new class() extends Migration {
         Schema::create('store_product_orders', function (Blueprint $table) {
             $table->id(); // Unique identifier for the store product order.
             $table->integer('quantity'); // Quantity of the product in the order.
-            $table->integer('price'); // Price of the product in the order.
-            $table->foreignId('order_id')->constrained('orders'); // Foreign key to the related order.
+            $table->integer('buyPrice'); // Price of the product in the order.
+            $table->string('note')->nullable(); // Note of the product in the order.
+            $table->string('productMobile_id'); // Unique identifier for the product in the order.
+            $table->foreignId('store_order_id')->constrained('store_orders'); // Foreign key to the related order.
             $table->foreignId('sub_store_product_id')->constrained('sub_store_products'); // Foreign key to the related store product.
             $table->timestamps(); // Timestamps for record creation and modification.
         });

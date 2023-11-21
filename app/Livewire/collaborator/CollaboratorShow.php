@@ -64,7 +64,7 @@ class CollaboratorShow extends Component
                 $subStoreAdmin = session('subStoreAdmin');
 
                 // Agregar validacion de que la subStore del user sea igual a la del admin substore autenticado.
-                return $userStore->roleUser->id != 2 && $userStore->roleUser->id != $roleAuthUser->id && $userStore->subStoreUser->id == $subStoreAdmin->id && $userStore->delete == false;
+                return $userStore->roleUser->id != 2 && $userStore->roleUser->id != $roleAuthUser->id && $userStore->subStoreUser->id == $subStoreAdmin[0]->id && $userStore->delete == false;
             }
         });
 

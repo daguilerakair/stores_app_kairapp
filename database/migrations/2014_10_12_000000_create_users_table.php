@@ -16,6 +16,7 @@ return new class() extends Migration {
             $table->string('email')->unique(); // Unique email address for the user.
             $table->timestamp('email_verified_at')->nullable(); // Timestamp for email verification.
             $table->string('password'); // Encrypted user password
+            $table->boolean('temporary_password')->default(true); // Temporary password flag.
             $table->rememberToken(); // Token for "remember me" functionality.
             $table->timestamps(); // Timestamps for record creation and modification.
         });

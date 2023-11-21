@@ -4,7 +4,10 @@ namespace App\Livewire\order;
 
 use App\Models\Store;
 use App\Models\StoreOrder;
+use App\Models\StoreProductOrder;
 use App\Models\SubStore;
+use App\Models\SubStoreProduct;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class CreateOrderShow extends Component
@@ -12,13 +15,15 @@ class CreateOrderShow extends Component
     // Atributes order
     public $orderMobileId;
     public $total;
-    public $date;
+
+    // Atributes product
     public $quantity;
     public $price;
-    public $product;
 
+    // Atributes search store
+    public $searchStore;
     public $searchRut;
-    public $store;
+
     public $subStore;
     public $subStores = [];
 
@@ -31,8 +36,6 @@ class CreateOrderShow extends Component
     protected $rules = [
         'orderMobileId' => 'required',
         'total' => 'required',
-        'date' => 'required|date',
-        'store' => 'required',
         'subStore' => 'required',
         'products.*.quantity' => 'required|numeric|min:1',
         'products.*.buyPrice' => 'required|numeric|min:1',
@@ -41,12 +44,20 @@ class CreateOrderShow extends Component
 
     public function handleSearch()
     {
-        dd($this->searchRut);
+        $store = Store::find($this->searchRut);
+
+        if ($store) {
+            $this->searchStore = $store;
+            $this->changedSelectStore();
+        } else {
+            $this->searchStore = '';
+            $this->subStores = [];
+        }
     }
 
     public function changedSelectStore()
     {
-        $selectedStoreRUT = $this->store;
+        $selectedStoreRUT = $this->searchStore->rut;
         $selectedStore = Store::find($selectedStoreRUT);
 
         if ($selectedStore) {
@@ -101,19 +112,46 @@ class CreateOrderShow extends Component
         }
     }
 
+    public function returnOrderManagement()
+    {
+        $this->redirect('/orders/management');
+    }
+
     public function save()
     {
         $this->validate();
-        dd($this->products);
+
+        // Find SubStore
+        $subStore = SubStore::find($this->subStore);
 
         // Create Store Order
-        // $storeOrder = StoreOrder::create([
-        //     'subTotal' =>,
-        //     'date' =>,
-        //     'orderMobile_id' =>,
-        //     'storeMobileId' =>,
-        //     'subStore_id' =>,
-        // ]);
+        $storeOrder = StoreOrder::create([
+            'subTotal' => $this->total,
+            'date' => Carbon::now(),
+            'orderMobile_id' => $this->orderMobileId,
+            'storeMobile_id' => $subStore->subStoreMobileId,
+            'sub_store_id' => $subStore->id,
+        ]);
+
+        // Create Store Product Orders
+        foreach ($this->products as $product) {
+            $subStoreProduct = $product['product'];
+            $searchSubStoreProduct = SubStoreProduct::find($subStoreProduct);
+            StoreProductOrder::create([
+                'quantity' => $product['quantity'],
+                'buyPrice' => $product['buyPrice'],
+                'note' => $product['note'],
+                'productMobile_id' => $searchSubStoreProduct->productDates->productMobileId,
+                'store_order_id' => $storeOrder->id,
+                'sub_store_product_id' => $product['product'],
+            ]);
+        }
+
+        $this->dispatch('render')->to(OrderShow::class);
+        toastr()->success('El pedido fue ingresado con éxito', 'Pedido ingresado!');
+        $this->returnOrderManagement();
+
+        // dd($storeOrder);
 
         // Create Store Product Orders
     }

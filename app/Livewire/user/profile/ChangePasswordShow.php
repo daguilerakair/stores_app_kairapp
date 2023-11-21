@@ -37,9 +37,10 @@ class ChangePasswordShow extends Component
 
         // Corroborar que la contraseña ingresada coincida con la del usuario
         if (Hash::check($this->current_password, $user->password)) {
-            $user->update([
-                'password' => bcrypt($this->password),
-            ]);
+            $user->password = bcrypt($this->password);
+            $user->temporary_password = false;
+            $user->save();
+
             toastr()->success('La contraseña fue actualizada con éxito', 'Contraseña actualizada!');
             $this->returnInventory();
         } else {

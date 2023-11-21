@@ -31,7 +31,6 @@ class AuthenticatedSessionController extends Controller
         // Borrar datos de una sesión previa
         // session()->flush();
         if (session()->has('store')) {
-            dd('ddd');
             // La sesión existe
             // Puedes realizar acciones en consecuencia
         } else {

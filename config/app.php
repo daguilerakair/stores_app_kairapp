@@ -53,6 +53,9 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
+    'google_maps_api_key' => env('GOOGLE_MAPS_API_KEY'),
+
+    'aws_url' => env('AWS_URL', 'https://s3.amazonaws.com/'),
 
     'url' => env('APP_URL', 'http://localhost'),
 
@@ -69,7 +72,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------

@@ -47,7 +47,7 @@
                 <tbody>
                     @foreach ($storeCollaborators as $storeCollaborator)
                         <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="w-36 p-4">
+                            <td class="w-36 px-6 py-4 font-semibold text-gray-900">
                                 {{ $storeCollaborator->userInfo->name }}
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900">

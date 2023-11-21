@@ -25,6 +25,9 @@
     <main class="sm:ml-64">
         {{ $slot }}
     </main>
+    <div class="sm:ml-64">
+        @livewire('livewire-ui-modal')
+    </div>
     @livewireScripts
     @stack('js')
 </body>

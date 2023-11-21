@@ -16,7 +16,6 @@ class SidebarController extends Controller
         $subStoreProducts = session('selectedSubStore');
         $selectedOption = 0;
         if ($subStoreProducts) {
-            // dd($subStoreProducts);
             $subStoreProducts = $subStoreProducts->productStore()->get();
         } else {
             $subStoreProducts = null;
@@ -48,9 +47,28 @@ class SidebarController extends Controller
         return view('sidebarScreens.storesManagement.index');
     }
 
+    public function ordersManagementStoreIndex()
+    {
+        $userRole = session('role');
+        $selectedOption = 0;
+
+        if ($userRole->id === 3 || $userRole->id === 4) {
+            return view('sidebarScreens.ordersManagement.subStore.index');
+        } else {
+            return view('sidebarScreens.ordersManagement.store.index', compact('selectedOption'));
+        }
+    }
+
+    public function ordersManagementStoreIndexSelected($id)
+    {
+        $selectedOption = $id;
+
+        return view('sidebarScreens.ordersManagement.store.index', compact('selectedOption'));
+    }
+
     public function ordersManagementIndex()
     {
-        return view('sidebarScreens.ordersManagement.index');
+        return view('sidebarScreens.ordersManagement.kairapp.index');
     }
 
     public function supportIndex()

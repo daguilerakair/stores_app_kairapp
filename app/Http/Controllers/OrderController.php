@@ -6,6 +6,6 @@ class OrderController extends Controller
 {
     public function createOrder()
     {
-        return view('sidebarScreens.ordersManagement.order.create');
+        return view('sidebarScreens.ordersManagement.kairapp.order.create');
     }
 }

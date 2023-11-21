@@ -32,11 +32,9 @@ class ProductsShow extends Component
 
     public function handleSelectChange()
     {
-        // dd($this->selectedOption);
-
         $findSubStoreProducts = SubStore::find($this->selectedOption);
         $findProducts = $findSubStoreProducts->productStore()->get();
-        // dd($findProducts);
+
         // asignamos los productos segun la sucursal seleccionada
         $this->subStoreProducts = $findProducts;
 
@@ -69,7 +67,6 @@ class ProductsShow extends Component
      */
     public function edit($id)
     {
-        // dd($id);
         $selectProduct = SubStoreProduct::find($id)->first();
         $this->dispatch('create-product-show', selectProduct: $selectProduct);
     }
@@ -94,17 +91,32 @@ class ProductsShow extends Component
     public function mount()
     {
         $store = session('store');
-        $array = $store->subStores()->get();
-        $this->subStores = $array;
+        $roleAdmin = session('role');
+        if ($roleAdmin->id === 2) {
+            $array = $store->subStores()->get();
+            $this->subStores = $array;
 
-        // Asigna un valor inicial a $selectedOption
-        $this->selectedOption = $this->subStores[0]->id; // Asigna el valor inicial apropiado
+            // Asigna un valor inicial a $selectedOption
+            // dd($this->subStores);
+            $this->selectedOption = $this->subStores[0]->id; // Asigna el valor inicial apropiado
 
-        $findSubStoreProducts = SubStore::find($this->selectedOption);
-        $findProducts = $findSubStoreProducts->productStore()->get();
+            $findSubStoreProducts = SubStore::find($this->selectedOption);
+            $findProducts = $findSubStoreProducts->productStore()->get();
 
-        // asignamos los productos segun la sucursal seleccionada
-        $this->subStoreProducts = $findProducts;
+            // asignamos los productos segun la sucursal seleccionada
+            $this->subStoreProducts = $findProducts;
+        } elseif ($roleAdmin->id === 3) {
+            $selectedSubStore = session('selectedSubStore');
+            $subStore = SubStore::where('id', $selectedSubStore->id)->get();
+            $this->subStores = $subStore;
+            $this->selectedOption = $this->subStores[0]->id; // Asigna el valor inicial apropiado
+
+            $findSubStoreProducts = SubStore::find($this->selectedOption);
+            $findProducts = $findSubStoreProducts->productStore()->get();
+
+            // asignamos los productos segun la sucursal seleccionada
+            $this->subStoreProducts = $findProducts;
+        }
     }
 
     /**
@@ -112,8 +124,6 @@ class ProductsShow extends Component
      */
     public function render()
     {
-        // dd($this->selectedOptionV);
-
         if ($this->selectedOptionV === 0) {
             // Se obtiene el tipo de administrador
             $roleAdmin = session('role');

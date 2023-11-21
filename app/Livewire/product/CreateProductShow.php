@@ -113,12 +113,10 @@ class CreateProductShow extends Component
                 'store_rut' => $store->rut,
             ]);
 
-            $bucketURL = env('AWS_URL');
-
             // Agregar las imagenes al producto
             foreach ($this->images as $image) {
                 ProductImages::create([
-                    'path' => $bucketURL.'products/'.$image,
+                    'path' => 'products/'.$image,
                     'product_id' => $product->id,
                 ]);
             }

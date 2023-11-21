@@ -50,12 +50,25 @@ class StoreController extends Controller
                     } else {
                         session(['selectedSubStore' => null]);
                     }
+                } elseif ($role->id === 4) {
+                    $subStore = $userStore->subStoreUser()->first();
+                    if ($subStore) {
+                        session(['selectedSubStore' => $subStore, 'subStoreAdmin' => null]);
+                    } else {
+                        session(['selectedSubStore' => null]);
+                    }
                 }
                 // Find the first substore of the selected store
                 // Update the user's selection to true
                 session()->put(['selectedStore' => true]);
 
-                return redirect()->route('dashboard');
+                // Check if the user has a temporary password
+                $user = auth()->user();
+                if ($user->temporary_password) {
+                    return redirect()->route('change-password.index');
+                } else {
+                    return redirect()->route('dashboard');
+                }
             }
         }
 

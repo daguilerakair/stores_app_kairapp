@@ -16,18 +16,21 @@ class UsersTableSeeder extends Seeder
             'name' => 'Diego Aguilera',
             'email' => 'diego.aguilera@gmail.com',
             'password' => bcrypt('contraseña1'),
+            'temporary_password' => false,
         ]);
 
         User::create([
             'name' => 'Cristian Zepeda',
             'email' => 'cristian@example.com',
             'password' => bcrypt('contraseña2'),
+            'temporary_password' => false,
         ]);
 
         User::create([
             'name' => 'Kairapp',
             'email' => 'kairapp@kairapp.com',
             'password' => bcrypt('kairapp2023'),
+            'temporary_password' => false,
         ]);
     }
 }

@@ -11,14 +11,16 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::create('user_stores', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->integer('store_rut');
-            $table->foreign('store_rut')->references('rut')->on('stores');
-            $table->foreignId('role_id')->constrained('roles');
-            $table->boolean('status');
-            $table->boolean('delete');
-            $table->timestamps();
+            $table->id(); // Unique identifier for the user-store relationship.
+            $table->foreignId('user_id')->constrained('users'); // Foreign key to the related user.
+            $table->integer('store_rut'); // RUT of the associated store.
+            $table->foreign('store_rut')->references('rut')->on('stores'); // Foreign key to the associated store.
+            $table->foreignId('role_id')->constrained('roles'); // Foreign key to the related role.
+            $table->integer('subStore_id')->nullable(); // Identifier for a related substore (optional).
+            $table->boolean('admin'); // Admin: false = inactive, true = active.
+            $table->boolean('status'); // Status: false = inactive, true = active.
+            $table->boolean('delete'); // Deletion status: false = not deleted, true = deleted.
+            $table->timestamps(); // Timestamps for record creation and modification.
         });
     }
 
@@ -27,6 +29,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_stores');
+        Schema::dropIfExists('user_stores'); // Drop the 'user_stores' table when rolling back the migration.
     }
 };

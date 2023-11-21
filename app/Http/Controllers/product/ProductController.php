@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\product;
 
 use App\Http\Controllers\Controller;
-use App\Models\StoreProduct;
+use App\Models\SubStoreProduct;
 
 class ProductController extends Controller
 {
@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         // dd($id);
 
-        $storeProduct = StoreProduct::find($id);
+        $storeProduct = SubStoreProduct::find($id);
 
         if ($storeProduct) {
             return view('sidebarScreens.inventoryManagement.product.edit', [
@@ -30,13 +30,12 @@ class ProductController extends Controller
         }
 
         return back();
-
-        // dd('desde create');
     }
 
-    public function create()
+    public function create($subStore)
     {
-        // dd('desde create');
-        return view('sidebarScreens.inventoryManagement.product.create');
+        return view('sidebarScreens.inventoryManagement.product.create', [
+            'subStore' => $subStore,
+        ]);
     }
 }

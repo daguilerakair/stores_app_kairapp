@@ -5,11 +5,12 @@
         </h2>
     </x-slot>
 
-    <div class="my-2">
-        <h1 class="font-bold text-3xl">Gestor de Inventario - {{ session('store')->name }}</h1>
+    <div class="mb-2 p-6 bg-gray-custom-600">
+        <h1 class="font-bold text-white text-2xl sm:text-3xl">Gestor de Inventario - {{ session('store')->name }}</h1>
+        <h3 class="font-bold text-white text-lg sm:text-xl">{{ auth()->user()->name }} - {{ session('role')->name }}  </h3>
     </div>
 
     <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            @livewire('products-show')
+        @livewire('product.products-show', ['subStoreProducts' => $subStoreProducts, 'selectedOptionV' => $selectedOption])
     </div>
 </x-app-layout>

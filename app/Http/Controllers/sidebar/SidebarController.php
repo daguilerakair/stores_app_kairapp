@@ -13,9 +13,28 @@ class SidebarController extends Controller
 
     public function inventoryManagementIndex()
     {
-        $storeProducts = session('store')->productStore()->get();
+        $subStoreProducts = session('selectedSubStore');
+        $selectedOption = 0;
+        if ($subStoreProducts) {
+            $subStoreProducts = $subStoreProducts->productStore()->get();
+        } else {
+            $subStoreProducts = null;
+        }
 
-        return view('sidebarScreens.inventoryManagement.index', compact('storeProducts'));
+        return view('sidebarScreens.inventoryManagement.index', compact('subStoreProducts', 'selectedOption'));
+    }
+
+    public function inventoryManagementIndexSelected($id)
+    {
+        $subStoreProducts = session('selectedSubStore');
+        $selectedOption = $id;
+        if ($subStoreProducts) {
+            $subStoreProducts = $subStoreProducts->productStore()->get();
+        } else {
+            $subStoreProducts = null;
+        }
+
+        return view('sidebarScreens.inventoryManagement.index', compact('subStoreProducts', 'selectedOption'));
     }
 
     public function manageCollaboratorsIndex()
@@ -26,5 +45,34 @@ class SidebarController extends Controller
     public function storesManagementIndex()
     {
         return view('sidebarScreens.storesManagement.index');
+    }
+
+    public function ordersManagementStoreIndex()
+    {
+        $userRole = session('role');
+        $selectedOption = 0;
+
+        if ($userRole->id === 3 || $userRole->id === 4) {
+            return view('sidebarScreens.ordersManagement.subStore.index');
+        } else {
+            return view('sidebarScreens.ordersManagement.store.index', compact('selectedOption'));
+        }
+    }
+
+    public function ordersManagementStoreIndexSelected($id)
+    {
+        $selectedOption = $id;
+
+        return view('sidebarScreens.ordersManagement.store.index', compact('selectedOption'));
+    }
+
+    public function ordersManagementIndex()
+    {
+        return view('sidebarScreens.ordersManagement.kairapp.index');
+    }
+
+    public function supportIndex()
+    {
+        return view('sidebarScreens.support.index');
     }
 }

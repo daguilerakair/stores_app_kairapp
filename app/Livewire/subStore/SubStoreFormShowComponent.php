@@ -2,6 +2,7 @@
 
 namespace App\Livewire\subStore;
 
+use App\Livewire\SubStore\SubstoreShowComponent;
 use App\Models\SubStore;
 use Livewire\Component;
 

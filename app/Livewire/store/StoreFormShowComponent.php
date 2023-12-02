@@ -2,6 +2,7 @@
 
 namespace App\Livewire\store;
 
+use App\Livewire\Store\StoreShow;
 use App\Models\Role;
 use App\Models\Store;
 use App\Models\User;

@@ -14,7 +14,7 @@
         </div>
 
         <a class="block text-sm font-medium text-gray-900 dark:text-white">
-            Nombre categoría
+            Nombre característica
         </a>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach ($characteristics as $key => $characteristic)

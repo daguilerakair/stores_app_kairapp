@@ -21,7 +21,6 @@ class OrderShow extends Component
         // asignamos los productos segun la sucursal seleccionada
         $this->subStoreOrders = $findSubStoreOrders;
 
-        // $this->dispatch('render', selectedOption: $this->selectedOption)->to(ProductsShow::class);
         return redirect()->route('orders-selected.index', ['id' => $this->selectedOption]);
     }
 
@@ -47,7 +46,6 @@ class OrderShow extends Component
             $orders = StoreOrder::where('sub_store_id', $this->selectedOptionController)->get();
             $this->subStoreOrders = $orders;
             $this->selectedOption = $this->selectedOptionController;
-            // dd($this->subStoreOrders);
         }
 
         return view('livewire.order.store.order-show');

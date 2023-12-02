@@ -1,7 +1,3 @@
-@push('css')
-    @vite(['resources/css/spinner.css)'])
-@endpush
-
 @push('dropzone')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>

@@ -3,7 +3,6 @@
 namespace App\Livewire\collaborator;
 
 use App\Models\Role;
-use App\Models\Store;
 use App\Models\User;
 use App\Models\UserStore;
 use App\Notifications\CreatedContributor;

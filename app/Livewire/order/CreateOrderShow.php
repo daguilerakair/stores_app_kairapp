@@ -2,6 +2,7 @@
 
 namespace App\Livewire\order;
 
+use App\Livewire\Order\OrderShow;
 use App\Models\Store;
 use App\Models\StoreOrder;
 use App\Models\StoreProductOrder;

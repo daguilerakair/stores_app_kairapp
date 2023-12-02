@@ -2,7 +2,7 @@
 
 namespace App\Livewire\category;
 
-use App\Livewire\product\ProductsShow;
+use App\Livewire\Product\ProductsShow;
 use App\Models\Category;
 use App\Models\Characteristic;
 use App\Models\CharacteristiCategory;

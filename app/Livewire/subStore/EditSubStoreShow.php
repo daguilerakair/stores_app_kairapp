@@ -2,7 +2,7 @@
 
 namespace App\Livewire\subStore;
 
-use App\Models\SubStore;
+use App\Livewire\SubStore\SubstoreShowComponent;
 use Livewire\Component;
 
 class EditSubStoreShow extends Component

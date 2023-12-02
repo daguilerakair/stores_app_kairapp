@@ -2,6 +2,7 @@
 
 namespace App\Livewire\product;
 
+use App\Livewire\Product\ProductsShow;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Order\store;
+namespace App\Livewire\Order\Store;
 
 use App\Models\StoreOrder;
 use Livewire\Component;

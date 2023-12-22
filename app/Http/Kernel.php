@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'checkAdmin' => \App\Http\Middleware\CheckAdministrator::class,
         'checkAdminSubStore' => \App\Http\Middleware\CheckAdministratorSubStore::class,
         'checkAdminKairapp' => \App\Http\Middleware\CheckAdministratorKairapp::class,
+        'ip.restrict' => \App\Http\Middleware\RestrictIpAddress::class,
     ];
 }

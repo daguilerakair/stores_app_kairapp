@@ -14,6 +14,20 @@ class OrderShow extends Component
 
     public $subStoreOrders = [];
 
+    protected $listeners = ['render', 'editOrder'];
+
+    public function returnOrder()
+    {
+        $this->redirect('/orders/subStore/management');
+    }
+
+    public function editOrder($id)
+    {
+        toastr()->success('El pedido fue marcado como entregado!', 'Pedido entregado');
+        $this->returnOrder();
+        // dd($id);
+    }
+
     public function handleSelectChange()
     {
         $findSubStoreOrders = StoreOrder::find($this->selectedOption);

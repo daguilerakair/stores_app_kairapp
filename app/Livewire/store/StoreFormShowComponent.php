@@ -48,8 +48,8 @@ class StoreFormShowComponent extends Component
         $this->validate([
         'rut' => 'required|regex:/^[0-9]+$/|unique:stores',
         'checkDigit' => 'required|max:1|regex:/^[1-9K]+$/i',
-        'companyName' => 'required|min:3|regex:/^[a-zA-Z0-9\s\-_]+$/',
-        'fantasyName' => 'required|min:3|regex:/^[a-zA-Z0-9\s\-_]+$/',
+        'companyName' => 'required|min:3',
+        'fantasyName' => 'required|min:3',
         'radioCheckedItinerant' => 'required',
         'radioCheckedCustom' => 'required',
         'nameAdmin' => 'required|regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/u',

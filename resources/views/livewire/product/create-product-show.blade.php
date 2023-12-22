@@ -134,7 +134,7 @@
                 dictDefaultMessage: "Haz click aqui para subir las imagenes de tu producto",
                 maxFiles: 3,
                 maxFileSize: 2,
-                acceptedFiles: ".jpeg,.jpg,png",
+                acceptedFiles: ".jpeg,.jpg,.png, .webp, .heif,.heic,.hevc",
                 addRemoveLinks: true,
                 dictRemoveFile: "Borrar imagen",
                 dictFallbackMessage: "Tu navegador no soporta la carga de archivos mediante arrastrar y soltar.",

@@ -56,8 +56,13 @@ class SubStore extends Model
         return $this->hasMany(SubStoreProduct::class, 'sub_store_id')->where('delete', false);
     }
 
-    public function productStoreAll()
+    public function productStoreTest()
     {
-        return $this->hasMany(StoreProduct::class, 'substore_id');
+        return $this->hasMany(SubStoreProduct::class, 'sub_store_id')->where('delete', false)->paginate(1);
     }
+
+    // public function productStoreAll()
+    // {
+    //     return $this->hasMany(StoreProduct::class, 'substore_id');
+    // }
 }

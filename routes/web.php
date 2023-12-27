@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\PasswordController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DropzoneController;
+use App\Http\Controllers\google\GoogleMapsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\product\ProductController;
 use App\Http\Controllers\sidebar\SidebarController;
@@ -56,6 +57,9 @@ Route::middleware(['auth', 'checkAdmin', 'checkStore'])->group(function () {
     // Routes Management Orders
     Route::get('/orders/subStore/management', [SidebarController::class, 'ordersManagementStoreIndex'])->name('orders-store-management.index');
     Route::get('/orders/subStore/management/${id}', [SidebarController::class, 'ordersManagementStoreIndexSelected'])->name('orders-selected.index');
+
+    // Routes Profile Store
+    Route::get('/profile/store', [SidebarController::class, 'profileStoreIndex'])->name('profile-store.index');
 });
 
 // Middleware Role Administrator Kairapp
@@ -76,6 +80,9 @@ Route::middleware(['auth', 'checkAdminKairapp'])->group(function () {
     Route::get('order/create', [OrderController::class, 'createOrder'])->name('order.create');
 
     Route::get('/get/stores', [StoreController::class, 'obtainStores']);
+
+    // Route Google Maps
+    Route::get('/load-google-maps-script', [GoogleMapsController::class, 'loadScript'])->name('load-google-maps-script');
 });
 
 // Comun Routes

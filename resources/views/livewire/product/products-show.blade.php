@@ -70,7 +70,9 @@
                                 ${{ number_format($subStoreProduct->price, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900">
-                                {{$subStoreProduct->categoryDates->category->name  }}
+                                @if ($subStoreProduct->categoryDates)
+                                    {{$subStoreProduct->categoryDates->category->name}}
+                                @endif
                             </td>
                             @if ($subStoreProduct->status)
                             <td class="px-6 py-4 font-semibold text-green-500">

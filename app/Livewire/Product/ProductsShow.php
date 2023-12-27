@@ -12,9 +12,7 @@ class ProductsShow extends Component
     use WithPagination;
 
     public $subStores = [];
-
     public $selectedOptionV;
-
     public $subStoreProducts = [];
 
     // Variables to hold data for editing a product
@@ -22,14 +20,16 @@ class ProductsShow extends Component
     public $editingProductPrice;
     public $editingProductStock;
 
-    // Event listeners
+    // Event listeners for Livewire components
     protected $listeners = ['render', 'delete'];
 
-    // The current store product
+    // The current selected store product
     public SubStoreProduct $currentStoreProduct;
-
     public $selectedOption;
 
+    /**
+     * Handle changes in the selected sub-store and update products accordingly.
+     */
     public function handleSelectChange()
     {
         $findSubStoreProducts = SubStore::find($this->selectedOption);
@@ -49,7 +49,6 @@ class ProductsShow extends Component
      */
     public function receiveUpdates($id)
     {
-        // dd($id);
         $storeProduct = SubStoreProduct::findOrFail($id);
 
         if ($storeProduct) {
@@ -78,6 +77,7 @@ class ProductsShow extends Component
      */
     public function delete($id)
     {
+        dd($id);
         $storeProduct = SubStoreProduct::findOrFail($id);
 
         if ($storeProduct) {
@@ -132,26 +132,29 @@ class ProductsShow extends Component
                 $store = session('store');
                 // Se obtienen todas las sucursales de la tienda
                 $arraySubStores = $store->subStores()->get();
+
                 // Se asignan estas sucursales a la variable respectiva manejada por el componente
                 $this->subStores = $arraySubStores;
 
                 $findSubStoreProducts = SubStore::find($this->selectedOption);
                 $findProducts = $findSubStoreProducts->productStore()->get();
 
+                $subStoreProducts = $findSubStoreProducts->productStoreTest();
+
                 // asignamos los productos segun la sucursal seleccionada
                 $this->subStoreProducts = $findProducts;
 
-                return view('livewire.product.products-show', ['subStores' => $this->subStores, 'subStoreProducts' => $this->subStoreProducts]);
+                return view('livewire.product.products-show', ['subStores' => $this->subStores, 'subStoreProducts' => $subStoreProducts]);
             } elseif ($roleAdmin->id === 3) {
                 $store = session('store');
-                $subStoreProducts = session('selectedSubStore');
-                $findProducts = $subStoreProducts->productStore()->get();
-
+                $selectedSubStore = session('selectedSubStore');
+                $findProducts = $selectedSubStore->productStore()->get();
+                $subStoreProducts = $selectedSubStore->productStore()->paginate(5);
                 $this->subStores = session('subStoreAdmin');
                 // asignamos los productos segun la sucursal seleccionada
                 $this->subStoreProducts = $findProducts;
 
-                return view('livewire.product.products-show', ['subStores' => $this->subStores, 'subStoreProducts' => $this->subStoreProducts]);
+                return view('livewire.product.products-show', ['subStores' => $this->subStores, 'subStoreProducts' => $subStoreProducts]);
             }
         } else {
             $this->selectedOption = $this->selectedOptionV;

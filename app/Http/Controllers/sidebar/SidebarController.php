@@ -75,4 +75,9 @@ class SidebarController extends Controller
     {
         return view('sidebarScreens.support.index');
     }
+
+    public function profileStoreIndex()
+    {
+        return view('sidebarScreens.storeProfile.index');
+    }
 }

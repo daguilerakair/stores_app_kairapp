@@ -43,4 +43,9 @@ class SubStoreProduct extends Model
     {
         return $this->belongsTo(ProductCategory::class, 'product_id');
     }
+
+    public function subStoreDates()
+    {
+        return $this->belongsTo(SubStore::class, 'sub_store_id');
+    }
 }

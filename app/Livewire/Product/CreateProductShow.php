@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImages;
+use App\Models\SubStore;
 use App\Models\SubStoreProduct;
 use App\Notifications\CreatedProduct;
 use GuzzleHttp\Client;
@@ -26,6 +27,7 @@ class CreateProductShow extends Component
     public $images = [];
     public $stock;
     public $category;
+    public $categoriesArray = [];
     public $subStore;
 
     public $disabledButton = false; // Controls button state
@@ -138,11 +140,14 @@ class CreateProductShow extends Component
 
             $store = session('store');
             $product = $this->createProduct($store);
-            $this->addImagesToProduct($product);
+            $photos_paths = $this->addImagesToProduct($product);
+
             $subStoreProduct = $this->createSubStoreProduct($product);
             $this->linkProductToCategory($product, $category);
 
-            SendProductToMobile::dispatch($product, $subStoreProduct);
+            $subStore = SubStore::find($this->subStore);
+
+            SendProductToMobile::dispatch($product, $subStoreProduct, $subStore, $photos_paths);
 
             // Post-creation actions such as notifications and redirection.
             $this->notifyProductCreation($product, $store);
@@ -206,6 +211,16 @@ class CreateProductShow extends Component
                 'product_id' => $product->id,
             ]);
         }
+
+        // Obtains the paths of the images associated with the product.
+        $productImages = $product->productImages()->get();
+
+        // Prepare Paths for Mobile App
+        $paths = $productImages->pluck('path')->map(function ($path) {
+            return config('app.aws_url').$path;
+        })->toArray();
+
+        return $paths;
     }
 
     /**
@@ -240,6 +255,40 @@ class CreateProductShow extends Component
                 'price' => $product->price,
                 'rut' => $subStore->rut,
             ]));
+    }
+
+    public function addShield()
+    {
+        $newKey = uniqid();
+        $newShield = [
+            'key' => $newKey,
+            'name' => '',
+        ];
+        $this->categoriesArray[$newKey] = $newShield;
+        // dd($this->categoriesArray);
+    }
+
+    public function removeShield($key)
+    {
+        $nowCount = count($this->categoriesArray);
+        if ($nowCount === 1) {
+            session()->flash('categoryMessage', 'La categoría debe poseer al menos una característica.');
+        } else {
+            unset($this->categoriesArray[$key]);
+            $auxCharacteristics = $this->categoriesArray;
+            $this->reset('categoriesArray');
+            $this->categoriesArray = $auxCharacteristics;
+        }
+    }
+
+    public function mount()
+    {
+        $newKey = uniqid();
+        $newShield = [
+            'key' => $newKey,
+            'name' => '',
+        ];
+        $this->categoriesArray[$newKey] = $newShield;
     }
 
     /**

@@ -39,40 +39,30 @@ class CharacteristicTableSeeder extends Seeder
 
         // id.6
         Characteristic::create([
-            'name' => 'Tipo de cultivo',
+            'name' => 'Unidades por pack',
         ]);
 
         // id.7
         Characteristic::create([
-            'name' => 'Tipo de semillas',
+            'name' => 'Color',
         ]);
 
         // id.8
         Characteristic::create([
-            'name' => 'Unidades por pack',
+            'name' => 'Material',
         ]);
 
         // id.9
         Characteristic::create([
-            'name' => 'Color',
+            'name' => 'Edad',
         ]);
 
         // id.10
         Characteristic::create([
-            'name' => 'Material',
-        ]);
-
-        // id.11
-        Characteristic::create([
-            'name' => 'Edad',
-        ]);
-
-        // id.12
-        Characteristic::create([
             'name' => 'Genero',
         ]);
 
-        // id.13
+        // id.11
         Characteristic::create([
             'name' => 'Composición',
         ]);

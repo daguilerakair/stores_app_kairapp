@@ -44,4 +44,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImages::class, 'product_id')->first();
     }
+
+    public function category()
+    {
+        return $this->hasMany(ProductCategory::class, 'product_id');
+    }
 }

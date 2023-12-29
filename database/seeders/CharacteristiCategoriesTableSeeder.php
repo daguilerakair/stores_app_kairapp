@@ -19,17 +19,7 @@ class CharacteristiCategoriesTableSeeder extends Seeder
         ]);
 
         CharacteristiCategory::create([
-            'characteristic_id' => 8, // Unidades por pack
-            'category_id' => 1,
-        ]);
-
-        CharacteristiCategory::create([
-            'characteristic_id' => 6, // Tipo de cultivo
-            'category_id' => 1,
-        ]);
-
-        CharacteristiCategory::create([
-            'characteristic_id' => 7, // Tipo de semillas
+            'characteristic_id' => 6, // Unidades por pack
             'category_id' => 1,
         ]);
 
@@ -50,7 +40,7 @@ class CharacteristiCategoriesTableSeeder extends Seeder
         ]);
 
         CharacteristiCategory::create([
-            'characteristic_id' => 9, // Color
+            'characteristic_id' => 7, // Color
             'category_id' => 2,
         ]);
 
@@ -76,18 +66,18 @@ class CharacteristiCategoriesTableSeeder extends Seeder
         ]);
 
         CharacteristiCategory::create([
-            'characteristic_id' => 10, // Material
+            'characteristic_id' => 8, // Material
             'category_id' => 3,
         ]);
 
         // Ropa
         CharacteristiCategory::create([
-            'characteristic_id' => 11, // Edad
+            'characteristic_id' => 9, // Edad
             'category_id' => 4,
         ]);
 
         CharacteristiCategory::create([
-            'characteristic_id' => 12, // Género
+            'characteristic_id' => 10, // Género
             'category_id' => 4,
         ]);
 
@@ -97,7 +87,7 @@ class CharacteristiCategoriesTableSeeder extends Seeder
         ]);
 
         CharacteristiCategory::create([
-            'characteristic_id' => 13, // Composición
+            'characteristic_id' => 11, // Composición
             'category_id' => 4,
         ]);
 
@@ -128,7 +118,7 @@ class CharacteristiCategoriesTableSeeder extends Seeder
         ]);
 
         CharacteristiCategory::create([
-            'characteristic_id' => 8, // Unidades por pack
+            'characteristic_id' => 6, // Unidades por pack
             'category_id' => 5,
         ]);
     }

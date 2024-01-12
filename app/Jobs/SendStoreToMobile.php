@@ -37,23 +37,23 @@ class SendStoreToMobile implements ShouldQueue
     public function handle(): void
     {
         $httpClient = new Client();
-        $url = 'https://us-central1-kairapp-dev.cloudfunctions.net/sendOrderSGT/addStore';
+        $url = 'https://us-central1-kairapp-dev.cloudfunctions.net/addStore/createStore';
 
         try {
             $response = $httpClient->post($url, [
                 'json' => [
                     'name' => $this->subStore->name,
-                    // 'description' => $this->store->description,
                     'description' => 'Tienda afiliada a Kairapp',
                     'profile_photo_url' => $this->store->pathProfile,
                     'background_photo_url' => $this->store->pathBackground,
-                    'reputation' => 0,
+                    'reputation' => 0.0,
                 ],
             ]);
 
             $responseBody = json_decode($response->getBody()->getContents(), true);
             $this->subStore->update(['subStoreMobileId' => $responseBody['storeId']]);
         } catch (GuzzleException $e) {
+            dd($e->getMessage());
             logger()->error('Error en la solicitud Guzzle: '.$e->getMessage());
         }
     }

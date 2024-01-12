@@ -10,11 +10,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="h-full m-0 p-0">
-
-
-    <nav class="bg-white border-gray-200 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<body class="h-full m-0 p-0 bg-gradient-to-r from-red-600 via-pink-400 to-blue-500">
+    <img class="w-full h-full opacity-10 absolute" src="{{ asset('/images/kairapp-fondo-lineas-01.png') }}"/>
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 relative">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
             <a href="https://flowbite.com/" class="flex items-center">
                 <img src="{{ asset('/images/kairapp-isologo-negro-300px.svg') }}" class="h-8 mr-3"
                     alt="Flowbite Logo" />
@@ -45,7 +44,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button
-                                    class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent w-full md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                                    class="block py-2 pl-3 pr-4 text-white bg-blue-700 hover:text-blue-900 transition-all rounded md:bg-transparent w-full md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
                                     type="submit">
                                     Cerrar Sesión
                                 </button>

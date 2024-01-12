@@ -2,6 +2,7 @@
 
 namespace App\Livewire\subStore;
 
+use App\Jobs\SendStoreToMobile;
 use App\Livewire\SubStore\SubstoreShowComponent;
 use App\Models\SubStore;
 use Livewire\Component;
@@ -18,20 +19,42 @@ class SubStoreFormShowComponent extends Component
     public $latitude = 0.0;
     public $longitude = 0.0;
 
+    public $disabledButton = false; // Controls button state
+
     public function addSubStore()
     {
-        // Validamos la informacion ingresa relacionada al a substore
-        $this->validate([
+        // dd($this->selectedStore);
+        // Validate information related to the substore
+        $this->validate($this->rules());
+        $this->disabledButton = true;
+
+        // Create the substore
+        $subStore = $this->createSubStore();
+
+        // Send the substore to the mobile app
+        SendStoreToMobile::dispatch($this->selectedStore, $subStore);
+
+        $this->dispatch('render')->to(SubstoreShowComponent::class);
+        toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
+        $this->returnStoresManagement();
+    }
+
+    protected function rules()
+    {
+        return [
             'name' => 'required|max:255',
             'address' => 'required|max:255',
             'commission' => 'required',
             'phone' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
-        ]);
+        ];
+    }
 
-        // Crear sucursal
-        SubStore::create([
+    private function createSubStore()
+    {
+        // Creates a new subStore record in the database with the provided details.
+        $subStore = SubStore::create([
             'name' => $this->name,
             'address' => $this->address,
             'latitude' => $this->latitude,
@@ -40,9 +63,8 @@ class SubStoreFormShowComponent extends Component
             'phone' => $this->phone,
             'store_rut' => $this->selectedStore->rut,
         ]);
-        $this->dispatch('render')->to(SubstoreShowComponent::class);
-        toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
-        $this->returnStoresManagement();
+
+        return $subStore;
     }
 
     public function returnStoresManagement()

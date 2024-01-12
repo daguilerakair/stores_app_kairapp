@@ -44,6 +44,7 @@ class SubStore extends Model
         'longitude',
         'phone',
         'store_rut',
+        'subStoreMobileId',
     ];
 
     /**

@@ -147,6 +147,7 @@ class CreateProductShow extends Component
 
             $subStore = SubStore::find($this->subStore);
 
+            // Send product to mobile app
             SendProductToMobile::dispatch($product, $subStoreProduct, $subStore, $photos_paths);
 
             // Post-creation actions such as notifications and redirection.

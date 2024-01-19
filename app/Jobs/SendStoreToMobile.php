@@ -37,7 +37,7 @@ class SendStoreToMobile implements ShouldQueue
     public function handle(): void
     {
         $httpClient = new Client();
-        $url = 'https://us-central1-kairapp-dev.cloudfunctions.net/addStore/createStore';
+        $url = config('app.cloud_function_product').'/createStore';
 
         try {
             $response = $httpClient->post($url, [

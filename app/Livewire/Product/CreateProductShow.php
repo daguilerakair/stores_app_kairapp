@@ -36,16 +36,23 @@ class CreateProductShow extends Component
     // Event listeners for Livewire components
     protected $listeners = ['render', 'addImage', 'removeImage'];
 
-    // Validation rules for product creation
-    protected $rules = [
-        'name' => 'required|min:3|regex:/^[a-zA-Z0-9\s\-_]+$/',
-        'description' => 'required|max:255',
-        'price' => 'required|regex:/^[1-9]\d*$/',
-        'stock' => 'required|regex:/^[1-9]\d*$/',
-        'images' => 'required',
-        'category' => 'required',
-        'characteristics.*.value' => 'required',
-    ];
+    /**
+     * Validation rules for product creation.
+     *
+     * @return void
+     */
+    protected function rules()
+    {
+        return [
+            'name' => 'required|min:3|regex:/^[a-zA-Z0-9\s\-_]+$/',
+            'description' => 'required|max:255',
+            'price' => 'required|regex:/^[1-9]\d*$/',
+            'stock' => 'required|regex:/^[1-9]\d*$/',
+            'images' => 'required',
+            // 'category' => 'required',
+            'characteristics.*.value' => 'required',
+        ];
+    }
 
     /**
      * HTTP client for making asynchronous requests.
@@ -112,19 +119,23 @@ class CreateProductShow extends Component
     {
         $deleteImage = $path;
         $this->images = array_filter($this->images, function ($value) use ($deleteImage) {
-            return $value !== $deleteImage;
+            return $value['path'] !== $deleteImage;
         });
         $this->skipRender();
     }
 
     /**
      * Add an image to the product images array.
-     *
-     * @param string $pathImage Path of the image to add
      */
-    public function addImage($pathImage)
+    public function addImage($imageInfo)
     {
-        $this->images[] = $pathImage;
+        $image = [
+            'path' => $imageInfo['path'],
+            'name' => $imageInfo['name'],
+            'extension' => $imageInfo['extension'],
+            'size' => $imageInfo['size'],
+        ];
+        $this->images[] = $image;
         $this->skipRender();
     }
 
@@ -133,8 +144,9 @@ class CreateProductShow extends Component
      */
     public function save()
     {
-        $this->validate();
+        $this->validate($this->rules());
 
+        $this->category = 1;
         if ($category = Category::find($this->category)) {
             $this->disabledButton = true;
 
@@ -208,7 +220,10 @@ class CreateProductShow extends Component
         // Iterates over the images array and creates a ProductImages record for each image.
         foreach ($this->images as $image) {
             ProductImages::create([
-                'path' => 'products/'.$image,
+                'path' => 'products/'.$image['path'],
+                'name' => $image['name'],
+                'size' => $image['size'],
+                'extension' => $image['extension'],
                 'product_id' => $product->id,
             ]);
         }

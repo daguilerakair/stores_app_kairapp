@@ -29,6 +29,25 @@ class StoreFormShowComponent extends Component
     public $email;
 
     /**
+     * Validation rules for store creation.
+     *
+     * @return void
+     */
+    protected function rules()
+    {
+        return [
+            'rut' => 'required|regex:/^[0-9]+$/|unique:stores',
+            'checkDigit' => 'required|max:1|regex:/^[1-9K]+$/i',
+            'companyName' => 'required|min:3',
+            'fantasyName' => 'required|min:3',
+            'radioCheckedItinerant' => 'required',
+            'radioCheckedCustom' => 'required',
+            'nameAdmin' => 'required|regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/u',
+            'email' => 'required|email',
+        ];
+    }
+
+    /**
      * Write code on Method.
      *
      * @return response()
@@ -39,7 +58,7 @@ class StoreFormShowComponent extends Component
     }
 
     /**
-     * Write code on Method.
+     * Create a new store.
      *
      * @return response()
      */
@@ -94,20 +113,6 @@ class StoreFormShowComponent extends Component
         }
     }
 
-    protected function rules()
-    {
-        return [
-            'rut' => 'required|regex:/^[0-9]+$/|unique:stores',
-            'checkDigit' => 'required|max:1|regex:/^[1-9K]+$/i',
-            'companyName' => 'required|min:3',
-            'fantasyName' => 'required|min:3',
-            'radioCheckedItinerant' => 'required',
-            'radioCheckedCustom' => 'required',
-            'nameAdmin' => 'required|regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/u',
-            'email' => 'required|email',
-        ];
-    }
-
     private function createStore()
     {
         // Clean values of radio button
@@ -129,6 +134,11 @@ class StoreFormShowComponent extends Component
         return $store;
     }
 
+    /**
+     * Undocumented function.
+     *
+     * @return void
+     */
     private function createAdminStore(Store $store)
     {
         // Generate the user's password
@@ -150,6 +160,11 @@ class StoreFormShowComponent extends Component
         ];
     }
 
+    /**
+     * Undocumented function.
+     *
+     * @return void
+     */
     private function linkUserToRole(User $user, Store $store)
     {
         // Obtains the role of collaborator
@@ -166,6 +181,13 @@ class StoreFormShowComponent extends Component
         ]);
     }
 
+    /**
+     * Undocumented function.
+     *
+     * @param [type] $user
+     *
+     * @return void
+     */
     private function notifyStoreCreation(Store $store, $user)
     {
         // Sends a notification (e.g., to Slack) about the new store.

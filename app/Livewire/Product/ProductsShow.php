@@ -2,6 +2,7 @@
 
 namespace App\Livewire\product;
 
+use App\Jobs\SendProductUpdateStatusToMobile;
 use App\Models\SubStore;
 use App\Models\SubStoreProduct;
 use Livewire\Component;
@@ -56,6 +57,11 @@ class ProductsShow extends Component
             $storeProduct->status = !$storeProduct->status;
             // Save the changes to the database
             $storeProduct->save();
+
+            $status = $storeProduct->status ? true : false;
+
+            // Send the updated status to the mobile app
+            SendProductUpdateStatusToMobile::dispatch($storeProduct->productDates, $status);
         }
     }
 

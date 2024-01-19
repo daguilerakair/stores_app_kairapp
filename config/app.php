@@ -61,6 +61,9 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'cloud_function_product' => env('CLOUD_FUNCTION_PRODUCT_URL'),
+    'cloud_function_store' => env('CLOUD_FUNCTION_STORE_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

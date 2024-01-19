@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Product;
-use App\Models\SubStore;
 use App\Models\SubStoreProduct;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -13,7 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SendProductToMobile implements ShouldQueue
+class SendProductUpdateToMobile implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -22,41 +21,39 @@ class SendProductToMobile implements ShouldQueue
 
     protected Product $product;
     protected SubStoreProduct $subStoreProduct;
-    protected SubStore $subStore;
     protected array $photos_paths;
 
-    public function __construct(Product $product, SubStoreProduct $subStoreProduct, SubStore $subStore, array $photos_paths)
+    /**
+     * Create a new job instance.
+     */
+    public function __construct(Product $product, SubStoreProduct $subStoreProduct, array $photos_paths)
     {
         $this->product = $product;
         $this->subStoreProduct = $subStoreProduct;
-        $this->subStore = $subStore;
         $this->photos_paths = $photos_paths;
     }
 
-    public function handle()
+    /**
+     * Execute the job.
+     */
+    public function handle(): void
     {
         $httpClient = new Client();
-        $url = config('app.cloud_function_product').'/addProduct';
-
+        $url = config('app.cloud_function_product').'/update-product/'.$this->product->productMobileId;
+        logger($this->subStoreProduct->price);
         try {
-            $response = $httpClient->post($url, [
+            $response = $httpClient->put($url, [
                 'json' => [
                     'name' => $this->product->name,
                     'description' => $this->product->description,
                     'price' => $this->subStoreProduct->price,
                     'stock' => $this->subStoreProduct->stock,
-                    'rating' => 0,
-                    'status' => true,
-                    'is_high_value' => false,
-                    'is_recommended' => false,
                     // Categories
                     'photo_urls' => $this->photos_paths,
-                    'storeId' => $this->subStore->subStoreMobileId,
                 ],
             ]);
 
             $responseBody = json_decode($response->getBody()->getContents(), true);
-            $this->product->update(['productMobileId' => $responseBody['productId']]);
         } catch (GuzzleException $e) {
             // Manejo de errores
             logger()->error('Error en la solicitud Guzzle: '.$e->getMessage());

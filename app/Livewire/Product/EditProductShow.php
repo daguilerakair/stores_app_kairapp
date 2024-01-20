@@ -107,7 +107,7 @@ class EditProductShow extends Component
         if ($nowImages === $maxImages) {
             // Delete server images
             $this->deleteNewImagesServer();
-        } elseif (count($this->deleteImages) > 0) {
+        } elseif ($this->deleteImages) {
             // Delete database images
             $this->deleteNewImagesServer(); // PENDIENTE ELIMINAR DEL SERVIDOR LAS IMAGENES ELIMINADAS
             $this->deleteNewImagesDatabases();

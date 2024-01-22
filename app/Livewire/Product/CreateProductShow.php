@@ -2,6 +2,7 @@
 
 namespace App\Livewire\product;
 
+use App\Http\Controllers\DropzoneController;
 use App\Jobs\SendProductToMobile;
 use App\Livewire\Product\ProductsShow;
 use App\Models\Category;
@@ -12,7 +13,9 @@ use App\Models\SubStore;
 use App\Models\SubStoreProduct;
 use App\Notifications\CreatedProduct;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -24,7 +27,8 @@ class CreateProductShow extends Component
     public $name;
     public $description;
     public $price;
-    public $images = [];
+    public $images = []; // Contain to temporal images
+    public $imagesServer = []; // Contain to images in server
     public $stock;
     public $category;
     public $categoriesArray = [];
@@ -139,11 +143,21 @@ class CreateProductShow extends Component
         $this->skipRender();
     }
 
+    public function saveTempImages($path)
+    {
+        $this->images[] = $path;
+    }
+
     /**
      * Handle the product saving process.
      */
     public function save()
     {
+        // Fzyk6C1xFd8xDn177vbWIwCYbKJitRylaHhLlBmN.jpg
+        // $rutaLocal = 'public/'.$this->images[0]['path'];
+        // $contenidoArchivo = Storage::get($rutaLocal);
+        // dd($contenidoArchivo);
+
         $this->validate($this->rules());
 
         $this->category = 1;
@@ -152,6 +166,8 @@ class CreateProductShow extends Component
 
             $store = session('store');
             $product = $this->createProduct($store);
+
+            $this->addImagesToServer();
             $photos_paths = $this->addImagesToProduct($product);
 
             $subStoreProduct = $this->createSubStoreProduct($product);
@@ -190,6 +206,25 @@ class CreateProductShow extends Component
         ]);
     }
 
+    private function addImagesToServer()
+    {
+        $controller = app(DropzoneController::class);
+
+        try {
+            foreach ($this->images as $image) {
+                $request = Request::create('/upload', 'POST', ['imagePath' => $image['path']]);
+                $response = $controller->store($request);
+                logger()->info('Response Content: '.$response->getContent());
+
+                $responseData = json_decode($response->getContent(), true);
+                $this->imagesServer[] = $responseData['imagePath'];
+            }
+        } catch (\Exception $e) {
+            // Handle any exception and return a JSON error response
+            logger()->error('Error al eliminar la imagen. Detalles: '.$e->getMessage());
+        }
+    }
+
     /**
      * Link the created product to a sub-store.
      *
@@ -218,12 +253,12 @@ class CreateProductShow extends Component
     private function addImagesToProduct(Product $product)
     {
         // Iterates over the images array and creates a ProductImages record for each image.
-        foreach ($this->images as $image) {
+        foreach ($this->imagesServer as $index => $image) {
             ProductImages::create([
-                'path' => 'products/'.$image['path'],
-                'name' => $image['name'],
-                'size' => $image['size'],
-                'extension' => $image['extension'],
+                'path' => 'products/'.$image,
+                'name' => $this->images[$index]['name'],
+                'size' => $this->images[$index]['size'],
+                'extension' => $this->images[$index]['extension'],
                 'product_id' => $product->id,
             ]);
         }

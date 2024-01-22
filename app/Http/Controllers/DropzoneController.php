@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Storage;
  */
 class DropzoneController extends Controller
 {
+    public function storeTempStorage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,webp,heif,heic,hevc|max:2048',
+        ]);
+
+        $routeImage = $request->file('file')->store('temp', 'public');
+
+        return response()->json($routeImage);
+    }
+
     /**
      * Stores the image received through the request.
      *
@@ -18,20 +29,20 @@ class DropzoneController extends Controller
     public function store(Request $request)
     {
         try {
+            // Get path of the image
+            $imagePath = $request->input('imagePath');
             // Get the file from the request
-            $image = $request->file('file');
+            $localRoute = 'public/'.$imagePath;
+            $image = Storage::disk('local')->get($localRoute);
 
             // Generate a unique name for the image
-            $imageName = uniqid();
+            $imageName = uniqid().'/'.pathinfo($imagePath, PATHINFO_FILENAME).'.'.pathinfo($imagePath, PATHINFO_EXTENSION);
 
             // Store the image on the 'products' disk
             $response = Storage::disk('products')->put($imageName, $image);
 
-            // Path of the stored image
-            $imagePath = $response;
-
             // Return the path of the stored image as a JSON response
-            return response()->json($imagePath);
+            return response()->json(['imagePath' => $imageName]);
         } catch (\Exception $e) {
             // Handle any exception and return a JSON error response
             return response()->json(['error' => 'Error al almacenar la imagen. Detalles: '.$e->getMessage()], 500);

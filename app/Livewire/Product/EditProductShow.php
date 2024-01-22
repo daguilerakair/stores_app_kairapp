@@ -2,15 +2,20 @@
 
 namespace App\Livewire\product;
 
+use App\Http\Controllers\DropzoneController;
 use App\Jobs\SendProductUpdateToMobile;
 use App\Livewire\Product\ProductsShow;
 use App\Models\Product;
 use App\Models\ProductImages;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EditProductShow extends Component
 {
+    use WithFileUploads;
+
     public $selectSubStoreProduct;
     public $id;
     public $name;
@@ -19,12 +24,14 @@ class EditProductShow extends Component
     public $stock;
     public $images;
     public $newImages;
-    public $deleteImages;
+    public $imagesServer = []; // Contain to images in server
+    public $deleteImagesPath;
+    public $deleteImagesID;
 
     public $disabledButton = false; // Controls button state
 
     // Event listeners for Livewire components
-    protected $listeners = ['render', 'addNewImage'];
+    protected $listeners = ['render', 'addNewImage', 'save', 'returnInventory'];
 
     /**
      * Validation rules for product creation.
@@ -61,13 +68,15 @@ class EditProductShow extends Component
         $this->redirect('/inventory');
     }
 
+    /**
+     * Save the product in the database and server.
+     */
     public function save()
     {
         $photos_paths = [];
 
-        $this->validate($this->rules());
-
         $this->disabledButton = true;
+        $this->validate($this->rules());
 
         $avaliableImages = $this->verifyImages();
 
@@ -87,7 +96,6 @@ class EditProductShow extends Component
         $updateProduct->description = $this->description;
         $updateProduct->save();
 
-        // dd($updateProduct, $this->selectSubStoreProduct, $photos_paths);
         // Send product to mobile app
         SendProductUpdateToMobile::dispatch($updateProduct, $this->selectSubStoreProduct, $photos_paths);
 
@@ -104,14 +112,13 @@ class EditProductShow extends Component
         $nowImages = count($this->images);
         $maxImages = 5;
 
-        if ($nowImages === $maxImages) {
-            // Delete server images
-            $this->deleteNewImagesServer();
-        } elseif ($this->deleteImages) {
+        // dd($this->deleteImagesID, $this->deleteImagesPath);
+        if ($this->deleteImagesID) {
             // Delete database images
-            $this->deleteNewImagesServer(); // PENDIENTE ELIMINAR DEL SERVIDOR LAS IMAGENES ELIMINADAS
+            $this->deleteImagesServer();
             $this->deleteNewImagesDatabases();
         }
+
         // Calculate avaliable images
         $avaliableImages = $maxImages - $nowImages;
 
@@ -123,10 +130,13 @@ class EditProductShow extends Component
      */
     private function addImagesToProduct($avaliableImages)
     {
+        $this->addImagesToServer();
+        $product = $this->selectSubStoreProduct->productDates;
+
         for ($i = 0; $i < $avaliableImages; ++$i) {
             $image = $this->newImages[$i];
-            $product = $this->selectSubStoreProduct->productDates;
-            $path = 'products/'.$image['path'];
+            $imageServer = $this->imagesServer[$i];
+            $path = 'products/'.$imageServer;
 
             // Iterates over the images array and creates a ProductImages record for each image.
             ProductImages::create([
@@ -149,9 +159,34 @@ class EditProductShow extends Component
         return $paths;
     }
 
+    /**
+     * Add images to the server.
+     */
+    private function addImagesToServer()
+    {
+        $controller = app(DropzoneController::class);
+
+        try {
+            foreach ($this->newImages as $image) {
+                $request = Request::create('/upload', 'POST', ['imagePath' => $image['path']]);
+                $response = $controller->store($request);
+
+                $responseData = json_decode($response->getContent(), true);
+                $this->imagesServer[] = $responseData['imagePath'];
+            }
+        } catch (\Exception $e) {
+            // Handle any exception and return a JSON error response
+            logger()->error('Error al eliminar la imagen. Detalles: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Obtain images of the current product.
+     */
     private function obtainImages($updateProduct)
     {
         $product = Product::find($updateProduct->id);
+
         // Obtains the paths of the images associated with the product.
         $productImages = $product->productImages()->get();
 
@@ -173,16 +208,36 @@ class EditProductShow extends Component
         }
     }
 
-    private function deleteNewImagesDatabases()
+    /**
+     * Delete imagesPath array in server.
+     */
+    private function deleteImagesServer()
     {
-        $numericIds = array_map('intval', $this->deleteImages);
-        foreach ($this->deleteImages as $image) {
-            ProductImages::destroy($numericIds);
+        $controller = app(DropzoneController::class);
+
+        // dd($this->deleteImagesPath[0]);
+        try {
+            foreach ($this->deleteImagesPath as $image) {
+                $request = Request::create('/delete-image', 'POST', ['imageUrl' => $image]);
+                $controller->delete($request);
+            }
+        } catch (\Exception $e) {
+            // Handle any exception and return a JSON error response
+            logger()->error('Error al eliminar la imagen. Detalles: '.$e->getMessage());
         }
     }
 
     /**
-     * Undocumented function.
+     * Delete imagesID array in database.
+     */
+    private function deleteNewImagesDatabases()
+    {
+        $numericIds = array_map('intval', $this->deleteImagesID);
+        ProductImages::destroy($numericIds);
+    }
+
+    /**
+     * Replace the values of the product.
      */
     public function replaceValues()
     {
@@ -197,20 +252,31 @@ class EditProductShow extends Component
         $this->images = $arrayImages;
     }
 
+    /**
+     * Add new image to the product.
+     */
     public function addNewImage($imageInfo)
     {
         $this->newImages[] = $imageInfo;
         $this->skipRender();
     }
 
-    public function deleteImage($selectedImage)
+    /**
+     * Delete local image to the product.
+     */
+    public function deleteImage($selectedImageID, $selectedImagePath)
     {
-        $this->deleteImages[] = $selectedImage;
-        $this->images = array_filter($this->images, function ($image) use ($selectedImage) {
-            return $image['id'] != $selectedImage;
+        $this->deleteImagesID[] = $selectedImageID;
+        $this->deleteImagesPath[] = $selectedImagePath;
+
+        $this->images = array_filter($this->images, function ($image) use ($selectedImageID) {
+            return $image['id'] != $selectedImageID;
         });
     }
 
+    /**
+     * Format the array of images.
+     */
     public function formattedArrayImages($images)
     {
         $arrayImages = [];

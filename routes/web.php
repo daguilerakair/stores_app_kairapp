@@ -50,6 +50,8 @@ Route::middleware(['auth', 'checkAdmin', 'checkStore'])->group(function () {
     // Routes Management Categories
     Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
 
+    Route::post('/uploadTempo', [DropzoneController::class, 'storeTempStorage'])->name('dropzone.storeTemp');
+
     // Routes Images Dropzone
     Route::post('/upload', [DropzoneController::class, 'store'])->name('dropzone.store');
     Route::post('/delete-image', [DropzoneController::class, 'delete'])->name('dropzone.delete');

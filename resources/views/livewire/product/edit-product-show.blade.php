@@ -65,26 +65,25 @@
                 Imagenes Cargadas
             </label>
             <ul
-                class="w-full sm:w-2/3 mb-8 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                class="w-full sm:w-1/2 mb-8 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 @foreach ($this->images as $image)
                     <li
                         class="w-full flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-                        <img class="w-12 h-12 mr-2 sm:mr-0 sm:w-16 sm:h-16"
-                            src="{{ config('app.aws_url') . $image['originalPath'] }}"
-                            alt="product-img-{{ $image['path'] }}">
-                        <p class="text-gray-500">{{ $image['name'] }}</p>
                         <div class="flex flex-row">
-                            <p class="text-gray-500">{{ $image['size'] }}</p>
+                            <img class="w-12 h-12 mr-2 sm:mr-0 sm:w-16 sm:h-16"
+                                src="{{ config('app.aws_url') . $image['originalPath'] }}"
+                                alt="product-img-{{ $image['path'] }}">
+                            <p class="text-gray-500 my-auto ml-4">{{ $image['size'] }}</p>
 
-                            <button wire:click="deleteImage('{{ $image['id'] }}')">
-                                <svg class="w-5 h-5 ml-8 sm:ml-12 text-gray-500 hover:text-gray-800 transition-all cursor-pointer dark:text-white"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            </button>
                         </div>
+                        <button wire:click="deleteImage('{{ $image['id'] }}', '{{ $image['path'] }}')">
+                            <svg class="w-5 h-5 ml-8 sm:ml-12 text-gray-500 hover:text-gray-800 transition-all cursor-pointer dark:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </button>
                     </li>
                 @endforeach
             </ul>
@@ -99,8 +98,8 @@
             <label for="images" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Subir imagenes
             </label>
-            <form action="{{ route('dropzone.store') }}" method="POST" enctype="multipart/form-data" id="image-upload"
-                class="dropzone border-dashed border-2">
+            <form action="{{ route('dropzone.storeTemp') }}" method="POST" enctype="multipart/form-data"
+                id="image-upload" class="dropzone border-dashed border-2">
                 @csrf
             </form>
             <input wire:model='images' hidden />
@@ -111,11 +110,12 @@
 
     </div>
     <div wire:loading.remove wire:target="save" class="flex gap-2 justify-center">
-        <button wire:click="save" wire:loading.attr="disabled" @if ($disabledButton) disabled @endif
+        <button wire:click="$dispatch('saveProduct')" wire:loading.attr="disabled"
+            @if ($disabledButton) disabled @endif
             class="text-white  bg-pink-custom-600 hover:bg-pink-custom-850 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             Guardar
         </button>
-        <button wire:click="returnInventory"
+        <button wire:click="$dispatch('return')"
             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
             Cancelar
         </button>
@@ -188,33 +188,11 @@
                     // Extract the image URL from the response
                     const imageUrl = file.xhr.response;
                     const imageUrlFormatted = imageUrl.replaceAll('"', '');
-                    console.log(imageUrlFormatted);
-
-                    // Send a request to the server to delete the image
-                    const response = await fetch('/delete-image', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                        },
-                        body: JSON.stringify({
-                            _token: csrfToken,
-                            imageUrl: imageUrlFormatted
-                        })
-                    });
-
-                    // Check if the server request was successful
-                    if (!response.ok) {
-                        throw new Error('Error al eliminar la imagen del servidor');
-                    }
-
-                    // Parse the server response as JSON
-                    const data = await response.json();
+                    const imageUrlFormattedPath = imageUrlFormatted.replace(/\\\//g, '/');
 
                     // Format the image response and dispatch Livewire event to remove the image
-                    const imageResponseFormatted = data.replace(/\\\//g, '/');
                     @this.dispatch('removeImage', {
-                        path: imageResponseFormatted,
+                        path: imageUrlFormattedPath,
                     });
                 } catch (error) {
                     console.error('Error al eliminar la imagen del servidor.');
@@ -232,5 +210,44 @@
                 return kilobytes.toFixed(2) + " KB";
             }
         }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            @this.on('saveProduct', ()  => {
+                Swal.fire({
+                    title: 'Los cambios realizados no se podrán revertir. ¿Quieres continuar?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4DD091',
+                    cancelButtonColor: '#FF5C77',
+                    confirmButtonText: 'Continuar',
+                    cancelButtonText: 'Volver',
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.dispatch('save');
+                    }
+                })
+            });
+
+            @this.on('return', ()  => {
+                Swal.fire({
+                    title: 'Los cambios realizados se perderáan. ¿Quieres continuar?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4DD091',
+                    cancelButtonColor: '#FF5C77',
+                    confirmButtonText: 'Continuar',
+                    cancelButtonText: 'Volver',
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.dispatch('returnInventory');
+                    }
+                })
+            });
+        });
     </script>
 @endpush

@@ -180,7 +180,7 @@
             <label for="images" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Subir imagenes
             </label>
-            <form action="{{ route('dropzone.store') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('dropzone.storeTemp') }}" method="POST" enctype="multipart/form-data"
                 id="image-upload" class="dropzone border-dashed border-2">
                 @csrf
             </form>
@@ -245,7 +245,6 @@
             // Event listener for a successful file upload
             dropzone.on('success', function(file, response) {
                 // Dispatch Livewire event to add the uploaded image
-                console.log(file);
                 const {
                     name,
                     type,
@@ -259,7 +258,7 @@
                     size: formatBytes(size),
                 }
 
-                console.log(imageInfo);
+                // console.log(imageInfo);
                 @this.dispatch('addImage', {imageInfo});
             });
 
@@ -269,33 +268,11 @@
                     // Extract the image URL from the response
                     const imageUrl = file.xhr.response;
                     const imageUrlFormatted = imageUrl.replaceAll('"', '');
-                    console.log(imageUrlFormatted);
-
-                    // Send a request to the server to delete the image
-                    const response = await fetch('/delete-image', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                        },
-                        body: JSON.stringify({
-                            _token: csrfToken,
-                            imageUrl: imageUrlFormatted
-                        })
-                    });
-
-                    // Check if the server request was successful
-                    if (!response.ok) {
-                        throw new Error('Error al eliminar la imagen del servidor');
-                    }
-
-                    // Parse the server response as JSON
-                    const data = await response.json();
+                    const imageUrlFormattedPath =imageUrlFormatted.replace(/\\\//g, '/');
 
                     // Format the image response and dispatch Livewire event to remove the image
-                    const imageResponseFormatted = data.replace(/\\\//g, '/');
                     @this.dispatch('removeImage', {
-                        path: imageResponseFormatted,
+                        path: imageUrlFormattedPath,
                     });
                 } catch (error) {
                     console.error('Error al eliminar la imagen del servidor.');

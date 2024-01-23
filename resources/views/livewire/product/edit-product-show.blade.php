@@ -234,7 +234,7 @@
 
             @this.on('return', ()  => {
                 Swal.fire({
-                    title: 'Los cambios realizados se perderáan. ¿Quieres continuar?',
+                    title: 'Los cambios realizados se perderán. ¿Quieres continuar?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#4DD091',

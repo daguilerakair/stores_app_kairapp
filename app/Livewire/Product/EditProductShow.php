@@ -27,6 +27,7 @@ class EditProductShow extends Component
     public $imagesServer = []; // Contain to images in server
     public $deleteImagesPath;
     public $deleteImagesID;
+    public $maxImages = 5;
 
     public $disabledButton = false; // Controls button state
 
@@ -110,7 +111,6 @@ class EditProductShow extends Component
     private function verifyImages()
     {
         $nowImages = count($this->images);
-        $maxImages = 5;
 
         // dd($this->deleteImagesID, $this->deleteImagesPath);
         if ($this->deleteImagesID) {
@@ -120,7 +120,7 @@ class EditProductShow extends Component
         }
 
         // Calculate avaliable images
-        $avaliableImages = $maxImages - $nowImages;
+        $avaliableImages = $this->maxImages - $nowImages;
 
         return $avaliableImages;
     }
@@ -130,22 +130,33 @@ class EditProductShow extends Component
      */
     private function addImagesToProduct($avaliableImages)
     {
+        // dd($this->newImages[0]);
         $this->addImagesToServer();
         $product = $this->selectSubStoreProduct->productDates;
 
-        for ($i = 0; $i < $avaliableImages; ++$i) {
-            $image = $this->newImages[$i];
-            $imageServer = $this->imagesServer[$i];
-            $path = 'products/'.$imageServer;
+        $newImagesQuantity = count($this->newImages);
+        // Calculate avaliable images
+        $avaliableImages = $this->maxImages - $newImagesQuantity;
 
-            // Iterates over the images array and creates a ProductImages record for each image.
-            ProductImages::create([
-                'name' => $image['name'],
-                'path' => $path,
-                'extension' => $image['extension'],
-                'size' => $image['size'],
-                'product_id' => $product->id,
-            ]);
+        if ($newImagesQuantity < $avaliableImages) {
+            $avaliableImages = $newImagesQuantity;
+        }
+
+        for ($i = 0; $i < $avaliableImages; ++$i) {
+            if ($this->newImages[$i]) {
+                $image = $this->newImages[$i];
+                $imageServer = $this->imagesServer[$i];
+                $path = 'products/'.$imageServer;
+
+                // Iterates over the images array and creates a ProductImages record for each image.
+                ProductImages::create([
+                    'name' => $image['name'],
+                    'path' => $path,
+                    'extension' => $image['extension'],
+                    'size' => $image['size'],
+                    'product_id' => $product->id,
+                ]);
+            }
         }
 
         // Obtains the paths of the images associated with the product.

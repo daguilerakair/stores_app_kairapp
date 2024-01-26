@@ -226,7 +226,6 @@ class EditProductShow extends Component
     {
         $controller = app(DropzoneController::class);
 
-        // dd($this->deleteImagesPath[0]);
         try {
             foreach ($this->deleteImagesPath as $image) {
                 $request = Request::create('/delete-image', 'POST', ['imageUrl' => $image]);

@@ -15,13 +15,14 @@ use App\Notifications\CreatedProduct;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class CreateProductShow extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     // Product attributes
     public $name;
@@ -33,6 +34,8 @@ class CreateProductShow extends Component
     public $category;
     public $categoriesArray = [];
     public $subStore;
+
+    public $selectedCategories = [];
 
     public $disabledButton = false; // Controls button state
     public $characteristics = []; // Holds product characteristics
@@ -153,11 +156,7 @@ class CreateProductShow extends Component
      */
     public function save()
     {
-        // Fzyk6C1xFd8xDn177vbWIwCYbKJitRylaHhLlBmN.jpg
-        // $rutaLocal = 'public/'.$this->images[0]['path'];
-        // $contenidoArchivo = Storage::get($rutaLocal);
-        // dd($contenidoArchivo);
-
+        $this->addCategoriesToProduct();
         $this->validate($this->rules());
 
         $this->category = 1;
@@ -173,10 +172,12 @@ class CreateProductShow extends Component
             $subStoreProduct = $this->createSubStoreProduct($product);
             $this->linkProductToCategory($product, $category);
 
+            $categories_names = $this->addCategoriesToProduct($product);
+
             $subStore = SubStore::find($this->subStore);
 
             // Send product to mobile app
-            SendProductToMobile::dispatch($product, $subStoreProduct, $subStore, $photos_paths);
+            // SendProductToMobile::dispatch($product, $subStoreProduct, $subStore, $photos_paths);
 
             // Post-creation actions such as notifications and redirection.
             $this->notifyProductCreation($product, $store);
@@ -184,6 +185,59 @@ class CreateProductShow extends Component
             toastr()->success('El producto fue creado con éxito', 'Producto creado!');
             $this->returnInventory();
         }
+    }
+
+    /**
+     * Add an category to array.
+     *
+     * @param object $category The category to add
+     */
+    public function addCategory($category)
+    {
+        // dd($category['id']);
+        $exists = in_array($category['id'], array_column($this->selectedCategories, 'category_id'));
+
+        if (!$exists) {
+            // $this->selectedCategories[]
+            $newKey = uniqid();
+            $newCategory = [
+                'key' => $newKey,
+                'category_id' => $category['id'],
+                'name' => $category['name'],
+            ];
+            $this->selectedCategories[$newKey] = $newCategory;
+        }
+    }
+
+    /**
+     * Remove an category from array.
+     *
+     * @param string $deleteCategoryKey Key of the category to remove
+     */
+    public function removeCategory($deleteCategoryKey)
+    {
+        unset($this->selectedCategories[$deleteCategoryKey]);
+
+        $auxSelectedCategories = $this->selectedCategories;
+        $this->reset('selectedCategories');
+        $this->selectedCategories = $auxSelectedCategories;
+    }
+
+    private function addCategoriesToProduct()
+    {
+        // dd($this->selectedCategories);
+
+        foreach ($this->selectedCategories as $category) {
+            $newItem = array_intersect_key($category, array_flip(['category_id']));
+            $newItem['product_id'] = 1;
+            $array[] = $newItem;
+        }
+
+        dd($array);
+
+        ProductCategory::insert($array);
+
+        // return $categories_names;
     }
 
     /**
@@ -350,7 +404,7 @@ class CreateProductShow extends Component
     public function render()
     {
         // obtain categories system
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->paginate(4);
 
         // obtain substores to selected store.
         $store = session('store');

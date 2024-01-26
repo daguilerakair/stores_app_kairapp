@@ -58,7 +58,6 @@ class CreateCategoryShowComponent extends Component
             'name' => '',
         ];
         $this->characteristics[$newKey] = $newShield;
-        // dd($this->characteristics);
     }
 
     public function removeShield($key)

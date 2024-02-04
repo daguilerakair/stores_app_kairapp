@@ -62,6 +62,9 @@ Route::middleware(['auth', 'checkAdmin', 'checkStore'])->group(function () {
 
     // Routes Profile Store
     Route::get('/profile/store', [SidebarController::class, 'profileStoreIndex'])->name('profile-store.index');
+
+    // Routes Schedule Stores
+    Route::get('/schedule/store', [SidebarController::class, 'scheduleStoresIndex'])->name('schedule-stores.index');
 });
 
 // Middleware Role Administrator Kairapp

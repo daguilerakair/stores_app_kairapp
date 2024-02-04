@@ -80,4 +80,9 @@ class SidebarController extends Controller
     {
         return view('sidebarScreens.storeProfile.index');
     }
+
+    public function ScheduleStoresIndex()
+    {
+        return view('sidebarScreens.scheduleStores.index');
+    }
 }

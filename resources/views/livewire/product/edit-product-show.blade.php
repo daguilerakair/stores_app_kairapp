@@ -66,8 +66,9 @@
             </label>
             <ul
                 class="w-full sm:w-1/2 mb-8 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                @foreach ($this->images as $image)
+                @foreach ($this->images as $key => $image)
                     <li
+                        wire:key="{{ $key }}"
                         class="w-full flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-600">
                         <div class="flex flex-row">
                             <img class="w-12 h-12 mr-2 sm:mr-0 sm:w-16 sm:h-16"
@@ -76,7 +77,7 @@
                             <p class="text-gray-500 my-auto ml-4">{{ $image['size'] }}</p>
 
                         </div>
-                        <button wire:click="deleteImage('{{ $image['id'] }}', '{{ $image['path'] }}')">
+                        <button wire:click="deleteImage('{{ $key }}', '{{ $id }}', '{{ $image['path'] }}')">
                             <svg class="w-5 h-5 ml-8 sm:ml-12 text-gray-500 hover:text-gray-800 transition-all cursor-pointer dark:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 20 20">
@@ -215,7 +216,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('livewire:initialized', () => {
-            @this.on('saveProduct', ()  => {
+            @this.on('saveProduct', () => {
                 Swal.fire({
                     title: 'Los cambios realizados no se podrán revertir. ¿Quieres continuar?',
                     icon: 'warning',
@@ -232,7 +233,7 @@
                 })
             });
 
-            @this.on('return', ()  => {
+            @this.on('return', () => {
                 Swal.fire({
                     title: 'Los cambios realizados se perderán. ¿Quieres continuar?',
                     icon: 'warning',

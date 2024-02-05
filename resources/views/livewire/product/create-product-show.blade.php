@@ -34,7 +34,7 @@
         </div>
 
         {{-- Grid for price and stock inputs --}}
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid grid-cols-2 gap-4 md:gap-6">
             <div class="relative z-0 w-full mb-6 group">
                 <label for="floating_first_name" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">
                     Precio
@@ -108,7 +108,7 @@
                 <label for="categories" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">
                     Seleccione las categorías del producto
                 </label>
-                <div class="flex w-auto">
+                <div class="flex flex-col md:flex-row gap-4 w-auto">
                     <div class="scrollable-list max-w-max">
                         <ul class="">
                             <div class="flex flex-row gap-2 overflow-x-auto">
@@ -142,13 +142,13 @@
             </div>
         </div>
 
-        <label for="selectedCategories" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">
+        <label for="selectedCategories" class="block my-4 mb-2 text-md font-medium text-gray-900 dark:text-white">
             Categorias seleccionadas
         </label>
         <div class="rounded-lg border border-gray-300 my-4 mx-auto h-32 w-auto">
             @foreach ($selectedCategories as $key => $category)
                 <span id="badge-dismiss-dark" wire:key="{{ $key }}"
-                    class="inline-flex items-center px-2 py-1 ml-2 my-2 me-2 text-sm font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 transition-all rounded dark:bg-gray-700 dark:text-gray-300">
+                    class="cursor-pointer inline-flex items-center px-2 py-1 ml-2 my-2 me-2 text-sm font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 transition-all rounded dark:bg-gray-700 dark:text-gray-300">
                     {{ $category['name'] }}
                     <button wire:click="removeCategory('{{ $key }}')"
                         class="inline-flex items-center p-1 ms-2 text-sm text-gray-400 bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-gray-300"
@@ -163,10 +163,6 @@
                 </span>
             @endforeach
         </div>
-
-        {{-- @foreach ($selectedCategories as $sCategory)
-            <p>{{ $sCategory['id'] }}</p>
-        @endforeach --}}
 
         {{-- Dropzone for uploading images --}}
         <div class="mb-6">

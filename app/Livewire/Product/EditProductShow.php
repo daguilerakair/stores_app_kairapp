@@ -22,7 +22,7 @@ class EditProductShow extends Component
     public $description;
     public $price;
     public $stock;
-    public $images;
+    public $images = [];
     public $newImages;
     public $imagesServer = []; // Contain to images in server
     public $deleteImagesPath;
@@ -274,15 +274,31 @@ class EditProductShow extends Component
     /**
      * Delete local image to the product.
      */
-    public function deleteImage($selectedImageID, $selectedImagePath)
+    public function deleteImage($key, $selectedImageID, $selectedImagePath)
     {
         $this->deleteImagesID[] = $selectedImageID;
         $this->deleteImagesPath[] = $selectedImagePath;
 
-        $this->images = array_filter($this->images, function ($image) use ($selectedImageID) {
-            return $image['id'] != $selectedImageID;
-        });
+        // $this->images = array_filter($this->images, function ($image) use ($selectedImageID) {
+        //     return $image['id'] != $selectedImageID;
+        // });
+
+        unset($this->images[$key]);
+
+        $auxImages = $this->images;
+        $this->reset('images');
+        $this->images = $auxImages;
     }
+
+    // public function deleteImage($selectedImageID, $selectedImagePath)
+    // {
+    //     $this->deleteImagesID[] = $selectedImageID;
+    //     $this->deleteImagesPath[] = $selectedImagePath;
+
+    //     $this->images = array_filter($this->images, function ($image) use ($selectedImageID) {
+    //         return $image['id'] != $selectedImageID;
+    //     });
+    // }
 
     /**
      * Format the array of images.
@@ -292,8 +308,10 @@ class EditProductShow extends Component
         $arrayImages = [];
 
         foreach ($images as $image) {
+            $newKey = uniqid();
             $formattedPath = str_replace('products/', '', $image->path);
-            $arrayImages[] = [
+            $newShield = [
+                'key' => $newKey,
                 'id' => $image->id,
                 'name' => $image->name,
                 'originalPath' => $image->path,
@@ -301,6 +319,7 @@ class EditProductShow extends Component
                 'extension' => $image->extension,
                 'size' => $image->size,
             ];
+            $arrayImages[$newKey] = $newShield;
         }
 
         return $arrayImages;

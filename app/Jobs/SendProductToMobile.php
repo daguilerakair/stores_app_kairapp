@@ -36,7 +36,7 @@ class SendProductToMobile implements ShouldQueue
     public function handle()
     {
         $httpClient = new Client();
-        $url = config('app.cloud_function_product').'/addProduct';
+        $url = config('app.cloud_function_product_dev').'/addProduct';
 
         try {
             $response = $httpClient->post($url, [

@@ -6,13 +6,6 @@ use Livewire\Component;
 
 class ScheduleStoreShowComponent extends Component
 {
-    public $opening = '08:00';
-    public $closing = '21:00';
-
-    // These optional fields, depending on whether the store has a divided schedule.
-    public $openingOptional = '08:00';
-    public $closingOptional = '21:00';
-
     public $schedules = [];
 
     public $viewOptionalSchedules = false;
@@ -37,9 +30,10 @@ class ScheduleStoreShowComponent extends Component
         dd('dd');
     }
 
-    public function viewHiddenInformation()
+    public function viewHiddenInformation($key)
     {
-        $this->viewOptionalSchedules = !$this->viewOptionalSchedules;
+        // dd($this->schedules[$key]['viewOptionalSchedules']);
+        $this->schedules[$key]['viewOptionalSchedules'] = !$this->schedules[$key]['viewOptionalSchedules'];
     }
 
     public function addShield()
@@ -51,8 +45,9 @@ class ScheduleStoreShowComponent extends Component
             'selectDays' => [],
             'opening' => '08:00',
             'closing' => '21:00',
-            'openingOptional' => '08:00',
-            'closingOptional' => '21:00',
+            'openingOptional' => '08:00', // These optional fields, depending on whether the store has a divided schedule.
+            'closingOptional' => '21:00', // These optional fields, depending on whether the store has a divided schedule.
+            'viewOptionalSchedules' => false,
         ];
 
         $this->schedules[$newKey] = $newShield;
@@ -80,17 +75,45 @@ class ScheduleStoreShowComponent extends Component
             'selectDays' => [],
             'opening' => '08:00',
             'closing' => '21:00',
-            'openingOptional' => '08:00',
-            'closingOptional' => '21:00',
+            'openingOptional' => '08:00', // These optional fields, depending on whether the store has a divided schedule.
+            'closingOptional' => '21:00', // These optional fields, depending on whether the store has a divided schedule.
+            'viewOptionalSchedules' => false,
         ];
         $this->schedules[$newKey] = $newShield;
     }
 
     public function save()
     {
-        dd($this->schedules);
+        // dd($this->schedules);
+        $this->validateDays();
         // $this->validate();
         // dd($this->opening, $this->closing, $this->openingOptional, $this->closingOptional);
+    }
+
+    private function validateDays()
+    {
+        // dd($this->schedules);
+
+        $countDays = [
+            'Lu' => 0,
+            'Ma' => 0,
+            'Mie' => 0,
+            'Ju' => 0,
+            'Vi' => 0,
+            'Sa' => 0,
+            'Do' => 0,
+        ];
+
+        foreach ($this->schedules as $key => $schedule) {
+            foreach ($schedule['selectDays'] as $day) {
+                ++$countDays[$day];
+            }
+        }
+
+        dd($countDays);
+
+        $message = 'Los días no pueden tener más de una jornada designada.';
+        session()->flash('scheduleMessage', $message);
     }
 
     public function render()

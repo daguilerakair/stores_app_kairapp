@@ -61,8 +61,10 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
-    'cloud_function_product' => env('CLOUD_FUNCTION_PRODUCT_URL'),
-    'cloud_function_store' => env('CLOUD_FUNCTION_STORE_URL'),
+    'cloud_function_product_dev' => env('CLOUD_FUNCTION_PRODUCT_URL_DEV'),
+    'cloud_function_product_prod' => env('CLOUD_FUNCTION_PRODUCT_URL_PROD'),
+    'cloud_function_store_dev' => env('CLOUD_FUNCTION_STORE_URL_DEV'),
+    'cloud_function_store_prod' => env('CLOUD_FUNCTION_STORE_URL_PROD'),
 
     /*
     |--------------------------------------------------------------------------

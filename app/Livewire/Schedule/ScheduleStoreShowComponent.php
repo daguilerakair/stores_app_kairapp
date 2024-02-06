@@ -92,8 +92,14 @@ class ScheduleStoreShowComponent extends Component
 
     private function validateDays()
     {
-        // dd($this->schedules);
+        $countDays = $this->countDays();
 
+        $message = 'Los siguientes días no pueden tener más de una jornada designada:    '.$countDays;
+        session()->flash('scheduleMessage', $message);
+    }
+
+    private function countDays()
+    {
         $countDays = [
             'Lu' => 0,
             'Ma' => 0,
@@ -104,16 +110,33 @@ class ScheduleStoreShowComponent extends Component
             'Do' => 0,
         ];
 
+        $days = [
+            'Lu' => 'Lunes',
+            'Ma' => 'Martes',
+            'Mie' => 'Miércoles',
+            'Ju' => 'Jueves',
+            'Vi' => 'Viernes',
+            'Sa' => 'Sábado',
+            'Do' => 'Domingo',
+        ];
+
+        $badListDays = [];
+        // Count the number of days that have been selected.
         foreach ($this->schedules as $key => $schedule) {
-            foreach ($schedule['selectDays'] as $day) {
-                ++$countDays[$day];
+            foreach ($schedule['selectDays'] as $key => $day) {
+                if ($key) {
+                    if ($countDays[$key] > 0) {
+                        $badListDays[$key] = $days[$key];
+                    }
+                    ++$countDays[$key];
+                }
             }
         }
 
-        dd($countDays);
+        $stringListDays = implode(', ', $badListDays);
+        // dd($stringList);
 
-        $message = 'Los días no pueden tener más de una jornada designada.';
-        session()->flash('scheduleMessage', $message);
+        return $stringListDays;
     }
 
     public function render()

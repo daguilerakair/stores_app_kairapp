@@ -229,7 +229,7 @@
         </table>
     </div>
     @if (session()->has('scheduleMessage'))
-        <p class="text-md text-red-500 font-semibold">{{ session('scheduleMessage') }}</p>
+        <p class="text-md text-red-500 font-bold">{{ session('scheduleMessage') }}</p>
     @endif
     <div class="mx-auto my-8">
         <a wire:click='addShield'

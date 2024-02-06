@@ -85,17 +85,43 @@ class ScheduleStoreShowComponent extends Component
     public function save()
     {
         // dd($this->schedules);
-        $this->validateDays();
+        $response = $this->validateDays();
+
+        if ($response) {
+        }
         // $this->validate();
         // dd($this->opening, $this->closing, $this->openingOptional, $this->closingOptional);
     }
 
     private function validateDays()
     {
-        $countDays = $this->countDays();
+        $this->verifyEmptySchedules();
 
-        $message = 'Los siguientes días no pueden tener más de una jornada designada:    '.$countDays;
-        session()->flash('scheduleMessage', $message);
+        $responses = $this->countDays();
+
+        $checkRepeatDays = $responses[0];
+        $emptySchedules = $responses[1];
+
+        // dd($checkRepeatDays, $emptySchedules);
+
+        if (!$checkRepeatDays && !$emptySchedules) {
+            return true;
+        } else {
+            if ($emptySchedules) {
+                $message = 'Un horario debe ser asignado al menos a un día.';
+                session()->flash('scheduleMessage', $message);
+            } else {
+                $message = 'Los siguientes días no pueden tener más de una jornada designada:    '.$checkRepeatDays;
+                session()->flash('scheduleMessage', $message);
+            }
+
+            return false;
+        }
+    }
+
+    private function verifyEmptySchedules()
+    {
+        $emptySchedules = [];
     }
 
     private function countDays()
@@ -120,11 +146,16 @@ class ScheduleStoreShowComponent extends Component
             'Do' => 'Domingo',
         ];
 
+        $emptySchedules = false;
         $badListDays = [];
         // Count the number of days that have been selected.
         foreach ($this->schedules as $key => $schedule) {
+            if (count($schedule['selectDays']) === 0) {
+                $emptySchedules = true;
+                break;
+            }
             foreach ($schedule['selectDays'] as $key => $day) {
-                if ($key) {
+                if ($day) {
                     if ($countDays[$key] > 0) {
                         $badListDays[$key] = $days[$key];
                     }
@@ -134,9 +165,8 @@ class ScheduleStoreShowComponent extends Component
         }
 
         $stringListDays = implode(', ', $badListDays);
-        // dd($stringList);
 
-        return $stringListDays;
+        return [$stringListDays, $emptySchedules];
     }
 
     public function render()

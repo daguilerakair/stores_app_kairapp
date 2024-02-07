@@ -88,6 +88,7 @@ class ScheduleStoreShowComponent extends Component
         $response = $this->validateDays();
 
         if ($response) {
+            dd($this->schedules);
         }
         // $this->validate();
         // dd($this->opening, $this->closing, $this->openingOptional, $this->closingOptional);

@@ -24,13 +24,15 @@ class SendProductToMobile implements ShouldQueue
     protected SubStoreProduct $subStoreProduct;
     protected SubStore $subStore;
     protected array $photos_paths;
+    protected array $categories;
 
-    public function __construct(Product $product, SubStoreProduct $subStoreProduct, SubStore $subStore, array $photos_paths)
+    public function __construct(Product $product, SubStoreProduct $subStoreProduct, SubStore $subStore, array $photos_paths, array $categories)
     {
         $this->product = $product;
         $this->subStoreProduct = $subStoreProduct;
         $this->subStore = $subStore;
         $this->photos_paths = $photos_paths;
+        $this->categories = $categories;
     }
 
     public function handle()
@@ -49,7 +51,7 @@ class SendProductToMobile implements ShouldQueue
                     'status' => true,
                     'is_high_value' => false,
                     'is_recommended' => false,
-                    // Categories
+                    'categories' => $this->categories,
                     'photo_urls' => $this->photos_paths,
                     'storeId' => $this->subStore->subStoreMobileId,
                 ],

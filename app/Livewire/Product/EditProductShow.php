@@ -279,26 +279,12 @@ class EditProductShow extends Component
         $this->deleteImagesID[] = $selectedImageID;
         $this->deleteImagesPath[] = $selectedImagePath;
 
-        // $this->images = array_filter($this->images, function ($image) use ($selectedImageID) {
-        //     return $image['id'] != $selectedImageID;
-        // });
-
         unset($this->images[$key]);
 
         $auxImages = $this->images;
         $this->reset('images');
         $this->images = $auxImages;
     }
-
-    // public function deleteImage($selectedImageID, $selectedImagePath)
-    // {
-    //     $this->deleteImagesID[] = $selectedImageID;
-    //     $this->deleteImagesPath[] = $selectedImagePath;
-
-    //     $this->images = array_filter($this->images, function ($image) use ($selectedImageID) {
-    //         return $image['id'] != $selectedImageID;
-    //     });
-    // }
 
     /**
      * Format the array of images.

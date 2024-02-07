@@ -156,35 +156,31 @@ class CreateProductShow extends Component
      */
     public function save()
     {
-        $this->addCategoriesToProduct();
+        // $this->addCategoriesToProduct();
         $this->validate($this->rules());
 
-        $this->category = 1;
-        if ($category = Category::find($this->category)) {
-            $this->disabledButton = true;
+        $this->disabledButton = true;
 
-            $store = session('store');
-            $product = $this->createProduct($store);
+        $store = session('store');
+        $product = $this->createProduct($store);
 
-            $this->addImagesToServer();
-            $photos_paths = $this->addImagesToProduct($product);
+        $this->addImagesToServer();
+        $photos_paths = $this->addImagesToProduct($product);
 
-            $subStoreProduct = $this->createSubStoreProduct($product);
-            $this->linkProductToCategory($product, $category);
+        $subStoreProduct = $this->createSubStoreProduct($product);
 
-            $categories_names = $this->addCategoriesToProduct($product);
+        $categories_names = $this->addCategoriesToProduct($product);
 
-            $subStore = SubStore::find($this->subStore);
+        $subStore = SubStore::find($this->subStore);
 
-            // Send product to mobile app
-            // SendProductToMobile::dispatch($product, $subStoreProduct, $subStore, $photos_paths);
+        // Send product to mobile app
+        SendProductToMobile::dispatch($product, $subStoreProduct, $subStore, $photos_paths, $categories_names);
 
-            // Post-creation actions such as notifications and redirection.
-            $this->notifyProductCreation($product, $store);
-            $this->dispatch('render')->to(ProductsShow::class);
-            toastr()->success('El producto fue creado con éxito', 'Producto creado!');
-            $this->returnInventory();
-        }
+        // Post-creation actions such as notifications and redirection.
+        $this->notifyProductCreation($product, $store);
+        $this->dispatch('render')->to(ProductsShow::class);
+        toastr()->success('El producto fue creado con éxito', 'Producto creado!');
+        $this->returnInventory();
     }
 
     /**
@@ -223,21 +219,23 @@ class CreateProductShow extends Component
         $this->selectedCategories = $auxSelectedCategories;
     }
 
-    private function addCategoriesToProduct()
+    private function addCategoriesToProduct($product)
     {
         // dd($this->selectedCategories);
 
         foreach ($this->selectedCategories as $category) {
             $newItem = array_intersect_key($category, array_flip(['category_id']));
-            $newItem['product_id'] = 1;
+            $newItem['product_id'] = $product->id;
             $array[] = $newItem;
         }
 
-        dd($array);
-
         ProductCategory::insert($array);
 
-        // return $categories_names;
+        $categories_names = array_map(function ($category) {
+            return $category['name'];
+        }, $this->selectedCategories);
+
+        return $categories_names;
     }
 
     /**

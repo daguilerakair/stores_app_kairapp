@@ -62,9 +62,6 @@ Route::middleware(['auth', 'checkAdmin', 'checkStore'])->group(function () {
 
     // Routes Profile Store
     Route::get('/profile/store', [SidebarController::class, 'profileStoreIndex'])->name('profile-store.index');
-
-    // Routes Schedule Stores
-    Route::get('/schedule/store', [SidebarController::class, 'scheduleStoresIndex'])->name('schedule-stores.index');
 });
 
 // Middleware Role Administrator Kairapp
@@ -88,6 +85,9 @@ Route::middleware(['auth', 'checkAdminKairapp'])->group(function () {
 
     // Route Google Maps
     Route::get('/load-google-maps-script', [GoogleMapsController::class, 'loadScript'])->name('load-google-maps-script');
+
+    // Routes Schedule Stores
+    Route::get('/schedule/store', [SidebarController::class, 'scheduleStoresIndex'])->name('schedule-stores.index');
 });
 
 // Comun Routes

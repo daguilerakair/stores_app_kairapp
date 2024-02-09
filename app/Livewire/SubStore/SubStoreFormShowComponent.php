@@ -21,22 +21,45 @@ class SubStoreFormShowComponent extends Component
 
     public $disabledButton = false; // Controls button state
 
+    public $schedules = [];
+
+    public $viewOptionalSchedules = false;
+
+    public $days = [
+        'Lu' => 'Lunes',
+        'Ma' => 'Martes',
+        'Mie' => 'Miércoles',
+        'Ju' => 'Jueves',
+        'Vi' => 'Viernes',
+        'Sa' => 'Sábado',
+        'Do' => 'Domingo',
+    ];
+
+    public $listeners = ['updateSelectedSchedule'];
+
     public function addSubStore()
     {
-        // dd($this->selectedStore);
-        // Validate information related to the substore
-        $this->validate($this->rules());
-        $this->disabledButton = true;
+        $response = $this->validateDays();
 
-        // Create the substore
-        $subStore = $this->createSubStore();
+        // dd($response);
+        if ($response) {
+            // dd($this->schedules);
+            $this->addScheduleToSubstore();
+            // dd($this->selectedStore);
+            // Validate information related to the substore
+            $this->validate($this->rules());
+            $this->disabledButton = true;
 
-        // Send the substore to the mobile app
-        SendStoreToMobile::dispatch($this->selectedStore, $subStore);
+            // Create the substore
+            $subStore = $this->createSubStore();
 
-        $this->dispatch('render')->to(SubstoreShowComponent::class);
-        toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
-        $this->returnStoresManagement();
+            // Send the substore to the mobile app
+            SendStoreToMobile::dispatch($this->selectedStore, $subStore);
+
+            $this->dispatch('render')->to(SubstoreShowComponent::class);
+            toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
+            $this->returnStoresManagement();
+        }
     }
 
     protected function rules()
@@ -48,6 +71,8 @@ class SubStoreFormShowComponent extends Component
             'phone' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
+            'opening' => 'required',
+            'closing' => 'required',
         ];
     }
 
@@ -67,14 +92,159 @@ class SubStoreFormShowComponent extends Component
         return $subStore;
     }
 
+    private function addScheduleToSubstore()
+    {
+        // dd($this->schedules);
+        $scheduleDays = [];
+
+        foreach ($this->schedules as $key => $schedule) {
+            foreach ($schedule['selectDays'] as $key => $day) {
+                if ($day) {
+                    if ($schedule['viewOptionalSchedules']) {
+                        $scheduleDays[] = [
+                            'opening' => $schedule['opening'],
+                            'openingOptional' => $schedule['openingOptional'],
+                            'closing' => $schedule['closing'],
+                            'closingOptional' => $schedule['closingOptional'],
+                            'day' => $this->days[$key],
+                            'substore_id' => 5,
+                        ];
+                    } else {
+                        $scheduleDays[] = [
+                            'opening' => $schedule['opening'],
+                            'closing' => $schedule['closing'],
+                            'day' => $this->days[$key],
+                            'substore_id' => 5,
+                        ];
+                    }
+                }
+            }
+        }
+        dd($scheduleDays, $this->days['Lu']);
+    }
+
     public function returnStoresManagement()
     {
         $this->redirect('/stores/management');
     }
 
+    private function validateDays()
+    {
+        // $this->verifyEmptySchedules();
+
+        $responses = $this->countDays();
+
+        $checkRepeatDays = $responses[0];
+        $emptySchedules = $responses[1];
+
+        // dd($checkRepeatDays, $emptySchedules);
+
+        if (!$checkRepeatDays && !$emptySchedules) {
+            return true;
+        } else {
+            if ($emptySchedules) {
+                $message = 'Un horario debe ser asignado al menos a un día.';
+                session()->flash('scheduleMessage', $message);
+            } else {
+                $message = 'Los siguientes días no pueden tener más de una jornada designada:    '.$checkRepeatDays;
+                session()->flash('scheduleMessage', $message);
+            }
+
+            return false;
+        }
+    }
+
+    private function verifyEmptySchedules()
+    {
+        $emptySchedules = [];
+    }
+
+    private function countDays()
+    {
+        $countDays = [
+            'Lu' => 0,
+            'Ma' => 0,
+            'Mie' => 0,
+            'Ju' => 0,
+            'Vi' => 0,
+            'Sa' => 0,
+            'Do' => 0,
+        ];
+
+        $emptySchedules = false;
+        $badListDays = [];
+        // Count the number of days that have been selected.
+        foreach ($this->schedules as $key => $schedule) {
+            if (count($schedule['selectDays']) === 0) {
+                $emptySchedules = true;
+                break;
+            }
+            foreach ($schedule['selectDays'] as $key => $day) {
+                if ($day) {
+                    if ($countDays[$key] > 0) {
+                        $badListDays[$key] = $this->days[$key];
+                    }
+                    ++$countDays[$key];
+                }
+            }
+        }
+
+        $stringListDays = implode(', ', $badListDays);
+
+        return [$stringListDays, $emptySchedules];
+    }
+
+    public function viewHiddenInformation($key)
+    {
+        $this->schedules[$key]['viewOptionalSchedules'] = !$this->schedules[$key]['viewOptionalSchedules'];
+    }
+
+    public function addShieldSchedule()
+    {
+        $newKey = uniqid();
+        $newShield = [
+            'key' => $newKey,
+            'days' => ['Lu', 'Ma', 'Mie', 'Ju', 'Vi', 'Sa', 'Do'],
+            'selectDays' => [],
+            'opening' => '08:00',
+            'closing' => '21:00',
+            'openingOptional' => '08:00', // These optional fields, depending on whether the store has a divided schedule.
+            'closingOptional' => '21:00', // These optional fields, depending on whether the store has a divided schedule.
+            'viewOptionalSchedules' => false,
+        ];
+
+        $this->schedules[$newKey] = $newShield;
+    }
+
+    public function removeShieldSchedule($key)
+    {
+        $nowCount = count($this->schedules);
+        if ($nowCount === 1) {
+            session()->flash('scheduleMessage', 'El horario debe poseer al menos una jornada.');
+        } else {
+            unset($this->schedules[$key]);
+            $auxSchedules = $this->schedules;
+            $this->reset('schedules');
+            $this->schedules = $auxSchedules;
+        }
+    }
+
     public function mount($selectedStore)
     {
         $this->selectedStore = $selectedStore;
+
+        $newKey = uniqid();
+        $newShield = [
+            'key' => $newKey,
+            'days' => ['Lu', 'Ma', 'Mie', 'Ju', 'Vi', 'Sa', 'Do'],
+            'selectDays' => [],
+            'opening' => '08:00',
+            'closing' => '21:00',
+            'openingOptional' => '08:00', // These optional fields, depending on whether the store has a divided schedule.
+            'closingOptional' => '21:00', // These optional fields, depending on whether the store has a divided schedule.
+            'viewOptionalSchedules' => false,
+        ];
+        $this->schedules[$newKey] = $newShield;
     }
 
     public function render()

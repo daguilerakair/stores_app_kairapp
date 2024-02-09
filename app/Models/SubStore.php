@@ -43,6 +43,8 @@ class SubStore extends Model
         'latitude',
         'longitude',
         'phone',
+        'city',
+        'status',
         'store_rut',
         'subStoreMobileId',
     ];

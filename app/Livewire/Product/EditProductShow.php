@@ -6,6 +6,7 @@ use App\Http\Controllers\DropzoneController;
 use App\Jobs\SendProductUpdateToMobile;
 use App\Livewire\Product\ProductsShow;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductImages;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class EditProductShow extends Component
     public $deleteImagesPath;
     public $deleteImagesID;
     public $maxImages = 5;
+    public $selectedCategories = [];
 
     public $disabledButton = false; // Controls button state
 
@@ -313,6 +315,7 @@ class EditProductShow extends Component
 
     public function mount($selectSubStoreProduct)
     {
+        $this->selectedCategories = ProductCategory::where('product_id', $this->selectSubStoreProduct->product_id)->get();
         $this->selectSubStoreProduct = $selectSubStoreProduct;
         $this->replaceValues();
     }

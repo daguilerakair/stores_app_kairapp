@@ -21,7 +21,7 @@ return new class() extends Migration {
             $table->string('subStoreMobileId')->nullable(); // Identifier for mobile app integration.
             $table->string('city'); // City where the sub-store is located.
             $table->bigInteger('phone');
-            $table->status('status'); // Status of the sub-store (active, inactive, etc).
+            $table->boolean('status'); // Status of the sub-store (active, inactive, etc).
             $table->integer('store_rut'); // RUT of the parent store.
             $table->foreign('store_rut')->references('rut')->on('stores'); // Foreign key to the parent store.
             $table->timestamps(); // Timestamps for record creation and modification.

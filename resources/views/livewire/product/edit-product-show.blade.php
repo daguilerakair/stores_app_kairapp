@@ -59,6 +59,21 @@
             </div>
         </div>
 
+        <div>
+            <label for="selectedCategories" class="block my-4 mb-2 text-md font-medium text-gray-900 dark:text-white">
+                Categorias seleccionadas
+            </label>
+            <div class="rounded-lg border border-gray-300 my-4 mx-auto h-32 w-auto">
+                @foreach ($selectedCategories as $category)
+                    <span id="badge-dismiss-dark"
+                        class="cursor-pointer inline-flex items-center px-2 py-1 ml-2 my-2 me-2 text-sm font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 transition-all rounded dark:bg-gray-700 dark:text-gray-300">
+                        {{  $category->category->name }}
+                    </span>
+                @endforeach
+            </div>
+        </div>
+
+
         {{-- Input for upload images --}}
         <div>
             <label for="floating_repeat_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -67,8 +82,7 @@
             <ul
                 class="w-full sm:w-1/2 mb-8 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 @foreach ($this->images as $key => $image)
-                    <li
-                        wire:key="{{ $key }}"
+                    <li wire:key="{{ $key }}"
                         class="w-full flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-600">
                         <div class="flex flex-row">
                             <img class="w-12 h-12 mr-2 sm:mr-0 sm:w-16 sm:h-16"
@@ -77,7 +91,8 @@
                             <p class="text-gray-500 my-auto ml-4">{{ $image['size'] }}</p>
 
                         </div>
-                        <button wire:click="deleteImage('{{ $key }}', '{{ $id }}', '{{ $image['path'] }}')">
+                        <button
+                            wire:click="deleteImage('{{ $key }}', '{{ $id }}', '{{ $image['path'] }}')">
                             <svg class="w-5 h-5 ml-8 sm:ml-12 text-gray-500 hover:text-gray-800 transition-all cursor-pointer dark:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 20 20">

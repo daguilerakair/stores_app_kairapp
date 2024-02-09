@@ -120,11 +120,6 @@ class ScheduleStoreShowComponent extends Component
         }
     }
 
-    private function verifyEmptySchedules()
-    {
-        $emptySchedules = [];
-    }
-
     private function countDays()
     {
         $countDays = [

@@ -21,14 +21,16 @@ class SendStoreToMobile implements ShouldQueue
 
     protected $store;
     protected $subStore;
+    protected $schedulesSubstore;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(Store $store, SubStore $subStore)
+    public function __construct(Store $store, SubStore $subStore, array $schedulesSubstore)
     {
         $this->store = $store;
         $this->subStore = $subStore;
+        $this->schedulesSubstore = $schedulesSubstore;
     }
 
     /**
@@ -43,10 +45,15 @@ class SendStoreToMobile implements ShouldQueue
             $response = $httpClient->post($url, [
                 'json' => [
                     'name' => $this->subStore->name,
-                    'description' => 'Tienda afiliada a Kairapp',
+                    'description' => $this->subStore->description,
+                    'address' => $this->subStore->address,
+                    'city' => $this->subStore->city,
+                    'phone' => $this->subStore->phone,
+                    'schedules' => $this->schedulesSubstore,
+                    'status' => false,
+                    'reputation' => 0.0,
                     'profile_photo_url' => $this->store->pathProfile,
                     'background_photo_url' => $this->store->pathBackground,
-                    'reputation' => 0.0,
                 ],
             ]);
 

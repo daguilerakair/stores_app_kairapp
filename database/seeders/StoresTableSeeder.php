@@ -21,6 +21,7 @@ class StoresTableSeeder extends Seeder
             'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
             'itinerant' => false,
             'custom' => false,
+            'status' => true,
         ]);
 
         Store::create([
@@ -32,6 +33,7 @@ class StoresTableSeeder extends Seeder
             'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
             'itinerant' => false,
             'custom' => false,
+            'status' => true,
         ]);
 
         // Store::create([
@@ -55,6 +57,7 @@ class StoresTableSeeder extends Seeder
             'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
             'itinerant' => false,
             'custom' => false,
+            'status' => true,
         ]);
     }
 }

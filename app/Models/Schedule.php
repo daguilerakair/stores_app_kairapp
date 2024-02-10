@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int    $id
  * @property string $opening
+ * @property string $openingOptional
  * @property string $closing
+ * @property string $closingOptional
  * @property int    $day
  * @property int    $store_rut
  *
@@ -29,8 +31,10 @@ class Schedule extends Model
      */
     protected $fillable = [
         'opening',
+        'openingOptional',
         'closing',
+        'closingOptional',
         'day', // 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday, 7 = Sunday
-        'store_rut',
+        'substore_id',
     ];
 }

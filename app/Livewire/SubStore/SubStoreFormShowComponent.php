@@ -4,6 +4,7 @@ namespace App\Livewire\subStore;
 
 use App\Jobs\SendStoreToMobile;
 use App\Livewire\SubStore\SubstoreShowComponent;
+use App\Models\Schedule;
 use App\Models\SubStore;
 use Livewire\Component;
 
@@ -41,11 +42,7 @@ class SubStoreFormShowComponent extends Component
     {
         $response = $this->validateDays();
 
-        // dd($response);
         if ($response) {
-            // dd($this->schedules);
-            $this->addScheduleToSubstore();
-            // dd($this->selectedStore);
             // Validate information related to the substore
             $this->validate($this->rules());
             $this->disabledButton = true;
@@ -53,8 +50,14 @@ class SubStoreFormShowComponent extends Component
             // Create the substore
             $subStore = $this->createSubStore();
 
+            // Format the schedule
+            $schedulesSubstore = $this->formatSchedule($subStore->id);
+
+            // Add the schedules to the substore
+            $this->addScheduleToSubstore($schedulesSubstore);
+
             // Send the substore to the mobile app
-            SendStoreToMobile::dispatch($this->selectedStore, $subStore);
+            SendStoreToMobile::dispatch($this->selectedStore, $subStore, $schedulesSubstore);
 
             $this->dispatch('render')->to(SubstoreShowComponent::class);
             toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
@@ -92,9 +95,13 @@ class SubStoreFormShowComponent extends Component
         return $subStore;
     }
 
-    private function addScheduleToSubstore()
+    /**
+     * function that performs the formatting expected by the schedule model.
+     *
+     * @return array
+     */
+    private function formatSchedule($subStoreId)
     {
-        // dd($this->schedules);
         $scheduleDays = [];
 
         foreach ($this->schedules as $key => $schedule) {
@@ -107,20 +114,35 @@ class SubStoreFormShowComponent extends Component
                             'closing' => $schedule['closing'],
                             'closingOptional' => $schedule['closingOptional'],
                             'day' => $this->days[$key],
-                            'substore_id' => 5,
+                            'substore_id' => $subStoreId,
                         ];
                     } else {
                         $scheduleDays[] = [
                             'opening' => $schedule['opening'],
                             'closing' => $schedule['closing'],
                             'day' => $this->days[$key],
-                            'substore_id' => 5,
+                            'substore_id' => $subStoreId,
                         ];
                     }
                 }
             }
         }
-        dd($scheduleDays, $this->days['Lu']);
+
+        return $scheduleDays;
+    }
+
+    /**
+     * function that adds the schedule arrangement to the database.
+     *
+     * @return void
+     */
+    private function addScheduleToSubstore($schedulesSubstore)
+    {
+        try {
+            Schedule::insert($schedulesSubstore);
+        } catch (\Throwable $th) {
+            // throw $th;
+        }
     }
 
     public function returnStoresManagement()
@@ -128,16 +150,17 @@ class SubStoreFormShowComponent extends Component
         $this->redirect('/stores/management');
     }
 
+    /**
+     * function that validates the days of the week and the schedules.
+     *
+     * @return bool
+     */
     private function validateDays()
     {
-        // $this->verifyEmptySchedules();
-
         $responses = $this->countDays();
 
         $checkRepeatDays = $responses[0];
         $emptySchedules = $responses[1];
-
-        // dd($checkRepeatDays, $emptySchedules);
 
         if (!$checkRepeatDays && !$emptySchedules) {
             return true;

@@ -19,6 +19,7 @@ return new class() extends Migration {
             $table->string('pathBackground'); // Path to the store's background image.
             $table->boolean('itinerant');
             $table->boolean('custom');
+            $table->boolean('status'); // Status of the store (active, inactive, etc).
             $table->timestamps(); // Timestamps for record creation and modification.
         });
     }

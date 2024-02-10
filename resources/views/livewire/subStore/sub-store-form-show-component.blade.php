@@ -36,6 +36,61 @@
             @enderror
         </div>
 
+        <div class="relative z-0 w-full mb-6 group">
+            <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Seleccione su Ciudad
+            </label>
+
+            {{-- Select Country --}}
+            <div class="flex flex-row gap-4">
+                <div class="flex flex-row items-center gap-2 w-1/2">
+                    <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        País
+                    </label>
+                    <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        {{-- @foreach ($subStores as $subStore)
+                        <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
+                    @endforeach --}}
+                        <option value="" selected>--Seleccione--</option>
+                        <option value="s">Chile</option>
+                    </select>
+                </div>
+
+                {{-- Select State --}}
+                <div class="flex flex-row items-center gap-2 w-1/2">
+                    <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Estado
+                    </label>
+                    <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        {{-- @foreach ($subStores as $subStore)
+                        <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
+                    @endforeach --}}
+                        <option value="" selected>--Seleccione--</option>
+                        <option value="s">Chile</option>
+                    </select>
+                </div>
+            </div>
+
+            {{-- Select City --}}
+            <div class="flex flex-row items-center gap-2 mt-8">
+                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Ciudad
+                </label>
+                <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    {{-- @foreach ($subStores as $subStore)
+                    <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
+                @endforeach --}}
+                    <option value="" selected>--Seleccione--</option>
+                    <option value="s">Chile</option>
+                </select>
+            </div>
+        </div>
+
+
+
         <input wire:model="latitude" type="hidden" name="latitude" id="latitude" />
         <input wire:model="longitude" type="hidden" name="longitude" id="longitude" />
 
@@ -120,7 +175,8 @@
                                         <div class="flex flex-col gap-4 w-1/2">
                                             <div class="flex items-center justify-center">
                                                 <div class="relative">
-                                                    <select id="subStores" wire:model="schedules.{{ $key }}.opening"
+                                                    <select id="subStores"
+                                                        wire:model="schedules.{{ $key }}.opening"
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                         {{-- @foreach ($subStores as $subStore) --}}
                                                         <option value="08:00" selected>08:00</option>
@@ -155,7 +211,8 @@
                                                 </div>
                                                 <span class="mx-4 text-gray-500">hasta</span>
                                                 <div class="relative">
-                                                    <select id="subStores" wire:model="schedules.{{ $key }}.closing"
+                                                    <select id="subStores"
+                                                        wire:model="schedules.{{ $key }}.closing"
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                         {{-- @foreach ($subStores as $subStore) --}}
                                                         <option value="08:00">08:00</option>
@@ -192,7 +249,8 @@
                                             @if ($schedule['viewOptionalSchedules'])
                                                 <div class="flex justify-center items-center">
                                                     <div class="relative">
-                                                        <select id="subStores" wire:model='openingOptional'
+                                                        <select id="subStores"
+                                                            wire:model="schedules.{{ $key }}.openingOptional"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                             {{-- @foreach ($subStores as $subStore) --}}
                                                             <option value="08:00" selected>08:00</option>
@@ -227,8 +285,8 @@
                                                     </div>
                                                     <span class="mx-4 text-gray-500">hasta</span>
                                                     <div class="relative">
-                                                        <select id="subStores" wire:model='closingOptional'
-                                                            wire:change='handleSelectChange'
+                                                        <select id="subStores"
+                                                            wire:model="schedules.{{ $key }}.closingOptional"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                             {{-- @foreach ($subStores as $subStore) --}}
                                                             <option value="08:00">08:00</option>

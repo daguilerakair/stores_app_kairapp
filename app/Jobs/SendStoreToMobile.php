@@ -42,7 +42,7 @@ class SendStoreToMobile implements ShouldQueue
     public function handle(): void
     {
         $httpClient = new Client();
-        $url = config('app.cloud_function_store_dev').'/createStore';
+        $url = config('app.cloud_function_store_prod').'/createStore';
 
         try {
             $response = $httpClient->post($url, [

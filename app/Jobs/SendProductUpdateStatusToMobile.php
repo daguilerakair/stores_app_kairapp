@@ -36,7 +36,7 @@ class SendProductUpdateStatusToMobile implements ShouldQueue
     public function handle(): void
     {
         $httpClient = new Client();
-        $url = config('app.cloud_function_product_dev').'/update-status/'.$this->product->productMobileId;
+        $url = config('app.cloud_function_product_prod').'/update-status/'.$this->product->productMobileId;
         logger()->info('URL: '.$url);
         try {
             $httpClient->put($url, [

@@ -4,7 +4,10 @@ namespace App\Livewire\subStore;
 
 use App\Jobs\SendStoreToMobile;
 use App\Livewire\SubStore\SubstoreShowComponent;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Schedule;
+use App\Models\State;
 use App\Models\SubStore;
 use Livewire\Component;
 
@@ -36,7 +39,16 @@ class SubStoreFormShowComponent extends Component
         'Do' => 'Domingo',
     ];
 
-    public $listeners = ['updateSelectedSchedule'];
+    public $listeners = ['updateSelectedSchedule', 'handleSelectCountry', 'handleSelectState'];
+
+    // Select country, state and city
+    public $countries = []; // List of countries
+    public $states = []; // List of states
+    public $cities = []; // List of cities
+
+    public $selectedCountry; // Selected country
+    public $selectedState; // Selected state
+    public $selectedCity; // Selected city
 
     public function addSubStore()
     {
@@ -48,7 +60,10 @@ class SubStoreFormShowComponent extends Component
             $this->disabledButton = true;
 
             // Create the substore
-            $subStore = $this->createSubStore();
+            $response = $this->createSubStore();
+
+            $city = $response[0];
+            $subStore = $response[1];
 
             // Format the schedule
             $schedulesSubstore = $this->formatSchedule($subStore->id);
@@ -57,7 +72,7 @@ class SubStoreFormShowComponent extends Component
             $this->addScheduleToSubstore($schedulesSubstore);
 
             // Send the substore to the mobile app
-            SendStoreToMobile::dispatch($this->selectedStore, $subStore, $schedulesSubstore);
+            SendStoreToMobile::dispatch($this->selectedStore, $subStore, $city, $schedulesSubstore);
 
             $this->dispatch('render')->to(SubstoreShowComponent::class);
             toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
@@ -65,6 +80,11 @@ class SubStoreFormShowComponent extends Component
         }
     }
 
+    /**
+     * function that validates the information of the substore.
+     *
+     * @return array
+     */
     protected function rules()
     {
         return [
@@ -74,25 +94,41 @@ class SubStoreFormShowComponent extends Component
             'phone' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
-            'opening' => 'required',
-            'closing' => 'required',
         ];
     }
 
+    /**
+     * function that creates a new substore in the database.
+     *
+     * @return Substore
+     * @return City
+     */
     private function createSubStore()
     {
-        // Creates a new subStore record in the database with the provided details.
-        $subStore = SubStore::create([
-            'name' => $this->name,
-            'address' => $this->address,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
-            'commission' => $this->commission,
-            'phone' => $this->phone,
-            'store_rut' => $this->selectedStore->rut,
-        ]);
+        try {
+            // Check city with selected city
+            $city = City::find($this->selectedCity);
 
-        return $subStore;
+            // Creates a new subStore record in the database with the provided details.
+            $subStore = SubStore::create([
+                'name' => $this->name,
+                'address' => $this->address,
+                'latitude' => $this->latitude,
+                'longitude' => $this->longitude,
+                'commission' => $this->commission,
+                'phone' => $this->phone,
+                'status' => true,
+                'city_id' => $city->id,
+                'store_rut' => $this->selectedStore->rut,
+            ]);
+
+            return [
+                $city,
+                $subStore,
+            ];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -145,6 +181,11 @@ class SubStoreFormShowComponent extends Component
         }
     }
 
+    /**
+     * function return to the store management page.
+     *
+     * @return redirect(string)->route()
+     */
     public function returnStoresManagement()
     {
         $this->redirect('/stores/management');
@@ -182,6 +223,11 @@ class SubStoreFormShowComponent extends Component
         $emptySchedules = [];
     }
 
+    /**
+     * function that counts the number of days that have been selected.
+     *
+     * @return array
+     */
     private function countDays()
     {
         $countDays = [
@@ -220,6 +266,20 @@ class SubStoreFormShowComponent extends Component
     public function viewHiddenInformation($key)
     {
         $this->schedules[$key]['viewOptionalSchedules'] = !$this->schedules[$key]['viewOptionalSchedules'];
+    }
+
+    public function handleSelectCountry($id)
+    {
+        if ($id) {
+            $this->states = Country::find($id)->states;
+        }
+    }
+
+    public function handleSelectState($id)
+    {
+        if ($id) {
+            $this->cities = State::find($id)->cities;
+        }
     }
 
     public function addShieldSchedule()
@@ -268,6 +328,8 @@ class SubStoreFormShowComponent extends Component
             'viewOptionalSchedules' => false,
         ];
         $this->schedules[$newKey] = $newShield;
+
+        $this->countries = Country::all();
     }
 
     public function render()

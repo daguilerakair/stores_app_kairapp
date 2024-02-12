@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string      $pathProfile
  * @property string      $pathBackground
  * @property string|null $storeMobileId
+ * @property int         $city_id
  * @property int         $store_id
  *
  * @method static \Illuminate\Database\Eloquent\Builder|SubStore newModelQuery()
@@ -43,8 +44,8 @@ class SubStore extends Model
         'latitude',
         'longitude',
         'phone',
-        'city',
         'status',
+        'city_id',
         'store_rut',
         'subStoreMobileId',
     ];

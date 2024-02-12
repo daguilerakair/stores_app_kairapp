@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\City;
 use App\Models\Store;
 use App\Models\SubStore;
 use GuzzleHttp\Client;
@@ -21,15 +22,17 @@ class SendStoreToMobile implements ShouldQueue
 
     protected $store;
     protected $subStore;
+    protected $city;
     protected $schedulesSubstore;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(Store $store, SubStore $subStore, array $schedulesSubstore)
+    public function __construct(Store $store, SubStore $subStore, City $city, array $schedulesSubstore)
     {
         $this->store = $store;
         $this->subStore = $subStore;
+        $this->city = $city;
         $this->schedulesSubstore = $schedulesSubstore;
     }
 
@@ -45,9 +48,9 @@ class SendStoreToMobile implements ShouldQueue
             $response = $httpClient->post($url, [
                 'json' => [
                     'name' => $this->subStore->name,
-                    'description' => $this->subStore->description,
+                    'description' => $this->store->description,
                     'address' => $this->subStore->address,
-                    'city' => $this->subStore->city,
+                    'city' => $this->city->name,
                     'phone' => $this->subStore->phone,
                     'schedules' => $this->schedulesSubstore,
                     'status' => false,

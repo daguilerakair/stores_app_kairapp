@@ -14,6 +14,7 @@ return new class() extends Migration {
             $table->integer('rut')->primary(); // Unique identifier for the store.
             $table->char('checkDigit', 1); // Check digit for the RUT.
             $table->string('companyName'); // Full company name.
+            $table->string('description'); // Description of the store.
             $table->string('fantasyName'); // Fantasy or trade name.
             $table->string('pathProfile'); // Path to the store's profile image.
             $table->string('pathBackground'); // Path to the store's background image.

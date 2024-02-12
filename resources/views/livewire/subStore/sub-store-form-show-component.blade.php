@@ -47,13 +47,12 @@
                     <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         País
                     </label>
-                    <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
+                    <select id="$countries" wire:model='selectedCountry' wire:change="handleSelectCountry($event.target.value)"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        {{-- @foreach ($subStores as $subStore)
-                        <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
-                    @endforeach --}}
                         <option value="" selected>--Seleccione--</option>
-                        <option value="s">Chile</option>
+                        @foreach ($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -62,13 +61,12 @@
                     <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Estado
                     </label>
-                    <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
+                    <select id="states" wire:model='selectedState' wire:change="handleSelectState($event.target.value)"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        {{-- @foreach ($subStores as $subStore)
-                        <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
-                    @endforeach --}}
                         <option value="" selected>--Seleccione--</option>
-                        <option value="s">Chile</option>
+                        @foreach ($states as $state)
+                            <option value="{{ $state->id }}">{{ $state->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -78,13 +76,12 @@
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Ciudad
                 </label>
-                <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
+                <select id="cities" wire:model='selectedCity'
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    {{-- @foreach ($subStores as $subStore)
-                    <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
-                @endforeach --}}
                     <option value="" selected>--Seleccione--</option>
-                    <option value="s">Chile</option>
+                    @foreach ($cities as $city)
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

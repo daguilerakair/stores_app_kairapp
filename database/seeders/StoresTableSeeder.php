@@ -12,31 +12,31 @@ class StoresTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Store::create([
-            'rut' => 77584357,
-            'checkDigit' => '2',
-            'companyName' => 'Chocolates Juanita Spa',
-            'fantasyName' => 'Chocolates Juanita',
-            'description' => 'Tienda de chocolates',
-            'pathProfile' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
-            'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
-            'itinerant' => false,
-            'custom' => false,
-            'status' => true,
-        ]);
+        // Store::create([
+        //     'rut' => 77584357,
+        //     'checkDigit' => '2',
+        //     'companyName' => 'Chocolates Juanita Spa',
+        //     'fantasyName' => 'Chocolates Juanita',
+        //     'description' => 'Tienda de chocolates',
+        //     'pathProfile' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
+        //     'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
+        //     'itinerant' => false,
+        //     'custom' => false,
+        //     'status' => true,
+        // ]);
 
-        Store::create([
-            'rut' => 65555321,
-            'checkDigit' => 'K',
-            'companyName' => 'Flores Norte LTDA',
-            'fantasyName' => 'Floreria Norte',
-            'description' => 'Tienda de flores',
-            'pathProfile' => 'https://www.vegamonumental.cl/wp-content/uploads/2019/07/IMG_20190719_115942-600x400.jpg',
-            'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
-            'itinerant' => false,
-            'custom' => false,
-            'status' => true,
-        ]);
+        // Store::create([
+        //     'rut' => 65555321,
+        //     'checkDigit' => 'K',
+        //     'companyName' => 'Flores Norte LTDA',
+        //     'fantasyName' => 'Floreria Norte',
+        //     'description' => 'Tienda de flores',
+        //     'pathProfile' => 'https://www.vegamonumental.cl/wp-content/uploads/2019/07/IMG_20190719_115942-600x400.jpg',
+        //     'pathBackground' => 'https://previews.123rf.com/images/rickdeacon/rickdeacon1607/rickdeacon160700264/60279698-un-tiro-de-una-tienda-de-chocolates-spr%C3%BCngli.jpg',
+        //     'itinerant' => false,
+        //     'custom' => false,
+        //     'status' => true,
+        // ]);
 
         // Store::create([
         //     'rut' => 72432109,

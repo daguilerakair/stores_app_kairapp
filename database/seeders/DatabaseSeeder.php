@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(StatesTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
-        $this->call(SubStoreTableSeeder::class);
+        // $this->call(SubStoreTableSeeder::class);
         // $this->call(ProductsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
-        $this->call(CharacteristicTableSeeder::class);
-        $this->call(CharacteristiCategoriesTableSeeder::class);
+        // $this->call(CharacteristicTableSeeder::class);
+        // $this->call(CharacteristiCategoriesTableSeeder::class);
         // $this->call(ProductCategoryTableSeeder::class);
         // $this->call(SubStoreProductsTableSeeder::class);
     }

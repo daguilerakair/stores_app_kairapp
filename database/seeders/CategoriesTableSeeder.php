@@ -21,7 +21,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         Category::create([
-            'name' => 'Tecnologia',
+            'name' => 'Tecnología',
         ]);
 
         Category::create([

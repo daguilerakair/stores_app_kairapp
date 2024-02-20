@@ -1,6 +1,6 @@
 <div>
     {{-- SubStore Form --}}
-    <div class="bg-white p-4 rounded-sm" wire:ignore.self>
+    <div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]" wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Nombre Sucursal

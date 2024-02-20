@@ -10,7 +10,7 @@
         <h3 class="font-bold text-white text-lg sm:text-xl">{{ auth()->user()->name }} - {{ session('role')->name }}  </h3>
     </div>
 
-    <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="h-full p-4 ">
         @livewire('category.create-category-show-component')
     </div>
 </x-app-layout>

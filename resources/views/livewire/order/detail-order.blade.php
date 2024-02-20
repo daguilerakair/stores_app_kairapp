@@ -11,7 +11,7 @@
                     <th scope="col" class="px-6 py-3">
                         Nombre
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-2 py-3">
                         Cantidad
                     </th>
                     <th scope="col" class="px-6 py-3">

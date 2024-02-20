@@ -11,11 +11,10 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * User Model.
  *
- * @property int         $id
- * @property string      $name
- * @property string      $email
- * @property string      $password
- * @property string|null $email_verified_at
+ * @property int    $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()

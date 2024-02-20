@@ -18,15 +18,15 @@
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen justify-center flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-r from-red-600 via-pink-400 to-blue-500 dark:bg-gray-900">
-        <img class="w-full h-full opacity-10 absolute" src="{{ asset('/images/kairapp-fondo-lineas-01.png') }}"/>
+    <div class="min-h-screen justify-center flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-transparent relative" style="background-image: url('{{ asset('/images/fondos-regalos-gris.svg') }}');">
+        {{-- <img class="w-full max-h-full absolute object-cover" src="{{ asset('/images/fondos-regalos-gris.svg') }}"/> --}}
         <div>
             <a href="/">
                 <x-application-logo class="relative w-10 h-10 fill-current" />
             </a>
         </div>
 
-        <div class="w-10/12 rounded-lg relative sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        <div class="w-10/12 rounded-lg relative sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg shadow-[0px_3px_10px_0px_#2d3748]">
             {{ $slot }}
         </div>
     </div>

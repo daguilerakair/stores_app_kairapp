@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * StoreProductOrder Model.
  *
- * @property int $id
- * @property int $quantity
- * @property int $price
- * @property int $order_id
- * @property int $store_product_id
+ * @property int    $id
+ * @property int    $quantity
+ * @property int    $buyPrice
+ * @property string $note
+ * @property int    $order_id
+ * @property int    $productMobile_id
+ * @property int    $store_product_id
+ * @property int    $sub_store_product_id
  *
  * @method static \Illuminate\Database\Eloquent\Builder|StoreProductOrder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StoreProductOrder newQuery()
@@ -36,6 +39,11 @@ class StoreProductOrder extends Model
         'sub_store_product_id',
     ];
 
+    /**
+     * Get the store product that owns the store product order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function subStoreProductDates()
     {
         return $this->belongsTo(SubStoreProduct::class, 'sub_store_product_id');

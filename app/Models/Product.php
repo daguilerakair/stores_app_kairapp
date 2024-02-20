@@ -10,8 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int         $id
  * @property string      $name
- * @property string|null $productMobileId
  * @property string      $description
+ * @property int         $price
+ * @property int         $variablePrice
+ * @property string|null $productMobileId
+ * @property int         $store_rut
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
@@ -28,10 +31,10 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
+        'description',
         'price',
         'variablePrice',
         'productMobileId',
-        'description',
         'store_rut',
     ];
 

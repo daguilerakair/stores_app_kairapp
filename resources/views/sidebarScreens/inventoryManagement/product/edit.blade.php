@@ -9,7 +9,7 @@
         <h1 class="font-bold text-white text-2xl sm:text-3xl">Gestor de Inventario - {{ session('store')->name }}</h1>
         <h3 class="font-bold text-white text-lg sm:text-xl">{{ auth()->user()->name }} - {{ session('role')->name }}  </h3>
     </div>
-    <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="h-full p-4 ">
         @livewire('product.edit-product-show', ['selectSubStoreProduct' => $selectStoreProduct])
     </div>
 </x-app-layout>

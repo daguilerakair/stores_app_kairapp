@@ -129,6 +129,7 @@ class CreateOrderShow extends Component
         $storeOrder = StoreOrder::create([
             'subTotal' => $this->total,
             'date' => Carbon::now(),
+            'pending' => true,
             'orderMobile_id' => $this->orderMobileId,
             'storeMobile_id' => $subStore->subStoreMobileId,
             'sub_store_id' => $subStore->id,

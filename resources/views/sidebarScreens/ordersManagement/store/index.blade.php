@@ -9,7 +9,7 @@
         <h1 class="font-bold text-white text-2xl sm:text-3xl">Gestión de pedidos - {{ session('store')->fantasyName }}</h1>
     </div>
 
-    <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="h-full p-4 ">
             @livewire('order.store.order-show', ['selectedOptionController' => $selectedOption])
     </div>
 </x-app-layout>

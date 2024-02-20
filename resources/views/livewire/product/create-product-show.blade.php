@@ -4,7 +4,7 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
 @endpush
 
-<div class="bg-white p-4 rounded-sm">
+<div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
     <div class="lds-hourglass"></div>
     <div wire:ignore.self>
         {{-- Input for product name --}}
@@ -13,7 +13,7 @@
                 Nombre
             </label>
             <input wire:model="name" type="text" name="floating_name" id="floating_name"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-gray-50 border border-gray-500 text-gray-900 text-md rounded-lg focus:ring-green-custom-500 focus:border-green-custom-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder=" " required />
             @error('name')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
@@ -26,7 +26,7 @@
                 Descripción
             </label>
             <textarea wire:model="description" name="description" id="description" rows="4" maxlength="1000"
-                class="block p-2.5 w-full text-md text-gray-900 bg-gray-50 resize-none rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="block p-2.5 w-full text-md text-gray-900 bg-gray-50 resize-none rounded-lg border border-gray-500 focus:ring-green-custom-500 focus:border-green-custom-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="" required></textarea>
             @error('description')
                 <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
@@ -34,13 +34,13 @@
         </div>
 
         {{-- Grid for price and stock inputs --}}
-        <div class="grid grid-cols-2 gap-4 md:gap-6">
+        <div class="grid md:grid-cols-2 gap-4 md:gap-6">
             <div class="relative z-0 w-full mb-6 group">
                 <label for="floating_first_name" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">
                     Precio
                 </label>
                 <input wire:model="price" type="text" name="floating_first_name" id="floating_first_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-500 text-gray-900 text-md rounded-lg focus:ring-green-custom-500 focus:border-green-custom-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="" required />
                 @error('price')
                     <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
@@ -53,7 +53,7 @@
                     Cantidad disponible
                 </label>
                 <input wire:model="stock" type="text" name="floating_last_name" id="floating_last_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-500 text-gray-900 text-md rounded-lg focus:ring-green-custom-500 focus:border-green-custom-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" " required />
                 @error('stock')
                     <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <input type="text" id="table-search"
-                        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-44 sm:w-72 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-500 rounded-lg w-44 sm:w-72 bg-gray-50 focus:ring-green-custom-500 focus:border-green-custom-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Busca tu categoría">
                 </div>
 
@@ -142,13 +142,13 @@
             </div>
         </div>
 
-        <label for="selectedCategories" class="block my-4 mb-2 text-md font-medium text-gray-900 dark:text-white">
+        <label for="selectedCategories" class="block my-4 mb-2 text-md font-medium text-black dark:text-white">
             Categorias seleccionadas
         </label>
-        <div class="rounded-lg border border-gray-300 my-4 mx-auto h-32 w-auto">
+        <div class="rounded-lg border border-gray-500 my-4 mx-auto h-32 w-auto">
             @foreach ($selectedCategories as $key => $category)
                 <span id="badge-dismiss-dark" wire:key="{{ $key }}"
-                    class="cursor-pointer inline-flex items-center px-2 py-1 ml-2 my-2 me-2 text-sm font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 transition-all rounded dark:bg-gray-700 dark:text-gray-300">
+                    class="cursor-pointer inline-flex items-center px-2 py-1 ml-2 my-2 me-2 text-sm font-medium text-gray-800 bg-gray-300 hover:bg-gray-300 transition-all rounded dark:bg-gray-700 dark:text-gray-300">
                     {{ $category['name'] }}
                     <button wire:click="removeCategory('{{ $key }}')"
                         class="inline-flex items-center p-1 ms-2 text-sm text-gray-400 bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-gray-300"

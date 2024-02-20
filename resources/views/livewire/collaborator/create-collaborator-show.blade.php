@@ -1,4 +1,4 @@
-<div class="bg-white p-4 rounded-sm">
+<div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
     <div wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
             <label for="floating_name"

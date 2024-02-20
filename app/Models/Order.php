@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Model;
  * Order Model.
  *
  * @property int  $id
- * @property int  $total
+ * @property int  $subTotal
  * @property date $date
+ * @property int  $orderMobileId
+ * @property int  $subStoreId
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()

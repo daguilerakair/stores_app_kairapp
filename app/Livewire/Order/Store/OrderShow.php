@@ -23,9 +23,12 @@ class OrderShow extends Component
 
     public function editOrder($id)
     {
+        StoreOrder::find($id)->update([
+            'pending' => 0, // 0 = delivered
+        ]);
+
         toastr()->success('El pedido fue marcado como entregado!', 'Pedido entregado');
         $this->returnOrder();
-        // dd($id);
     }
 
     public function handleSelectChange()

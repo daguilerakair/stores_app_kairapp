@@ -13,7 +13,7 @@
         <h1 class="font-bold text-white text-2xl sm:text-3xl">Administrar tiendas - Crear Tienda</h1>
     </div>
 
-    <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="h-full p-4 ">
             @livewire('store.store-form-show-component')
     </div>
 </x-app-layout>

@@ -34,16 +34,31 @@ class SubStoreProduct extends Model
         'product_id',
     ];
 
+    /**
+     * Get the product that owns the SubStoreProduct.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function productDates()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
 
+    /**
+     * Get the category that owns the SubStoreProduct.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function categoryDates()
     {
         return $this->belongsTo(ProductCategory::class, 'product_id');
     }
 
+    /**
+     * Get the substore that owns the SubStoreProduct.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function subStoreDates()
     {
         return $this->belongsTo(SubStore::class, 'sub_store_id');

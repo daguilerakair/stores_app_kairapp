@@ -14,8 +14,8 @@ return new class() extends Migration {
             $table->id(); // Unique identifier for the product.
             $table->string('name'); // Name of the product.
             $table->string('description'); // Description of the product.
-            $table->integer('price');
-            $table->boolean('variablePrice');
+            $table->integer('price'); // Price of the product.
+            $table->boolean('variablePrice'); // Indicates if the product has a variable price.
             $table->double('reputation')->nullable(); // Reputation score (optional).
             $table->integer('custom')->nullable(); // Product Change (optional).
             $table->integer('preparationTime')->nullable(); // Preparation Time (optional).

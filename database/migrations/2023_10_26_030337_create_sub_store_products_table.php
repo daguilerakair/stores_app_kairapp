@@ -16,8 +16,8 @@ return new class() extends Migration {
             $table->integer('stock'); // Available stock quantity.
             $table->boolean('status'); // Status: false = disabled, true = enabled.
             $table->boolean('delete'); // Deletion status: false = not deleted, true = deleted.
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('sub_store_id')->constrained('sub_stores');
+            $table->foreignId('product_id')->constrained('products'); // Foreign key to the related product.
+            $table->foreignId('sub_store_id')->constrained('sub_stores'); // Foreign key to the related substore.
             $table->timestamps();
         });
     }

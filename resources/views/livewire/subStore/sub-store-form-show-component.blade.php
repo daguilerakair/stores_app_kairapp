@@ -11,7 +11,7 @@
         </div>
     @endif
     {{-- SubStore Form --}}
-    <div class="bg-white p-4 rounded-sm" wire:ignore.self>
+    <div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]" wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Nombre Sucursal
@@ -334,8 +334,8 @@
                                             @if ($loop->last)
                                                 <div class="ml-8 sm:ml-9 my-8">
                                                     <a wire:click='addShieldSchedule'
-                                                        class="cursor-pointer text-white bg-green-500 hover:bg-green-700 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                                                        Añadir Jornada
+                                                        class="cursor-pointer text-white bg-green-500 hover:bg-green-700 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-2 sm:px-5 py-2.5 text-center mr-2 mb-2">
+                                                        Añadir
                                                     </a>
                                                 </div>
                                             @endif

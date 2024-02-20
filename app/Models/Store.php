@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $checkDigit
  * @property string $companyName
  * @property string $fantasyName
+ * @property bool   $itinerant
+ * @property bool   $custom
  * @property string $pathProfile
  * @property string $pathBackground
  *
@@ -95,7 +97,7 @@ class Store extends Model
      *
      * @param int $user_id
      *
-     * @return UserStore|null
+     * @return \App\Models\UserStore
      */
     public function searchUserStore($user_id)
     {

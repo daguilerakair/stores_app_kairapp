@@ -12,8 +12,8 @@ return new class() extends Migration {
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('country_id')->constrained('countries');
+            $table->string('name'); // Name of the state.
+            $table->foreignId('country_id')->constrained('countries'); // Foreign key to the related country.
             $table->timestamps();
         });
     }

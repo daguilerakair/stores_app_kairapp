@@ -1,10 +1,10 @@
 <div>
 {{-- {{ $subStoreProducts }} --}}
     <div>
-        <label for="subStores" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <label for="subStores" class="block mb-2 text-md font-semibold text-gray-900 dark:text-white">
             Sucursal</label>
         <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            class="bg-gray-50 shadow-[0px_3px_10px_0px_#4a5568] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             @foreach ( $subStores as $subStore )
             <option value="{{ $subStore->id }}">{{ $subStore->name }}</option>
             @endforeach
@@ -142,7 +142,8 @@
             </div> --}}
         </div>
     @else
-        <p class="font-semibold text-black text-xl text-center">No hay registros en el sistema</p>
+        <img class="mx-auto w-1/5 md:w-1/12 " src="{{ asset('/images/wind-unscreen.gif') }}"/>
+        <p class="font-bold text-black text-2xl text-center">No hay productos en el sistema</p>
     @endif
 </div>
 @push('js')

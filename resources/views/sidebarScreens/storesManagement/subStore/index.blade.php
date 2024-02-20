@@ -9,7 +9,7 @@
         <h1 class="font-bold text-white text-2xl sm:text-3xl">Sucursales - {{ $selectedStore->fantasyName}}</h1>
     </div>
 
-    <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="h-full p-4 ">
         @livewire('subStore.substore-show-component', ['selectStoreSubStores' => $selectStoreSubStores, 'selectedStore' => $selectedStore,])
     </div>
 </x-app-layout>

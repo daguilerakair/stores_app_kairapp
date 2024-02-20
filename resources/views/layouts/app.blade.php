@@ -20,7 +20,7 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased bg-gray-custom-50">
+<body class="font-sans antialiased" style="background-image: url('{{ asset('/images/fondos-regalos-gris.svg') }}');">
     @include('layouts.navigation')
     <main class="sm:ml-64">
         {{ $slot }}

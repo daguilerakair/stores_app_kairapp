@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Model;
  * UserStore Model.
  *
  * @property int  $id
- * @property int  $user_id
- * @property int  $store_rut
- * @property int  $subStore_id
- * @property int  $role_id
  * @property bool $status
  * @property bool $delete
+ * @property bool $admin
+ * @property int  $user_id
+ * @property int  $role_id
+ * @property int  $store_rut
+ * @property int  $subStore_id
  *
  * @method static \Illuminate\Database\Eloquent\Builder|UserStore newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserStore newQuery()
@@ -34,13 +35,13 @@ class UserStore extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'store_rut',
-        'subStore_id',
-        'role_id',
         'status',
         'delete',
         'admin',
+        'user_id',
+        'role_id',
+        'store_rut',
+        'subStore_id',
     ];
 
     /**

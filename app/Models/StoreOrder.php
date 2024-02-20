@@ -29,11 +29,17 @@ class StoreOrder extends Model
     protected $fillable = [
         'subTotal',
         'date',
+        'pending',
         'orderMobile_id',
         'storeMobile_id',
         'sub_store_id',
     ];
 
+    /**
+     * Get the store that owns the store order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function subStoreDates()
     {
         return $this->belongsTo(SubStore::class, 'sub_store_id');

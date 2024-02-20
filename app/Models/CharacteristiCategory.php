@@ -32,6 +32,11 @@ class CharacteristiCategory extends Model
         'value',
     ];
 
+    /**
+     * Get the characteristic associated category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function getCharacteristic()
     {
         return $this->belongsTo(Characteristic::class, 'characteristic_id');

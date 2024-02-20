@@ -19,7 +19,7 @@ return new class() extends Migration {
             $table->double('reputation')->nullable(); // Reputation score (optional).
             $table->double('commission')->nullable(); // Commission rate (optional).
             $table->string('subStoreMobileId')->nullable(); // Identifier for mobile app integration.
-            $table->bigInteger('phone');
+            $table->bigInteger('phone'); // Phone number of the sub-store.
             $table->boolean('status'); // Status of the sub-store (active, inactive, etc).
             $table->foreignId('city_id')->constrained('cities'); // Foreign key to the city where the sub-store is located.
             $table->integer('store_rut'); // RUT of the parent store.

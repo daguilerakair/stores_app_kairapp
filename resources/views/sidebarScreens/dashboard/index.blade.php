@@ -15,7 +15,7 @@
         </h3>
     </div>
 
-    <div class="h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="h-full p-4 ">
         @livewire('dashboard.dashboard-show-component')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

@@ -8,19 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * SubStore Model.
  *
- * @property int         $id
- * @property int         $rut
- * @property string      $checkDigit
- * @property string      $name
- * @property string      $address
- * @property float       $latitude
- * @property float       $longitude
- * @property int         $phone
- * @property string      $pathProfile
- * @property string      $pathBackground
- * @property string|null $storeMobileId
- * @property int         $city_id
- * @property int         $store_id
+ * @property int    $id
+ * @property string $name
+ * @property string $address
+ * @property float  $latitude
+ * @property float  $longitude
+ * @property int    $phone
+ * @property bool   $status
+ * @property int    $city_id
+ * @property int    $store_id
  *
  * @method static \Illuminate\Database\Eloquent\Builder|SubStore newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SubStore newQuery()
@@ -60,13 +56,13 @@ class SubStore extends Model
         return $this->hasMany(SubStoreProduct::class, 'sub_store_id')->where('delete', false);
     }
 
+    /**
+     * Get the all products that owns the substore.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function productStoreTest()
     {
         return $this->hasMany(SubStoreProduct::class, 'sub_store_id')->where('delete', false)->paginate(1);
     }
-
-    // public function productStoreAll()
-    // {
-    //     return $this->hasMany(StoreProduct::class, 'substore_id');
-    // }
 }

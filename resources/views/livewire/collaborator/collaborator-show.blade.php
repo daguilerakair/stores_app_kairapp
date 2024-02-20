@@ -97,7 +97,8 @@
             </table>
         </div>
     @else
-        <p class="font-semibold text-black text-2xl text-center">No hay trabajadores que formen parte de la tienda</p>
+        <img class="mx-auto w-1/5 md:w-1/12 " src="{{ asset('/images/wind-unscreen.gif') }}"/>
+        <p class="font-bold text-black text-2xl text-center">No hay trabajadores que formen parte de la tienda</p>
     @endif
 </div>
 

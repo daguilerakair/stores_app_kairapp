@@ -28,6 +28,11 @@ class Category extends Model
         'name',
     ];
 
+    /**
+     * Get the associated product categories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function obtainCharacteristiCategories()
     {
         return $this->hasMany(CharacteristiCategory::class, 'category_id');

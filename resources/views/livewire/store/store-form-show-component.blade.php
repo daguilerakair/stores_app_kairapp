@@ -1,4 +1,4 @@
-<div>
+<div class="my-36 sm:my-0">
 
     @if (!empty($successMessage))
         <div class="alert alert-success">
@@ -52,7 +52,7 @@
 
             <div class="relative z-0 w-full mb-6 group">
                 <label for="floating_fantasy_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Nombre Fantasia
+                    Nombre Fantasía
                 </label>
                 <input wire:model="fantasyName" type="text" name="floating_fantasy_name" id="floating_fantasy_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -76,8 +76,8 @@
             </button>
 
             <div id="tooltip-right" role="tooltip"
-                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                Tienda itinerante se refiere a que puede no tener una ubicación fija.
+                class="absolute z-10 invisible inline-block px-3 py-2 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                <p>Tienda itinerante se refiere a que puede no tener una ubicación fija.</p>
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
         </div>

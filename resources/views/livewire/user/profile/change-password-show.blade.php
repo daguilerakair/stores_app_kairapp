@@ -1,4 +1,4 @@
-<div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
+<div class="mt-36 sm:mt-0 bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
     <div wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
             <label for="current_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

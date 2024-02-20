@@ -1,4 +1,4 @@
-<div>
+<div class="mt-36 sm:mt-0">
     @if ($orders && $orders->count())
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500">

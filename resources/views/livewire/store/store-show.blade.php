@@ -1,4 +1,4 @@
-<div>
+<div class="my-24 sm:my-0">
     {{-- @if (session()->has('password'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
             role="alert">
@@ -11,7 +11,7 @@
         </div>
     @endif --}}
 
-    <div class="flex justify-end my-4">
+    <div class="flex justify-end my-4 sm:mx-20 xl:mx-0">
         <a href="{{ route('store.create') }}"
             class="text-white  bg-pink-custom-600 hover:bg-pink-custom-850 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             Agregar tienda

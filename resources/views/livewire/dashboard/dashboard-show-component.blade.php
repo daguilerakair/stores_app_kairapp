@@ -1,5 +1,5 @@
-<div>
-    <div class="flex flex-col items-center sm:flex-row sm:justify-center gap-4">
+<div class="mt-36 sm:my-0">
+    <div class="flex flex-col items-center xl:flex-row sm:justify-center gap-4">
         <div class="max-w-sm w-full h-auto bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between items-start w-full">
                 <div class="flex-col items-center">

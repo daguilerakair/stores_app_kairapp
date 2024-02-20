@@ -1,4 +1,4 @@
-<div>
+<div class="my-20 sm:my-0">
     <div class="flex justify-end">
         <div class="flex justify-end my-4">
             <button

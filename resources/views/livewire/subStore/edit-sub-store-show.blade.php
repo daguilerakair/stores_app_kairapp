@@ -1,4 +1,4 @@
-<div>
+<div class="mt-32 sm:my-0">
     {{-- SubStore Form --}}
     <div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]" wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
@@ -58,7 +58,8 @@
             <label for="subStoreMobileId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 ID Sucursal Móvil
             </label>
-            <input wire:model="subStoreMobileId" type="text" min="0.00001" name="subStoreMobileId" id="subStoreMobileId"
+            <input wire:model="subStoreMobileId" type="text" min="0.00001" name="subStoreMobileId"
+                id="subStoreMobileId"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="" />
             @error('subStoreMobileId')

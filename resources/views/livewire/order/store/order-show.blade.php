@@ -1,4 +1,4 @@
-<div>
+<div class="mt-32 sm:mt-0">
     <div class="my-8">
         <label for="subStores" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Filtrar por sucursal</label>

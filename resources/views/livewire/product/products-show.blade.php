@@ -1,5 +1,4 @@
-<div>
-{{-- {{ $subStoreProducts }} --}}
+<div class="my-36 sm:my-0">
     <div>
         <label for="subStores" class="block mb-2 text-md font-semibold text-gray-900 dark:text-white">
             Sucursal</label>

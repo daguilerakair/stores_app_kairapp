@@ -1,8 +1,7 @@
-<div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
+<div class="mt-36 sm:mt-0 bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
     <div wire:ignore.self>
         <div class="relative z-0 w-full mb-6 group">
-            <label for="floating_name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label for="floating_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Nombre
             </label>
             <input wire:model="name" type="text" name="floating_name" id="floating_name"
@@ -14,8 +13,7 @@
         </div>
 
         <div class="relative z-0 w-full mb-6 group">
-            <label for="floating_repeat_password"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label for="floating_repeat_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Correo electrónico
             </label>
             <input wire:model="email" type="text" name="repeat_password" id="floating_repeat_password"

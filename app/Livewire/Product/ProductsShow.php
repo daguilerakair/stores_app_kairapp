@@ -83,7 +83,7 @@ class ProductsShow extends Component
      */
     public function delete($id)
     {
-        dd($id);
+        // dd($id);
         $storeProduct = SubStoreProduct::findOrFail($id);
 
         if ($storeProduct) {

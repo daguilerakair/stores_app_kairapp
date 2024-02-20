@@ -4,7 +4,7 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
 @endpush
 
-<div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
+<div class="mt-32 sm:mt-0 bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
     <div wire:ignore.self>
         {{-- Input for product name --}}
         <div class="relative z-0 w-full mb-6 group">
@@ -67,7 +67,7 @@
                 @foreach ($selectedCategories as $category)
                     <span id="badge-dismiss-dark"
                         class="cursor-pointer inline-flex items-center px-2 py-1 ml-2 my-2 me-2 text-sm font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 transition-all rounded dark:bg-gray-700 dark:text-gray-300">
-                        {{  $category->category->name }}
+                        {{ $category->category->name }}
                     </span>
                 @endforeach
             </div>

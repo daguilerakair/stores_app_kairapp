@@ -6,11 +6,14 @@
         </h2>
     </x-slot>
 
-    <div class="mb-2 p-6 bg-gray-custom-600">
-        <h1 class="font-bold text-white text-2xl sm:text-3xl">Administrar tiendas - Crear Sucursal</h1>
+    <div class="fixed z-10 sm:relative sm:z-0 mb-2 p-6 w-full bg-gray-custom-600">
+        <div class="flex flex-col sm:flex-row sm:items-start gap-2">
+            <h1 class="ml-8 sm:ml-0 font-bold text-white text-2xl sm:text-3xl">Administrar tiendas -</h1>
+            <h1 class="ml-8 sm:ml-0 font-bold text-white text-2xl sm:text-3xl">Crear Sucursal</h1>
+        </div>
     </div>
 
-    <div class="h-full p-4 ">
-            @livewire('subStore.sub-store-form-show-component', ['selectedStore' => $selectedStore])
+    <div class="h-full p-4">
+        @livewire('subStore.sub-store-form-show-component', ['selectedStore' => $selectedStore])
     </div>
 </x-app-layout>

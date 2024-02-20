@@ -5,12 +5,14 @@
         </h2>
     </x-slot>
 
-    <div class="mb-2 p-6 bg-gray-custom-600">
-        <h1 class="font-bold text-white text-2xl sm:text-3xl">Administrar colaboradores - {{ session('store')->fantasyName }}</h1>
-        <h3 class="font-bold text-white text-lg sm:text-xl">{{ auth()->user()->name }} - {{ session('role')->name }}  </h3>
+    <div class="fixed z-10 sm:relative sm:z-0 mb-2 p-6 w-full bg-gray-custom-600">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:gap-2">
+            <h1 class="ml-8 sm:ml-0 font-bold text-white text-xl sm:text-3xl">Administrar colaboradores -</h1>
+            <h3 class="ml-8 sm:ml-0 font-bold text-white text-lg sm:text-3xl">{{ session('role')->name }} </h3>
+        </div>
     </div>
 
     <div class="h-full p-4 ">
-            @livewire('collaborator.collaborator-show')
+        @livewire('collaborator.collaborator-show')
     </div>
 </x-app-layout>

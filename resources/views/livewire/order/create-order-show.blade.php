@@ -1,4 +1,4 @@
-<div>
+<div class="mt-32 sm:my-0">
     <div class="bg-white p-4 mb-4 rounded-sm" wire:ignore.self>
         <h3 class="font-bold mb-4 text-xl uppercase text-black">Información general</h3>
 
@@ -26,7 +26,7 @@
             @enderror
         </div>
 
-        <form  wire:submit.prevent="handleSearch" class="flex items-center mb-4 gap-2">
+        <form wire:submit.prevent="handleSearch" class="flex items-center mb-4 gap-2">
             <div class="relative w-full">
                 <input wire:model='searchRut' type="text" id="simple-search"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -50,7 +50,7 @@
             <select wire:model="store" wire:change='changedSelectStore' id="stores" disabled
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 @if ($searchStore)
-                <option value="{{ $searchStore->rut }}">{{ $searchStore->fantasyName }}</option>
+                    <option value="{{ $searchStore->rut }}">{{ $searchStore->fantasyName }}</option>
                 @endif
             </select>
             @error('store')

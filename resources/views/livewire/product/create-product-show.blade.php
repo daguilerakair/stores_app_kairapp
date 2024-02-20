@@ -4,7 +4,7 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
 @endpush
 
-<div class="bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
+<div class="mt-32 sm:my-0 bg-gray-100 p-4 rounded-sm shadow-[0px_3px_10px_0px_#2d3748]">
     <div class="lds-hourglass"></div>
     <div wire:ignore.self>
         {{-- Input for product name --}}

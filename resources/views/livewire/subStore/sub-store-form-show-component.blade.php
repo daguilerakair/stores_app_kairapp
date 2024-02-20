@@ -1,4 +1,4 @@
-<div>
+<div class="my-32 sm:my-0">
     @if (session()->has('password'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
             role="alert">
@@ -359,7 +359,7 @@
             </div> --}}
         </div>
 
-        <div class="my-8" wire:loading.remove wire:target="addSubStore">
+        <div class="mt-8" wire:loading.remove wire:target="addSubStore">
             <button wire:click="returnStoresManagement"
                 class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 type="button">

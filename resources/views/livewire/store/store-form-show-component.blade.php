@@ -24,12 +24,12 @@
                     <p class="text-sm text-red-500 font-semibold">{{ session('message') }}</p>
                 @endif
             </div>
-            <div class="relative z-0 sm:w-1/4 mb-6 group">
+            <div class="relative z-0 w-full mb-6 group">
                 <label for="checkDigit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Dígito verificador
                 </label>
                 <input wire:model="checkDigit" type="text" name="checkDigit" id="checkDigit"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 sm:w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="K" required />
                 @error('checkDigit')
                     <p class="text-sm text-red-500 font-semibold">{{ $message }}</p>

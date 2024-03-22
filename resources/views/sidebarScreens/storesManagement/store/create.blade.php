@@ -9,7 +9,7 @@
         </h2>
     </x-slot>
 
-    <div class="fixed z-10 sm:relative sm:z-0 mb-2 p-6 w-full bg-gray-custom-600">
+    <div class="fixed z-10 sm:relative sm:z-0 p-6 w-full bg-gray-custom-600">
         <div class="flex flex-col sm:flex-row sm:items-start gap-2">
             <h1 class="ml-8 sm:ml-0 font-bold text-white text-2xl sm:text-3xl">Administrar tiendas - </h1>
             <h1 class="ml-8 sm:ml-0 font-bold text-white text-2xl sm:text-3xl">Crear Tienda</h1>

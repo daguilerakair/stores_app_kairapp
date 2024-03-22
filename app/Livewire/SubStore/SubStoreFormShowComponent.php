@@ -52,32 +52,32 @@ class SubStoreFormShowComponent extends Component
 
     public function addSubStore()
     {
-        $response = $this->validateDays();
+        // $response = $this->validateDays();
 
-        if ($response) {
-            // Validate information related to the substore
-            $this->validate($this->rules());
-            $this->disabledButton = true;
+        // if ($response) {
+        // Validate information related to the substore
+        $this->validate($this->rules());
+        $this->disabledButton = true;
 
-            // Create the substore
-            $response = $this->createSubStore();
+        // Create the substore
+        $response = $this->createSubStore();
 
-            $city = $response[0];
-            $subStore = $response[1];
+        $city = $response[0];
+        $subStore = $response[1];
 
-            // Format the schedule
-            $schedulesSubstore = $this->formatSchedule($subStore->id);
+        // Format the schedule
+        $schedulesSubstore = $this->formatSchedule($subStore->id);
 
-            // Add the schedules to the substore
-            $this->addScheduleToSubstore($schedulesSubstore);
+        // Add the schedules to the substore
+        $this->addScheduleToSubstore($schedulesSubstore);
 
-            // Send the substore to the mobile app
-            SendStoreToMobile::dispatch($this->selectedStore, $subStore, $city, $schedulesSubstore);
+        // Send the substore to the mobile app
+        SendStoreToMobile::dispatch($this->selectedStore, $subStore, $city, $schedulesSubstore);
 
-            $this->dispatch('render')->to(SubstoreShowComponent::class);
-            toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
-            $this->returnStoresManagement();
-        }
+        $this->dispatch('render')->to(SubstoreShowComponent::class);
+        toastr()->success('La sucursal fue creada con éxito', 'Sucursal creada!');
+        $this->returnStoresManagement();
+        // }
     }
 
     /**
@@ -90,7 +90,7 @@ class SubStoreFormShowComponent extends Component
         return [
             'name' => 'required|max:255',
             'address' => 'required|max:255',
-            'commission' => 'required',
+            'commission' => 'required|numeric',
             'phone' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',

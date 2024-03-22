@@ -1,18 +1,12 @@
 <div>
-    <div>
-        <label for="subStores" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Sucursal
-        </label>
-        <select id="subStores" wire:model='selectedOption' wire:change='handleSelectChange'
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            {{-- @foreach ($subStores as $subStore) --}}
-            <option value="">Ejemplo</option>
-            {{-- @endforeach --}}
-        </select>
+
+    <div class="flex justify-end my-4">
+        <button wire:click="returnScheduleStore"
+            class="text-white bg-pink-custom-600 hover:bg-pink-custom-850 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            Volver
+        </button>
+
     </div>
-
-
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-8">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
@@ -59,10 +53,10 @@
                                     </button>
                                 </div>
 
-                                <div class="flex flex-col gap-4 w-1/2">
-                                    <div class="flex items-center justify-center">
-                                        <div class="relative">
-                                            <select id="subStores" wire:model='opening' wire:change='handleSelectChange'
+                                <div class="flex flex-col gap-4 w-full">
+                                    <div class="flex items-center justify-center w-full">
+                                        <div class="relative w-1/2">
+                                            <select id="subStores" wire:model="schedules.{{ $key }}.opening"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 {{-- @foreach ($subStores as $subStore) --}}
                                                 <option value="08:00" selected>08:00</option>
@@ -96,8 +90,8 @@
                                             </select>
                                         </div>
                                         <span class="mx-4 text-gray-500">hasta</span>
-                                        <div class="relative">
-                                            <select id="subStores" wire:model='closing' wire:change='handleSelectChange'
+                                        <div class="relative w-1/2">
+                                            <select id="subStores" wire:model="schedules.{{ $key }}.closing"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 {{-- @foreach ($subStores as $subStore) --}}
                                                 <option value="08:00">08:00</option>
@@ -134,8 +128,8 @@
                                     @if ($schedule['viewOptionalSchedules'])
                                         <div class="flex justify-center items-center">
                                             <div class="relative">
-                                                <select id="subStores" wire:model='openingOptional'
-                                                    wire:change='handleSelectChange'
+                                                <select id="subStores"
+                                                    wire:model="schedules.{{ $key }}.openingOptional"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                     {{-- @foreach ($subStores as $subStore) --}}
                                                     <option value="08:00" selected>08:00</option>
@@ -170,8 +164,8 @@
                                             </div>
                                             <span class="mx-4 text-gray-500">hasta</span>
                                             <div class="relative">
-                                                <select id="subStores" wire:model='closingOptional'
-                                                    wire:change='handleSelectChange'
+                                                <select id="subStores"
+                                                    wire:model="schedules.{{ $key }}.closingOptional"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                     {{-- @foreach ($subStores as $subStore) --}}
                                                     <option value="08:00">08:00</option>
@@ -208,8 +202,8 @@
                                     @endif
                                 </div>
 
-                                <div class="md:mx-auto my-auto w-1/5">
-                                    <button type="button" wire:click="removeShield('{{ $key }}')">
+                                <div class="md:mx-auto my-auto w-1/4">
+                                    <button type="button" wire:click="removeShieldSchedule('{{ $key }}')">
                                         <svg class="w-7 h-7 ml-8 sm:ml-12 text-gray-500 hover:text-gray-800 transition-all cursor-pointer dark:text-white"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 20 20">
@@ -218,9 +212,15 @@
                                                 d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                         </svg>
                                     </button>
+                                    @if ($loop->last)
+                                        <div class="ml-8 sm:ml-9 my-8">
+                                            <a wire:click='addShieldSchedule'
+                                                class="cursor-pointer text-white bg-green-500 hover:bg-green-700 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-2 sm:px-5 py-2.5 text-center mr-2 mb-2">
+                                                Añadir
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
-
-                                {{-- <p>{{ $key }}</p> --}}
                             </div>
                         </td>
                     </tr>
@@ -228,20 +228,9 @@
             </tbody>
         </table>
     </div>
+
     @if (session()->has('scheduleMessage'))
         <p class="text-md text-red-500 font-bold">{{ session('scheduleMessage') }}</p>
     @endif
-    <div class="mx-auto my-8">
-        <a wire:click='addShield'
-            class="cursor-pointer text-white bg-pink-custom-600 hover:bg-pink-custom-850 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-            Añadir Jornada
-        </a>
-    </div>
 
-    <div class="mx-auto">
-        <a wire:click='save'
-            class="cursor-pointer text-white bg-pink-custom-600 hover:bg-pink-custom-850 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-            Guardar
-        </a>
-    </div>
 </div>

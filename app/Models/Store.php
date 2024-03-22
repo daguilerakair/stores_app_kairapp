@@ -61,10 +61,12 @@ class Store extends Model
         'checkDigit',
         'companyName',
         'fantasyName',
+        'description',
         'itinerant',
         'custom',
         'pathProfile',
         'pathBackground',
+        'status',
     ];
 
     // public function productStore()

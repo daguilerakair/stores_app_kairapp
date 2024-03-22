@@ -8,13 +8,7 @@ use Livewire\Component;
 class OrderShow extends Component
 {
     // Event listeners
-    protected $listeners = ['render', 'editOrder'];
-
-    public function editOrder($id)
-    {
-        // toastr()->success('La tienda fue creada con éxito', 'Tienda creada!');
-        dd($id);
-    }
+    protected $listeners = ['render'];
 
     public function render()
     {

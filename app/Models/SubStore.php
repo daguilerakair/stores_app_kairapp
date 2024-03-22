@@ -65,4 +65,14 @@ class SubStore extends Model
     {
         return $this->hasMany(SubStoreProduct::class, 'sub_store_id')->where('delete', false)->paginate(1);
     }
+
+    /**
+     * Get the schedules associated with the substore.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schedulesSubstore()
+    {
+        return $this->hasMany(Schedule::class, 'substore_id');
+    }
 }

@@ -37,7 +37,7 @@ class StoreFormShowComponent extends Component
     {
         return [
             'rut' => 'required|regex:/^[0-9]+$/|unique:stores',
-            'checkDigit' => 'required|max:1|regex:/^[1-9K]+$/i',
+            'checkDigit' => 'required|max:1|regex:/^[0-9K]+$/i',
             'companyName' => 'required|min:3',
             'fantasyName' => 'required|min:3',
             'radioCheckedItinerant' => 'required',
@@ -64,6 +64,7 @@ class StoreFormShowComponent extends Component
      */
     public function addStore()
     {
+        // dd($this->rut);
         $this->validate($this->rules());
 
         $completeRut = $this->rut.'-'.$this->checkDigit;
@@ -125,10 +126,12 @@ class StoreFormShowComponent extends Component
             'checkDigit' => $this->checkDigit,
             'companyName' => $this->companyName,
             'fantasyName' => $this->fantasyName,
+            'description' => 'Tienda Afiliada a Kairapp',
             'itinerant' => $radioCheckedItinerant,
             'custom' => $radioCheckedCustom,
             'pathProfile' => 'https://alphakairappbucket.s3.sa-east-1.amazonaws.com/stores/profile/kairapp-isologo-negro-avatar-300px+(1).png',
             'pathBackground' => 'https://alphakairappbucket.s3.sa-east-1.amazonaws.com/stores/background/kairapp-logo-horizontal-1000px.png',
+            'status' => 1,
         ]);
 
         return $store;

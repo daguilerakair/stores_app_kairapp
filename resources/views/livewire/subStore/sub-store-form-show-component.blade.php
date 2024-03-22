@@ -117,9 +117,9 @@
             </div>
 
 
-            <label for="commission" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            {{-- <label for="commission" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Horario Sucursal
-            </label>
+            </label> --}}
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-2">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
@@ -348,15 +348,10 @@
                     </tbody>
                 </table>
             </div>
+
             @if (session()->has('scheduleMessage'))
                 <p class="text-md text-red-500 font-bold">{{ session('scheduleMessage') }}</p>
             @endif
-            {{-- <div class="my-8">
-                <a wire:click='addShield'
-                    class="cursor-pointer text-white bg-pink-custom-600 hover:bg-pink-custom-850 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                    Añadir Jornada
-                </a>
-            </div> --}}
         </div>
 
         <div class="mt-8" wire:loading.remove wire:target="addSubStore">

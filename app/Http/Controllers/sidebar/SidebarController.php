@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\sidebar;
 
 use App\Http\Controllers\Controller;
+use App\Models\SubStore;
 
 class SidebarController extends Controller
 {
@@ -83,6 +84,15 @@ class SidebarController extends Controller
 
     public function ScheduleStoresIndex()
     {
-        return view('sidebarScreens.scheduleStores.index');
+        $selectedSubStore = session('selectedSubStore');
+
+        return view('sidebarScreens.scheduleStores.index', compact('selectedSubStore'));
+    }
+
+    public function ScheduleStoresIndexSelected($id)
+    {
+        $selectedSubStore = SubStore::find($id);
+
+        return view('sidebarScreens.scheduleStores.index', compact('selectedSubStore'));
     }
 }

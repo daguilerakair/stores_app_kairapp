@@ -6,6 +6,7 @@ use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\google\GoogleMapsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\product\ProductController;
+use App\Http\Controllers\schedule\ScheduleController;
 use App\Http\Controllers\sidebar\SidebarController;
 use App\Http\Controllers\store\StoreController;
 use App\Http\Controllers\store\StoreProductController;
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'checkAdmin', 'checkStore'])->group(function () {
 
     // Routes Profile Store
     Route::get('/profile/store', [SidebarController::class, 'profileStoreIndex'])->name('profile-store.index');
+
+    // Routes Schedule Stores
+    Route::get('/schedule/store', [SidebarController::class, 'scheduleStoresIndex'])->name('schedule-stores.index');
+    Route::get('/schedule/store/${id}', [SidebarController::class, 'scheduleStoresIndexSelected'])->name('schedule-stores-selected.index');
+    Route::get('schedule/create/${subStore}', [ScheduleController::class, 'create'])->name('schedule.create');
 });
 
 // Middleware Role Administrator Kairapp
@@ -85,9 +91,6 @@ Route::middleware(['auth', 'checkAdminKairapp'])->group(function () {
 
     // Route Google Maps
     Route::get('/load-google-maps-script', [GoogleMapsController::class, 'loadScript'])->name('load-google-maps-script');
-
-    // Routes Schedule Stores
-    Route::get('/schedule/store', [SidebarController::class, 'scheduleStoresIndex'])->name('schedule-stores.index');
 });
 
 // Comun Routes

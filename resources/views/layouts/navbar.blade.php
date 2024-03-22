@@ -14,7 +14,7 @@
     <nav class="bg-white border-gray-200 dark:bg-gray-900 relative">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
             <a href="https://flowbite.com/" class="flex items-center">
-                <img src="{{ asset('/images/kairapp-isologo-negro-300px.svg') }}" class="h-8 mr-3"
+                <img loading="lazy" src="{{ asset('/images/kairapp-isologo-negro-300px.svg') }}" class="h-8 mr-3"
                     alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Kairapp</span>
             </a>

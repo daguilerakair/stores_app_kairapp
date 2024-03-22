@@ -34,8 +34,7 @@ class UserStoresTableSeeder extends Seeder
 
         UserStore::create([
             'user_id' => 3,
-            'store_rut' =>77731223,
-            'subStore_id' => null,
+            'store_rut' => 77731223,
             'admin' => true,
             'role_id' => 1,
             'status' => 1,
